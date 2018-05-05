@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="DeviceInfo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DeviceName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ShuCaiNum" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="SensorNum" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PhoneNum" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="YaoshiNum" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DeviceLon" Type="decimal" Precision="20" Scale="0" Nullable="false" />
+    <Property Name="DeviceLat" Type="decimal" Precision="20" Scale="0" Nullable="false" />
+    <Property Name="MonitorType" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="MonitorName" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PointPicture">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PicPath" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserInfo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="UserPwd" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="UserAuthority" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="DataModelStoreContainer">
+    <EntitySet Name="DeviceInfo" EntityType="Self.DeviceInfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PointPicture" EntityType="Self.PointPicture" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserInfo" EntityType="Self.UserInfo" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,13 @@
+D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAndWarningSystem\Lab.MIS.MonitorMIS\Lab.MIS.EFDAL\obj\Debug\Lab.MIS.EFDAL.csprojResolveAssemblyReference.cache
+D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAndWarningSystem\Lab.MIS.MonitorMIS\Lab.MIS.EFDAL\bin\Debug\Lab.MIS.EFDAL.dll.config
+D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAndWarningSystem\Lab.MIS.MonitorMIS\Lab.MIS.EFDAL\bin\Debug\Lab.MIS.EFDAL.dll
+D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAndWarningSystem\Lab.MIS.MonitorMIS\Lab.MIS.EFDAL\bin\Debug\Lab.MIS.EFDAL.pdb
+D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAndWarningSystem\Lab.MIS.MonitorMIS\Lab.MIS.EFDAL\bin\Debug\EntityFramework.dll
+D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAndWarningSystem\Lab.MIS.MonitorMIS\Lab.MIS.EFDAL\bin\Debug\Lab.MIS.IDAL.dll
+D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAndWarningSystem\Lab.MIS.MonitorMIS\Lab.MIS.EFDAL\bin\Debug\Lab.MIS.Model.dll
+D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAndWarningSystem\Lab.MIS.MonitorMIS\Lab.MIS.EFDAL\bin\Debug\Lab.MIS.IDAL.pdb
+D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAndWarningSystem\Lab.MIS.MonitorMIS\Lab.MIS.EFDAL\bin\Debug\Lab.MIS.Model.pdb
+D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAndWarningSystem\Lab.MIS.MonitorMIS\Lab.MIS.EFDAL\bin\Debug\EntityFramework.xml
+D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAndWarningSystem\Lab.MIS.MonitorMIS\Lab.MIS.EFDAL\bin\Debug\zh-Hans\EntityFramework.resources.dll
+D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAndWarningSystem\Lab.MIS.MonitorMIS\Lab.MIS.EFDAL\obj\Debug\Lab.MIS.EFDAL.dll
+D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAndWarningSystem\Lab.MIS.MonitorMIS\Lab.MIS.EFDAL\obj\Debug\Lab.MIS.EFDAL.pdb

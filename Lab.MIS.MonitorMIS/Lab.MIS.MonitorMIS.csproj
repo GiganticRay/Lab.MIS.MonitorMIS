@@ -108,27 +108,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Content Include="Resource\Img\Clear.png" />
-    <Content Include="Resource\Img\Logo.png" />
-    <Content Include="Resource\Img\Search.png" />
-    <Content Include="Resource\Img\TiandituIcon.png" />
-    <Content Include="Resource\Scripts\jquery-3.2.1.js" />
-    <Content Include="Resource\Scripts\jquery-3.2.1.min.js" />
-    <Content Include="Resource\Scripts\MyJs.js" />
-    <Content Include="Resource\Scripts\MyCss.css" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="Global.asax" />
-    <Content Include="Views\Home\HomePage.aspx" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -139,8 +131,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Controllers\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

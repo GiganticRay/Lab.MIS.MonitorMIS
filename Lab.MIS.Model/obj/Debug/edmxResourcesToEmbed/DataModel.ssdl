@@ -10,8 +10,8 @@
     <Property Name="SensorNum" Type="nvarchar(max)" Nullable="false" />
     <Property Name="PhoneNum" Type="nvarchar(max)" Nullable="false" />
     <Property Name="YaoshiNum" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="DeviceLon" Type="decimal" Precision="20" Scale="0" Nullable="false" />
-    <Property Name="DeviceLat" Type="decimal" Precision="20" Scale="0" Nullable="false" />
+    <Property Name="DeviceLon" Type="decimal" Precision="10" Scale="7" Nullable="false" />
+    <Property Name="DeviceLat" Type="decimal" Precision="10" Scale="7" Nullable="false" />
     <Property Name="MonitorType" Type="nvarchar(max)" Nullable="false" />
     <Property Name="MonitorName" Type="nvarchar(max)" Nullable="false" />
   </EntityType>

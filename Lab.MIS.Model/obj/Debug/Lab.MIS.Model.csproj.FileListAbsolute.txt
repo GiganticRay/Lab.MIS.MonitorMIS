@@ -6,3 +6,12 @@ D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAnd
 D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAndWarningSystem\Lab.MIS.MonitorMIS\Lab.MIS.Model\bin\Debug\zh-Hans\EntityFramework.resources.dll
 D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAndWarningSystem\Lab.MIS.MonitorMIS\Lab.MIS.Model\obj\Debug\Lab.MIS.Model.dll
 D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAndWarningSystem\Lab.MIS.MonitorMIS\Lab.MIS.Model\obj\Debug\Lab.MIS.Model.pdb
+E:\泥石流滑坡预警系统\github\Lab.MIS.MonitorMIS\Lab.MIS.Model\bin\Debug\Lab.MIS.Model.dll.config
+E:\泥石流滑坡预警系统\github\Lab.MIS.MonitorMIS\Lab.MIS.Model\bin\Debug\Lab.MIS.Model.dll
+E:\泥石流滑坡预警系统\github\Lab.MIS.MonitorMIS\Lab.MIS.Model\bin\Debug\Lab.MIS.Model.pdb
+E:\泥石流滑坡预警系统\github\Lab.MIS.MonitorMIS\Lab.MIS.Model\bin\Debug\EntityFramework.dll
+E:\泥石流滑坡预警系统\github\Lab.MIS.MonitorMIS\Lab.MIS.Model\bin\Debug\EntityFramework.xml
+E:\泥石流滑坡预警系统\github\Lab.MIS.MonitorMIS\Lab.MIS.Model\bin\Debug\zh-Hans\EntityFramework.resources.dll
+E:\泥石流滑坡预警系统\github\Lab.MIS.MonitorMIS\Lab.MIS.Model\obj\Debug\Lab.MIS.Model.csprojResolveAssemblyReference.cache
+E:\泥石流滑坡预警系统\github\Lab.MIS.MonitorMIS\Lab.MIS.Model\obj\Debug\Lab.MIS.Model.dll
+E:\泥石流滑坡预警系统\github\Lab.MIS.MonitorMIS\Lab.MIS.Model\obj\Debug\Lab.MIS.Model.pdb

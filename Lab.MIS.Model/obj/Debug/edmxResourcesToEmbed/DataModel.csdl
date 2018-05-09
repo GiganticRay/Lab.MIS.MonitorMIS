@@ -4,6 +4,15 @@
     <EntitySet Name="UserInfo" EntityType="DataModel.UserInfo" />
     <EntitySet Name="PointPicture" EntityType="DataModel.PointPicture" />
     <EntitySet Name="DeviceInfo" EntityType="DataModel.DeviceInfo" />
+    <EntitySet Name="MonitorPointInfo" EntityType="DataModel.MonitorPointInfo" />
+    <AssociationSet Name="MonitorPointInfoDeviceInfo" Association="DataModel.MonitorPointInfoDeviceInfo">
+      <End EntitySet="MonitorPointInfo" Role="MonitorPointInfo" />
+      <End EntitySet="DeviceInfo" Role="DeviceInfo" />
+    </AssociationSet>
+    <AssociationSet Name="DeviceInfoPointPicture" Association="DataModel.DeviceInfoPointPicture">
+      <End Role="DeviceInfo" EntitySet="DeviceInfo" />
+      <End Role="PointPicture" EntitySet="PointPicture" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="UserInfo">
     <Key>
@@ -20,6 +29,8 @@
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="PicPath" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="DeviceInfo" Relationship="DataModel.DeviceInfoPointPicture" FromRole="PointPicture" ToRole="DeviceInfo" />
+    <Property Name="DeviceInfoId" Type="Int32" Nullable="false" />
   </EntityType>
   <EntityType Name="DeviceInfo">
     <Key>
@@ -35,5 +46,42 @@
     <Property Name="DeviceLat" Type="Decimal" Nullable="false" Precision="10" Scale="7" />
     <Property Name="MonitorType" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
     <Property Name="MonitorName" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="MonitorPointInfo" Relationship="DataModel.MonitorPointInfoDeviceInfo" FromRole="DeviceInfo" ToRole="MonitorPointInfo" />
+    <Property Name="MonitorPointInfoId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="PointPicture" Relationship="DataModel.DeviceInfoPointPicture" FromRole="DeviceInfo" ToRole="PointPicture" />
   </EntityType>
+  <EntityType Name="MonitorPointInfo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+    <Property Name="MonitorId" Nullable="false" Type="String" />
+    <Property Name="Name" Nullable="false" Type="String" />
+    <Property Name="Type" Nullable="false" Type="String" />
+    <NavigationProperty Name="DeviceInfo" Relationship="DataModel.MonitorPointInfoDeviceInfo" FromRole="MonitorPointInfo" ToRole="DeviceInfo" />
+  </EntityType>
+  <Association Name="MonitorPointInfoDeviceInfo">
+    <End Type="DataModel.MonitorPointInfo" Multiplicity="1" Role="MonitorPointInfo" />
+    <End Type="DataModel.DeviceInfo" Multiplicity="*" Role="DeviceInfo" />
+    <ReferentialConstraint>
+      <Principal Role="MonitorPointInfo">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DeviceInfo">
+        <PropertyRef Name="MonitorPointInfoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DeviceInfoPointPicture">
+    <End Type="DataModel.DeviceInfo" Role="DeviceInfo" Multiplicity="1" />
+    <End Type="DataModel.PointPicture" Role="PointPicture" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DeviceInfo">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PointPicture">
+        <PropertyRef Name="DeviceInfoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

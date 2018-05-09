@@ -14,24 +14,28 @@
     <script src="../../Resource/Scripts/jquery-3.2.1.js"></script>
 </head>
 
-
 <body onload="onLoad()">
-    <div id="headDiv"> 
-        <img src="../../Resource/Img/Logo.png" id="LogoImg"/>
+    <div id="MainDiv">
+        <div id="headDiv"> 
+            <img src="../../Resource/Img/Logo.png" id="LogoImg"/>
 
-        <div id="searchDiv">
-            <input id="searchContent"/>
-            <img id="clearKeyword" src="../../Resource/Img/Clear.png" />
+            <div id="searchDiv">
+                <input id="searchContent"/>
+                <img id="clearKeyword" src="../../Resource/Img/Clear.png" />
+            </div>
+            <div id="searchBtn"></div>
+            <div id="rightBar" >
+                <div id="mine"></div>
+                <div class="seperator"></div>
+                <div id="mainMenuBtn"></div>
+            </div>
         </div>
-        <div id="searchBtn"></div>
-        <div id="rightBar" >
-            <div id="mine"></div>
-            <div class="seperator"></div>
-            <div id="mainMenuBtn"></div>
+    
+        <div id="mapDiv"></div>
+        <div id="side_bar">
+            <span id="side_barController"></span>
         </div>
     </div>
-    
-    <div id="mapDiv"></div>
 </body>
 
 

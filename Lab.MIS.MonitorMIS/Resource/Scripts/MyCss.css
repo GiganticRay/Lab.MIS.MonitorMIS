@@ -5,7 +5,13 @@
     font-family: "Microsoft YaHei";
 }
 
+#MainDiv {
+    width: 100%;
+    height: 100%;
+}
+
 #mapDiv {
+    z-index: 1;
     width: 100%;
     height: 100%;
 }
@@ -105,4 +111,41 @@ input, b, p {
     background-repeat: no-repeat;
     background-position-x: -23px;
     background-position-y: 9px;
+}
+
+#side_bar {
+    z-index: 1000;
+    background: aqua;
+    position: absolute;
+    width: 337px;
+    height: 100%;
+    top: 61px;
+    left: 0px;
+    background: #fff;
+    border-right: 1px solid #aaa;
+    -webkit-transition: left .5s ease;
+    transition: left .5s ease;
+    z-index: 6;
+    box-shadow: 1px 0 5px rgba(0,0,0,.5);
+    border-collapse: separate;
+}
+
+#side_barController {
+    position: absolute;
+    width: 20px;
+    height: 40px;
+    background: hsla(0,0%,100%,.6);
+    top: 9px;
+    right: -22px;
+    border: 1px solid #aaa;
+    border-left: none;
+    cursor: pointer;
+    display: block;
+    -webkit-transition: .2s;
+    transition: .2s;
+    cursor: pointer;
+    background-image: url("../../Resource/Img/TiandituIcon.png");
+    background-repeat: no-repeat;
+    background-position-x: -515px;
+    background-position-y: -233px;
 }

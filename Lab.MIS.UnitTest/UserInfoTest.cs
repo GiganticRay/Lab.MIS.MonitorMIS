@@ -31,7 +31,7 @@ namespace Lab.MIS.UnitTest
         [TestMethod]
         public void Delete()
         {
-            userInfoService.Delete(a => a.Id == 1);
+            userInfoService.Delete(a => a.Id == 2);
             Console.WriteLine("删除成功");
         }
 

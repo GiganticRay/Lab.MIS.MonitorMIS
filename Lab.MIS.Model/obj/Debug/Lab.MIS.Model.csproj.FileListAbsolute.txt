@@ -15,3 +15,12 @@ E:\泥石流滑坡预警系统\github\Lab.MIS.MonitorMIS\Lab.MIS.Model\bin\Debug
 E:\泥石流滑坡预警系统\github\Lab.MIS.MonitorMIS\Lab.MIS.Model\obj\Debug\Lab.MIS.Model.csprojResolveAssemblyReference.cache
 E:\泥石流滑坡预警系统\github\Lab.MIS.MonitorMIS\Lab.MIS.Model\obj\Debug\Lab.MIS.Model.dll
 E:\泥石流滑坡预警系统\github\Lab.MIS.MonitorMIS\Lab.MIS.Model\obj\Debug\Lab.MIS.Model.pdb
+D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAndWarningSystem\Git\Lab.MIS.MonitorMIS\Lab.MIS.Model\bin\Debug\Lab.MIS.Model.dll.config
+D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAndWarningSystem\Git\Lab.MIS.MonitorMIS\Lab.MIS.Model\bin\Debug\Lab.MIS.Model.dll
+D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAndWarningSystem\Git\Lab.MIS.MonitorMIS\Lab.MIS.Model\bin\Debug\Lab.MIS.Model.pdb
+D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAndWarningSystem\Git\Lab.MIS.MonitorMIS\Lab.MIS.Model\bin\Debug\EntityFramework.dll
+D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAndWarningSystem\Git\Lab.MIS.MonitorMIS\Lab.MIS.Model\bin\Debug\EntityFramework.xml
+D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAndWarningSystem\Git\Lab.MIS.MonitorMIS\Lab.MIS.Model\bin\Debug\zh-Hans\EntityFramework.resources.dll
+D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAndWarningSystem\Git\Lab.MIS.MonitorMIS\Lab.MIS.Model\obj\Debug\Lab.MIS.Model.csprojResolveAssemblyReference.cache
+D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAndWarningSystem\Git\Lab.MIS.MonitorMIS\Lab.MIS.Model\obj\Debug\Lab.MIS.Model.dll
+D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAndWarningSystem\Git\Lab.MIS.MonitorMIS\Lab.MIS.Model\obj\Debug\Lab.MIS.Model.pdb

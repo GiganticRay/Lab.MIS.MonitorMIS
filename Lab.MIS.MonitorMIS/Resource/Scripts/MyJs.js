@@ -49,13 +49,11 @@ $(document).ready(function () {
     $("#clearOverLays").click(function () {
         map.clearOverLays();
     })
+
+    //点击登录按钮 
     $("#mine").click(function () {
-        layer.open({
-            title: 登录,
-            type: 1,
-            content:"login.html"
-        });
-    })
+        openLoginModal();
+    });
 });
 //移动控件的位置
 function MoveControl() {
@@ -80,3 +78,23 @@ function editMarker() {
         markers[i].enableDragging();
     }
 }
+
+//打开登录窗口
+function openLoginModal() {
+
+    //填充信息
+    $('#loginModal .registerBox').fadeOut('fast', function () {
+        $('.loginBox').fadeIn('fast');
+        $('.register-footer').fadeOut('fast', function () {
+            $('.login-footer').fadeIn('fast');
+        });
+
+        $('.modal-title.logIn').html('登录');
+    });
+    $('.error').removeClass('alert alert-danger').html('');
+    //打开窗口
+    $('#loginModal').modal('show');
+ 
+}
+
+

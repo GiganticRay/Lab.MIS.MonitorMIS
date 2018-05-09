@@ -149,3 +149,11 @@ input, b, p {
     background-position-x: -515px;
     background-position-y: -233px;
 }
+#btn-group{
+	position:absolute;
+	z-index:1000;
+	left:80%;
+}
+.ToolBox{
+	text-align:center;
+}

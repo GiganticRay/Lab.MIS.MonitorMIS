@@ -123,8 +123,11 @@
     <Content Include="Resource\Img\Logo.png" />
     <Content Include="Resource\Img\Search.png" />
     <Content Include="Resource\Img\TiandituIcon.png" />
+    <Content Include="Resource\Scripts\bootstrap.min.css" />
+    <Content Include="Resource\Scripts\bootstrap.min.js" />
     <Content Include="Resource\Scripts\jquery-3.2.1.js" />
     <Content Include="Resource\Scripts\jquery-3.2.1.min.js" />
+    <Content Include="Resource\Scripts\layer.js" />
     <Content Include="Resource\Scripts\MyCss.css" />
     <Content Include="Resource\Scripts\MyJs.js" />
     <Content Include="Views\Home\HomePage.aspx" />

@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="IBaseDal.cs" />
     <Compile Include="IDeviceInfoDal.cs" />
+    <Compile Include="IMonitorPointInfoDal.cs" />
     <Compile Include="IPointPictureDal.cs" />
     <Compile Include="IUserInfoDal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

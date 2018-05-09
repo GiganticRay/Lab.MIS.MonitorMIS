@@ -17,6 +17,8 @@ namespace Lab.MIS.DalFactory
         private static IPointPictureDal iPointPictureDal { get; set; }
         private static IDeviceInfoDal iDeviceInfoDal { get; set; }
 
+        private static IMonitorPointInfoDal iMonitorPointInfoDal { get; set; }
+
         public static IUserInfoDal GetUserInfoDal()
         {
             iUserInfoDal = Assembly.Load(AssemblyName).CreateInstance(AssemblyName + ".UserInfoDal") as IUserInfoDal;
@@ -35,5 +37,12 @@ namespace Lab.MIS.DalFactory
             iDeviceInfoDal = Assembly.Load(AssemblyName).CreateInstance(AssemblyName + ".DeviceInfoDal") as IDeviceInfoDal;
             return iDeviceInfoDal;
         }
+
+        public static IMonitorPointInfoDal GetMonitorPointInfoDal()
+        {
+            iMonitorPointInfoDal = Assembly.Load(AssemblyName).CreateInstance(AssemblyName + ".MonitorPointInfoDal") as IMonitorPointInfoDal;
+            return iMonitorPointInfoDal;
+        }
+
     }
 }

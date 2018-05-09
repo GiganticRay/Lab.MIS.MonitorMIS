@@ -16,6 +16,7 @@
         <MappingFragment StoreEntitySet="PointPicture">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="PicPath" ColumnName="PicPath" />
+          <ScalarProperty Name="DeviceInfoId" ColumnName="DeviceInfoId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -32,6 +33,17 @@
           <ScalarProperty Name="DeviceLat" ColumnName="DeviceLat" />
           <ScalarProperty Name="MonitorType" ColumnName="MonitorType" />
           <ScalarProperty Name="MonitorName" ColumnName="MonitorName" />
+          <ScalarProperty Name="MonitorPointInfoId" ColumnName="MonitorPointInfoId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MonitorPointInfo">
+      <EntityTypeMapping TypeName="IsTypeOf(DataModel.MonitorPointInfo)">
+        <MappingFragment StoreEntitySet="MonitorPointInfo">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="MonitorId" ColumnName="MonitorId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

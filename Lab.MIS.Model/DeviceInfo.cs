@@ -14,6 +14,11 @@ namespace Lab.MIS.Model
     
     public partial class DeviceInfo
     {
+        public DeviceInfo()
+        {
+            this.PointPicture = new HashSet<PointPicture>();
+        }
+    
         public int Id { get; set; }
         public string DeviceName { get; set; }
         public string ShuCaiNum { get; set; }
@@ -24,5 +29,9 @@ namespace Lab.MIS.Model
         public decimal DeviceLat { get; set; }
         public string MonitorType { get; set; }
         public string MonitorName { get; set; }
+        public int MonitorPointInfoId { get; set; }
+    
+        public virtual MonitorPointInfo MonitorPointInfo { get; set; }
+        public virtual ICollection<PointPicture> PointPicture { get; set; }
     }
 }

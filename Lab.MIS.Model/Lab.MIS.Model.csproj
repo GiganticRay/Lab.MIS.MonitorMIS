@@ -64,6 +64,9 @@
     <Compile Include="DeviceInfo.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="MonitorPointInfo.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="PointPicture.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>

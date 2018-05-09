@@ -12,12 +12,18 @@ namespace Lab.MIS.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class PointPicture
+    public partial class MonitorPointInfo
     {
-        public int Id { get; set; }
-        public string PicPath { get; set; }
-        public int DeviceInfoId { get; set; }
+        public MonitorPointInfo()
+        {
+            this.DeviceInfo = new HashSet<DeviceInfo>();
+        }
     
-        public virtual DeviceInfo DeviceInfo { get; set; }
+        public int Id { get; set; }
+        public int MonitorId { get; set; }
+        public string Name { get; set; }
+        public string Type { get; set; }
+    
+        public virtual ICollection<DeviceInfo> DeviceInfo { get; set; }
     }
 }

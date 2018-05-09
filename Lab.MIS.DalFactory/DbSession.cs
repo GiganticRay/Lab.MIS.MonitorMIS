@@ -25,9 +25,16 @@ namespace Lab.MIS.DalFactory
             get { return StaticFactory.GetDeviceInfoDal(); }
         }
 
+        public IMonitorPointInfoDal GetMonitorPointInfoDal
+        {
+            get { return StaticFactory.GetMonitorPointInfoDal(); }
+        }
+
         public int SaveChanges()
         {
             return DbContextFactory.GetCurrentDbContext().SaveChanges();
         }
+
+
     }
 }

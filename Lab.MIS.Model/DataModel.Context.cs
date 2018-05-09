@@ -28,5 +28,6 @@ namespace Lab.MIS.Model
         public DbSet<UserInfo> UserInfo { get; set; }
         public DbSet<PointPicture> PointPicture { get; set; }
         public DbSet<DeviceInfo> DeviceInfo { get; set; }
+        public DbSet<MonitorPointInfo> MonitorPointInfo { get; set; }
     }
 }

@@ -106,7 +106,6 @@ D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAnd
 D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAndWarningSystem\Git\Lab.MIS.MonitorMIS\Lab.MIS.MonitorMIS\bin\zh-Hans\System.Web.WebPages.resources.dll
 D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAndWarningSystem\Git\Lab.MIS.MonitorMIS\Lab.MIS.MonitorMIS\bin\zh-Hans\System.Web.WebPages.Deployment.resources.dll
 D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAndWarningSystem\Git\Lab.MIS.MonitorMIS\Lab.MIS.MonitorMIS\bin\zh-Hans\System.Web.WebPages.Razor.resources.dll
-D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAndWarningSystem\Git\Lab.MIS.MonitorMIS\Lab.MIS.MonitorMIS\obj\Debug\Lab.MIS.MonitorMIS.csprojResolveAssemblyReference.cache
 D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAndWarningSystem\Git\Lab.MIS.MonitorMIS\Lab.MIS.MonitorMIS\obj\Debug\Lab.MIS.MonitorMIS.dll
 D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAndWarningSystem\Git\Lab.MIS.MonitorMIS\Lab.MIS.MonitorMIS\obj\Debug\Lab.MIS.MonitorMIS.pdb
 F:\课程集合\工程实践2\clone\Lab.MIS.MonitorMIS\bin\Lab.MIS.MonitorMIS.dll.config
@@ -137,3 +136,17 @@ F:\课程集合\工程实践2\clone\Lab.MIS.MonitorMIS\bin\zh-Hans\System.Web.We
 F:\课程集合\工程实践2\clone\Lab.MIS.MonitorMIS\obj\Debug\Lab.MIS.MonitorMIS.csprojResolveAssemblyReference.cache
 F:\课程集合\工程实践2\clone\Lab.MIS.MonitorMIS\obj\Debug\Lab.MIS.MonitorMIS.dll
 F:\课程集合\工程实践2\clone\Lab.MIS.MonitorMIS\obj\Debug\Lab.MIS.MonitorMIS.pdb
+D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAndWarningSystem\Git\Lab.MIS.MonitorMIS\Lab.MIS.MonitorMIS\bin\Lab.MIS.BLL.dll
+D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAndWarningSystem\Git\Lab.MIS.MonitorMIS\Lab.MIS.MonitorMIS\bin\Lab.MIS.Model.dll
+D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAndWarningSystem\Git\Lab.MIS.MonitorMIS\Lab.MIS.MonitorMIS\bin\Lab.MIS.DalFactory.dll
+D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAndWarningSystem\Git\Lab.MIS.MonitorMIS\Lab.MIS.MonitorMIS\bin\Lab.MIS.IDAL.dll
+D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAndWarningSystem\Git\Lab.MIS.MonitorMIS\Lab.MIS.MonitorMIS\bin\EntityFramework.dll
+D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAndWarningSystem\Git\Lab.MIS.MonitorMIS\Lab.MIS.MonitorMIS\bin\Lab.MIS.EFDAL.dll
+D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAndWarningSystem\Git\Lab.MIS.MonitorMIS\Lab.MIS.MonitorMIS\bin\Lab.MIS.BLL.pdb
+D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAndWarningSystem\Git\Lab.MIS.MonitorMIS\Lab.MIS.MonitorMIS\bin\Lab.MIS.Model.pdb
+D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAndWarningSystem\Git\Lab.MIS.MonitorMIS\Lab.MIS.MonitorMIS\bin\Lab.MIS.DalFactory.pdb
+D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAndWarningSystem\Git\Lab.MIS.MonitorMIS\Lab.MIS.MonitorMIS\bin\Lab.MIS.IDAL.pdb
+D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAndWarningSystem\Git\Lab.MIS.MonitorMIS\Lab.MIS.MonitorMIS\bin\EntityFramework.xml
+D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAndWarningSystem\Git\Lab.MIS.MonitorMIS\Lab.MIS.MonitorMIS\bin\Lab.MIS.EFDAL.pdb
+D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAndWarningSystem\Git\Lab.MIS.MonitorMIS\Lab.MIS.MonitorMIS\bin\zh-Hans\EntityFramework.resources.dll
+D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAndWarningSystem\Git\Lab.MIS.MonitorMIS\Lab.MIS.MonitorMIS\obj\Debug\Lab.MIS.MonitorMIS.csprojResolveAssemblyReference.cache

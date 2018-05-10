@@ -21,7 +21,6 @@ D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAnd
 D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAndWarningSystem\Git\Lab.MIS.MonitorMIS\Lab.MIS.Model\bin\Debug\EntityFramework.dll
 D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAndWarningSystem\Git\Lab.MIS.MonitorMIS\Lab.MIS.Model\bin\Debug\EntityFramework.xml
 D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAndWarningSystem\Git\Lab.MIS.MonitorMIS\Lab.MIS.Model\bin\Debug\zh-Hans\EntityFramework.resources.dll
-D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAndWarningSystem\Git\Lab.MIS.MonitorMIS\Lab.MIS.Model\obj\Debug\Lab.MIS.Model.csprojResolveAssemblyReference.cache
 D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAndWarningSystem\Git\Lab.MIS.MonitorMIS\Lab.MIS.Model\obj\Debug\Lab.MIS.Model.dll
 D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAndWarningSystem\Git\Lab.MIS.MonitorMIS\Lab.MIS.Model\obj\Debug\Lab.MIS.Model.pdb
 F:\课程集合\工程实践2\clone\Lab.MIS.Model\bin\Debug\Lab.MIS.Model.dll.config
@@ -33,3 +32,4 @@ F:\课程集合\工程实践2\clone\Lab.MIS.Model\bin\Debug\zh-Hans\EntityFramew
 F:\课程集合\工程实践2\clone\Lab.MIS.Model\obj\Debug\Lab.MIS.Model.csprojResolveAssemblyReference.cache
 F:\课程集合\工程实践2\clone\Lab.MIS.Model\obj\Debug\Lab.MIS.Model.dll
 F:\课程集合\工程实践2\clone\Lab.MIS.Model\obj\Debug\Lab.MIS.Model.pdb
+D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAndWarningSystem\Git\Lab.MIS.MonitorMIS\Lab.MIS.Model\obj\Debug\Lab.MIS.Model.csprojResolveAssemblyReference.cache

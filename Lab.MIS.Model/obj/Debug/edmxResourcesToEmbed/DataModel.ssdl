@@ -1,36 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="DataModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityContainer Name="DataModelStoreContainer">
-    <EntitySet Name="UserInfo" EntityType="DataModel.Store.UserInfo" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="PointPicture" EntityType="DataModel.Store.PointPicture" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="DeviceInfo" EntityType="DataModel.Store.DeviceInfo" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="MonitorPointInfo" EntityType="DataModel.Store.MonitorPointInfo" store:Type="Tables" Schema="dbo" />
-    <AssociationSet Name="MonitorPointInfoDeviceInfo" Association="DataModel.Store.MonitorPointInfoDeviceInfo">
-      <End Role="MonitorPointInfo" EntitySet="MonitorPointInfo" />
-      <End Role="DeviceInfo" EntitySet="DeviceInfo" />
-    </AssociationSet>
-    <AssociationSet Name="DeviceInfoPointPicture" Association="DataModel.Store.DeviceInfoPointPicture">
-      <End Role="DeviceInfo" EntitySet="DeviceInfo" />
-      <End Role="PointPicture" EntitySet="PointPicture" />
-    </AssociationSet>
-  </EntityContainer>
-  <EntityType Name="UserInfo">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="UserName" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="UserPwd" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="UserAuthority" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="PointPicture">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="PicPath" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="DeviceInfoId" Type="int" Nullable="false" />
-  </EntityType>
+<Schema Namespace="DataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="DeviceInfo">
     <Key>
       <PropertyRef Name="Id" />
@@ -41,8 +10,8 @@
     <Property Name="SensorNum" Type="nvarchar(max)" Nullable="false" />
     <Property Name="PhoneNum" Type="nvarchar(max)" Nullable="false" />
     <Property Name="YaoshiNum" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="DeviceLon" Type="decimal" Nullable="false" Precision="10" Scale="7" />
-    <Property Name="DeviceLat" Type="decimal" Nullable="false" Precision="10" Scale="7" />
+    <Property Name="DeviceLon" Type="decimal" Precision="10" Scale="7" Nullable="false" />
+    <Property Name="DeviceLat" Type="decimal" Precision="10" Scale="7" Nullable="false" />
     <Property Name="MonitorType" Type="nvarchar(max)" Nullable="false" />
     <Property Name="MonitorName" Type="nvarchar(max)" Nullable="false" />
     <Property Name="MonitorPointInfoId" Type="int" Nullable="false" />
@@ -52,25 +21,30 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="MonitorId" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="MonitorId" Type="int" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Type" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
-  <Association Name="MonitorPointInfoDeviceInfo">
-    <End Role="MonitorPointInfo" Type="DataModel.Store.MonitorPointInfo" Multiplicity="1" />
-    <End Role="DeviceInfo" Type="DataModel.Store.DeviceInfo" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="MonitorPointInfo">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="DeviceInfo">
-        <PropertyRef Name="MonitorPointInfoId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="DeviceInfoPointPicture">
-    <End Role="DeviceInfo" Type="DataModel.Store.DeviceInfo" Multiplicity="1" />
-    <End Role="PointPicture" Type="DataModel.Store.PointPicture" Multiplicity="*" />
+  <EntityType Name="PointPicture">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PicPath" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="DeviceInfoId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserInfo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="UserPwd" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="UserAuthority" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_DeviceInfoPointPicture">
+    <End Role="DeviceInfo" Type="Self.DeviceInfo" Multiplicity="1" />
+    <End Role="PointPicture" Type="Self.PointPicture" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="DeviceInfo">
         <PropertyRef Name="Id" />
@@ -80,4 +54,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_MonitorPointInfoDeviceInfo">
+    <End Role="MonitorPointInfo" Type="Self.MonitorPointInfo" Multiplicity="1" />
+    <End Role="DeviceInfo" Type="Self.DeviceInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MonitorPointInfo">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DeviceInfo">
+        <PropertyRef Name="MonitorPointInfoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DataModelStoreContainer">
+    <EntitySet Name="DeviceInfo" EntityType="Self.DeviceInfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MonitorPointInfo" EntityType="Self.MonitorPointInfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PointPicture" EntityType="Self.PointPicture" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserInfo" EntityType="Self.UserInfo" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_DeviceInfoPointPicture" Association="Self.FK_DeviceInfoPointPicture">
+      <End Role="DeviceInfo" EntitySet="DeviceInfo" />
+      <End Role="PointPicture" EntitySet="PointPicture" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MonitorPointInfoDeviceInfo" Association="Self.FK_MonitorPointInfoDeviceInfo">
+      <End Role="MonitorPointInfo" EntitySet="MonitorPointInfo" />
+      <End Role="DeviceInfo" EntitySet="DeviceInfo" />
+    </AssociationSet>
+  </EntityContainer>
 </Schema>

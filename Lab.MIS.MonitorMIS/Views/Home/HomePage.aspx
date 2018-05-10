@@ -26,37 +26,45 @@
     <div id="MainDiv">
         <div id="headDiv">
             <img src="../../Resource/Img/Logo.png" id="LogoImg" />
-            <div id="searchDiv">
-                <input id="searchContent" />
-                <img id="clearKeyword" src="../../Resource/Img/Clear.png" />
-            </div>
-            <div id="searchBtn"></div>
             <div id="rightBar">
                 <div id="mine"></div>
                 <div class="seperator"></div>
                 <div id="mainMenuBtn"></div>
             </div>
-        </div>
-
-        <div id="mapDiv">
-            <div class="btn-group" id="btn-group">
+            <div class="btn-group my_btn-group">
                 <div class="btn-group">
                     <button type="button" class="btn btn-default" id="Address"><span></span>成都</button>
+
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">工具<span class="caret"></span></button>
                     <ul class="dropdown-menu">
                         <li class="ToolBox"><a href="#" id="MeasureLength"><span></span>测量</a></li>
+                        <li role="separator" class="divider"></li>
                         <li class="ToolBox"><a href="#" id="MeasureArea"><span></span>测面</a></li>
+                        <li role="separator" class="divider"></li>
                         <li class="ToolBox"><a href="#" id="MeasurearkPoint"><span></span>标点</a></li>
+                        <li role="separator" class="divider"></li>
                         <li class="ToolBox"><a href="#" id="MarkLine"><span></span>标线</a></li>
+                        <li role="separator" class="divider"></li>
                         <li class="ToolBox"><a href="#" id="MarkArea"><span></span>标面</a></li>
+                    </ul>
+                </div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">录入<span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                        <li class="ToolBox"><a href="#" id="EnteringDeviceInfo"><span></span>录入监测设备信息</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li class="ToolBox"><a href="#" id="EnteringMonitorInfo"><span></span>录入检测阵信息</a></li>
                     </ul>
                 </div>
                 <button type="button" class="btn btn-default" id="clearOverLays">清空</button>
             </div>
         </div>
+
+        <div id="mapDiv"> </div>
         <div id="side_bar">
             <span id="side_barController"></span>
         </div>
+
     </div>
 
     <div class="modal fade login" id="loginModal">

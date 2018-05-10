@@ -150,6 +150,16 @@
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Lab.MIS.BLL\Lab.MIS.BLL.csproj">
+      <Project>{7ADFBF4B-7981-4E99-864C-58BEFE0C4173}</Project>
+      <Name>Lab.MIS.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Lab.MIS.Model\Lab.MIS.Model.csproj">
+      <Project>{8CDB6F7C-4E56-40F4-9302-FE7E78613C4B}</Project>
+      <Name>Lab.MIS.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

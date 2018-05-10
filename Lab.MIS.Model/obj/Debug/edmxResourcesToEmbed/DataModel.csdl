@@ -28,7 +28,7 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="PicPath" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="PicPath" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
     <NavigationProperty Name="DeviceInfo" Relationship="DataModel.DeviceInfoPointPicture" FromRole="PointPicture" ToRole="DeviceInfo" />
     <Property Name="DeviceInfoId" Type="Int32" Nullable="false" />
   </EntityType>
@@ -55,9 +55,9 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
-    <Property Name="MonitorId" Nullable="false" Type="String" />
-    <Property Name="Name" Nullable="false" Type="String" />
-    <Property Name="Type" Nullable="false" Type="String" />
+    <Property Name="MonitorId" Nullable="false" Type="Int32" />
+    <Property Name="Name" Nullable="false" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Type" Nullable="false" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
     <NavigationProperty Name="DeviceInfo" Relationship="DataModel.MonitorPointInfoDeviceInfo" FromRole="MonitorPointInfo" ToRole="DeviceInfo" />
   </EntityType>
   <Association Name="MonitorPointInfoDeviceInfo">

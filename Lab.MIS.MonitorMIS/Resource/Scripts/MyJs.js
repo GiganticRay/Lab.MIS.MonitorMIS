@@ -16,9 +16,9 @@ $(document).ready(function () {
     var scale = new T.Control.Scale();
     map.addControl(scale);
     MoveControl();
-    $("#side_barController").click(function () {
+    $("#side_barController").click(function() {
         MoveLeftWindow();
-    })
+    });
     var config = {
         showLabel: true,
         color: "blue", weight: 3, opacity: 0.5, fillColor: "#FFFFFF", fillOpacity: 0.5
@@ -26,29 +26,29 @@ $(document).ready(function () {
     lineTool = new T.PolylineTool(map, config);
     polygonTool = new T.PolygonTool(map, config);
     markerTool = new T.MarkTool(map, { follow: true });
-    $("#MeasureLength").click(function () {
+    $("#MeasureLength").click(function() {
         lineTool.open();
-    })
-    $("#MeasureArea").click(function () {
+    });
+    $("#MeasureArea").click(function() {
         polygonTool.open();
-    })
-    $("#MeasurearkPoint").click(function () {
+    });
+    $("#MeasurearkPoint").click(function() {
         editMarker();
         markerTool.open();
-    })
-    $("#MarkLine").click(function () {
+    });
+    $("#MarkLine").click(function() {
         if (handler) handler.close();
         handler = new T.PolylineTool(map);
         handler.open();
-    })
-    $("#MarkArea").click(function () {
+    });
+    $("#MarkArea").click(function() {
         if (handler) handler.close();
         handler = new T.PolygonTool(map);
         handler.open();
-    })
-    $("#clearOverLays").click(function () {
+    });
+    $("#clearOverLays").click(function() {
         map.clearOverLays();
-    })
+    });
 
     //点击登录按钮 
     $("#mine").click(function () {
@@ -63,11 +63,11 @@ function MoveControl() {
 //左窗口的移动
 function MoveLeftWindow(){
     if (open == false) {
-        $("#side_bar").animate({ left: '-337px' });
+        $("#side_bar").animate({ left: '-337px' }, "fast");
         open = true;
     }
     else {
-        $("#side_bar").animate({ left: '0px' });
+        $("#side_bar").animate({ left: '0px' }, "fast");
         open = false;
     }
 }

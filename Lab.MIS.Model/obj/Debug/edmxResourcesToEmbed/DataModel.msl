@@ -33,7 +33,6 @@
           <ScalarProperty Name="DeviceLat" ColumnName="DeviceLat" />
           <ScalarProperty Name="MonitorType" ColumnName="MonitorType" />
           <ScalarProperty Name="MonitorName" ColumnName="MonitorName" />
-          <ScalarProperty Name="MonitorPointInfoId" ColumnName="MonitorPointInfoId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

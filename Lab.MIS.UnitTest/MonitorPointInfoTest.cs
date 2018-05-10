@@ -14,7 +14,7 @@ namespace Lab.MIS.UnitTest
             MonitorPointInfoService monitorPointInfoService = new MonitorPointInfoService();
 
             MonitorPointInfo monitorPointInfo = new MonitorPointInfo();;
-            monitorPointInfo.MonitorId = "1";
+            monitorPointInfo.MonitorId = 1;
             monitorPointInfo.Name = "大树";
             monitorPointInfo.Type = "泥石流";
             monitorPointInfoService.Add(monitorPointInfo);

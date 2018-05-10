@@ -41,7 +41,8 @@
         <div id="mapDiv">
             <div class="btn-group" id="btn-group">
                 <div class="btn-group">
-                    <button type="button" class="btn btn-default" id="Address"><span></span>成都</button>
+                   
+
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">工具<span class="caret"></span></button>
                     <ul class="dropdown-menu">
                         <li class="ToolBox"><a href="#" id="MeasureLength"><span></span>测量</a></li>
@@ -52,6 +53,9 @@
                     </ul>
                 </div>
                 <button type="button" class="btn btn-default" id="clearOverLays">清空</button>
+                 <button type="button" class="btn btn-default" id="12"><span></span>成都</button>
+                    <button type="button" class="btn btn-default" id="32"><span></span>成都</button>
+                <button type="button" class="btn btn-default" id="43"><span></span>成都</button>
             </div>
         </div>
         <div id="side_bar">

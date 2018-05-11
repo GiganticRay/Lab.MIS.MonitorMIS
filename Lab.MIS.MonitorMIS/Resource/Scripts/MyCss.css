@@ -3,6 +3,7 @@
     height: 100%;
     margin: 0;
     font-family: "Microsoft YaHei";
+    cursor: pointer;
 }
 
 #MainDiv {
@@ -22,7 +23,7 @@ input, b, p {
 }
 
 #headDiv {
-    position: absolute; 
+    position: absolute;
     width: 100%;
     height: 60px;
     border-bottom: 1px solid #ccc;
@@ -47,10 +48,12 @@ input, b, p {
     height: 34px;
     width: 5%;
 }
+
 .my_btn-group {
     margin-top: 18px;
     float: right;
 }
+
 #mine {
     float: right;
     height: 34px;
@@ -61,6 +64,7 @@ input, b, p {
     background-position-x: -23px;
     background-position-y: -315px;
 }
+
 .seperator {
     float: right;
     width: 1px;
@@ -71,6 +75,7 @@ input, b, p {
     margin-left: 5px;
     margin-right: 5px;
 }
+
 #mainMenuBtn {
     float: right;
     height: 34px;
@@ -119,7 +124,16 @@ input, b, p {
     background-position-y: -233px;
 }
 
-.ToolBox{
-	text-align:center;
+.ToolBox {
+    text-align: center;
 }
 
+/*登录模态框的位置*/
+.modal-title.logIn {
+    text-align: center;
+}
+
+.img-responsive {
+    border-radius: 100px;
+    margin: 0 auto;
+}

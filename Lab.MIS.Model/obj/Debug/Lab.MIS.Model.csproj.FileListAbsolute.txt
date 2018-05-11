@@ -32,3 +32,4 @@ F:\课程集合\工程实践2\clone\Lab.MIS.Model\obj\Debug\Lab.MIS.Model.csproj
 F:\课程集合\工程实践2\clone\Lab.MIS.Model\obj\Debug\Lab.MIS.Model.dll
 F:\课程集合\工程实践2\clone\Lab.MIS.Model\obj\Debug\Lab.MIS.Model.pdb
 D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAndWarningSystem\Git\Lab.MIS.MonitorMIS\Lab.MIS.Model\obj\Debug\Lab.MIS.Model.csprojResolveAssemblyReference.cache
+E:\泥石流滑坡预警系统\github\Lab.MIS.MonitorMIS\Lab.MIS.Model\obj\Debug\Lab.MIS.Model.csprojResolveAssemblyReference.cache

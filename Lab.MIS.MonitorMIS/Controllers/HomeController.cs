@@ -71,7 +71,7 @@ namespace Lab.MIS.MonitorMIS.Controllers
             try
             {
                 DeviceInfo deviceInfo = deviceInfoService.Get(a => a.Id == id).First();
-                res.Data = JsSerializer.Serialize(deviceInfo);
+                res.Data = JsonConvert.SerializeObject(deviceInfo, setting);
             }
             catch (Exception e)
             {

@@ -170,11 +170,11 @@
                                 <td>
                                     <input type="text" name="DeviceLat" value="" /></td>
                             </tr>
-                            <%--<tr>
+                            <tr>
                                 <td>备注:</td>
                                 <td>
                                     <input type="text" name="Beizhu" value="" /></td>
-                            </tr>--%>
+                            </tr>
                         </table>
                         <input type="hidden" name="Id" id="hiddenDeviceID" value="" />
                         <input type="hidden" name="MonitorName" value="" />

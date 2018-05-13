@@ -396,32 +396,33 @@ function clickOpenWindow(data) {
 function DeleteDeviceInfo() {
     //判断是否登录
     if (isLog == true) {
-        //获取隐藏于id
-        var getHiddenId = $("#hiddenDeviceID").val();
-        $.ajax({
-            url: "/Home/DeleteDevice",
-            type: "POST",
-            data: { id: getHiddenId },
-            success: function (Backdata) {
-                if (Backdata > 0) {
-                    swal({
-                        title: "删除成功！",
-                        type: "success",
-                        timer: 1500
-                    });
-                    //关闭窗口
-                    $("#CloseDeviceInfo").click();
+        check(function () {
+            //获取隐藏于id
+            var getHiddenId = $("#hiddenDeviceID").val();
+            $.ajax({
+                url: "/Home/DeleteDevice",
+                type: "POST",
+                data: { id: getHiddenId },
+                success: function (Backdata) {
+                    if (Backdata > 0) {
+                        swal({
+                            title: "删除成功！",
+                            type: "success",
+                            timer: 1500
+                        });
+                        //关闭窗口
+                        $("#CloseDeviceInfo").click();
+                    }
+                    else {
+                        swal({
+                            title: "删除失败！",
+                            type: "error",
+                            timer: 1500
+                        });
+                    }
                 }
-                else {
-                    swal({
-                        title: "删除失败！",
-                        type: "error",
-                        timer: 1500
-                    });
-                }
-            }
+            });
         });
-
     } else {
         swal({
             title: "请先登录！",
@@ -456,6 +457,7 @@ function ShowDevice() {
                 data_info[index]["YaoshiNum"] = element.YaoshiNum;
                 data_info[index]["DeviceLon"] = element.DeviceLon;
                 data_info[index]["DeviceLat"] = element.DeviceLat;
+                data_info[index]["Beizhu"] = element.Beizhu;
                 data_info[index]["Id"] = element.Id;
                 data_info[index]["MonitorName"] = element.MonitorName;
                 data_info[index]["MonitorPointInfoId"] = element.MonitorPointInfoId;
@@ -505,48 +507,51 @@ function ShowDevice() {
 function SavaDevideInfo() {
     //判断是否登录
     if (isLog == true) {
-        //获取表单数据
-        var getData = $("#DeviceInfoForm");
+        save(function () {
+            //获取表单数据
+            var getData = $("#DeviceInfoForm");
 
-        var objectData = {
-            Id: getData[0]["Id"].value,
-            DeviceName: getData[0]["DeviceName"].value,
-            ShuCaiNum: getData[0]["ShuCaiNum"].value,
-            SensorNum: getData[0]["SensorNum"].value,
-            PhoneNum: getData[0]["PhoneNum"].value,
-            YaoshiNum: getData[0]["YaoshiNum"].value,
-            DeviceLon: getData[0]["DeviceLon"].value,
-            DeviceLat: getData[0]["DeviceLat"].value,
-            MonitorType: getData[0]["MonitorType"].value,
-            MonitorName: getData[0]["MonitorName"].value,
-            MonitorPointInfoId: getData[0]["MonitorPointInfoId"].value,
-            PointPicture: getData[0]["PointPicture"].value,
-        };
-        $.ajax({
-            url: "/Home/SaveDevice",
-            type: "POST",
-            data: objectData,
-            success: function (Backdata) {
-                if (Backdata == "True") {
-                    swal({
-                        title: "保存成功！",
-                        type: "success",
-                        timer: 1500
-                    });
-                    //关闭窗口
-                    $("#CloseDeviceInfo").click();
-                    //刷新
-                    $("#showDevice").click();
-                    $("#showDevice").click();
+            var objectData = {
+                Id: getData[0]["Id"].value,
+                DeviceName: getData[0]["DeviceName"].value,
+                ShuCaiNum: getData[0]["ShuCaiNum"].value,
+                SensorNum: getData[0]["SensorNum"].value,
+                PhoneNum: getData[0]["PhoneNum"].value,
+                YaoshiNum: getData[0]["YaoshiNum"].value,
+                DeviceLon: getData[0]["DeviceLon"].value,
+                DeviceLat: getData[0]["DeviceLat"].value,
+                Beizhu: getData[0]["Beizhu"].value,
+                MonitorType: getData[0]["MonitorType"].value,
+                MonitorName: getData[0]["MonitorName"].value,
+                MonitorPointInfoId: getData[0]["MonitorPointInfoId"].value,
+                PointPicture: getData[0]["PointPicture"].value,
+            };
+            $.ajax({
+                url: "/Home/SaveDevice",
+                type: "POST",
+                data: objectData,
+                success: function (Backdata) {
+                    if (Backdata == "True") {
+                        swal({
+                            title: "保存成功！",
+                            type: "success",
+                            timer: 1500
+                        });
+                        //关闭窗口
+                        $("#CloseDeviceInfo").click();
+                        //刷新
+                        $("#showDevice").click();
+                        $("#showDevice").click();
+                    }
+                    else {
+                        swal({
+                            title: "保存失败！",
+                            type: "error",
+                            timer: 1500
+                        });
+                    }
                 }
-                else {
-                    swal({
-                        title: "保存失败！",
-                        type: "error",
-                        timer: 1500
-                    });
-                }
-            }
+            });
         });
     } else {
         swal({
@@ -558,8 +563,7 @@ function SavaDevideInfo() {
     }
 }
 function changelayer() {
-    if(layer==false)
-    {
+    if (layer == false) {
         //将图层增加到地图上
         map.addLayer(lay);
         map.addLayer(textlay);
@@ -573,3 +577,55 @@ function changelayer() {
     }
 }
 
+function check(Func) {
+    swal({
+        title: "您确定要删除这条数据吗",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "确定删除！",
+        cancelButtonText: "取消",
+        closeOnConfirm: false,
+        closeOnCancel: false
+    },
+        function (isConfirm) {
+            if (isConfirm) {
+                Func();
+            }
+            else {
+                swal({
+                    title: "已取消",
+                    type: "error",
+                    timer: 1500
+                })
+            }
+        }
+    )
+}
+
+
+function save(Func) {
+    swal({
+        title: "您确定要保存吗",
+        type: "info",
+        showCancelButton: true,
+        confirmButtonColor: "#6CE26C",
+        confirmButtonText: "确定保存！",
+        cancelButtonText: "取消",
+        closeOnConfirm: false,
+        closeOnCancel: false
+    },
+             function (isConfirm) {
+                 if (isConfirm) {
+                     Func();
+                 }
+                 else {
+                     swal({
+                         title: "已取消",
+                         type: "error",
+                         timer: 1500
+                     })
+                 }
+             }
+         )
+}

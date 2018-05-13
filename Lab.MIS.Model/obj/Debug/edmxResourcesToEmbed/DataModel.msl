@@ -23,6 +23,7 @@
     <EntitySetMapping Name="DeviceInfo">
       <EntityTypeMapping TypeName="IsTypeOf(DataModel.DeviceInfo)">
         <MappingFragment StoreEntitySet="DeviceInfo">
+          <ScalarProperty Name="Beizhu" ColumnName="Beizhu" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="DeviceName" ColumnName="DeviceName" />
           <ScalarProperty Name="ShuCaiNum" ColumnName="ShuCaiNum" />

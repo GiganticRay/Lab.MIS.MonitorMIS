@@ -120,15 +120,34 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="Global.asax" />
     <Content Include="Resource\Img\Clear.png" />
+    <Content Include="Resource\Img\coast\0.bmp" />
+    <Content Include="Resource\Img\coast\1.bmp" />
+    <Content Include="Resource\Img\coast\2.bmp" />
+    <Content Include="Resource\Img\coast\3.bmp" />
+    <Content Include="Resource\Img\coast\4.bmp" />
+    <Content Include="Resource\Img\coast\5.bmp" />
     <Content Include="Resource\Img\Logo.png" />
+    <Content Include="Resource\Img\mud\0.bmp" />
+    <Content Include="Resource\Img\mud\1.bmp" />
+    <Content Include="Resource\Img\mud\2.bmp" />
+    <Content Include="Resource\Img\mud\3.bmp" />
+    <Content Include="Resource\Img\mud\4.bmp" />
+    <Content Include="Resource\Img\mud\5.bmp" />
     <Content Include="Resource\Img\Search.png" />
     <Content Include="Resource\Img\TiandituIcon.png" />
+    <Content Include="Resource\Scripts\bootstrap-3.3.7-dist\css\bootstrap-theme.css" />
+    <Content Include="Resource\Scripts\bootstrap-3.3.7-dist\css\bootstrap-theme.min.css" />
+    <Content Include="Resource\Scripts\bootstrap-3.3.7-dist\css\bootstrap.css" />
+    <Content Include="Resource\Scripts\bootstrap-3.3.7-dist\css\bootstrap.min.css" />
+    <Content Include="Resource\Scripts\bootstrap-3.3.7-dist\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Resource\Scripts\bootstrap-3.3.7-dist\js\bootstrap.js" />
+    <Content Include="Resource\Scripts\bootstrap-3.3.7-dist\js\bootstrap.min.js" />
+    <Content Include="Resource\Scripts\bootstrap-3.3.7-dist\js\npm.js" />
     <Content Include="Resource\Scripts\bootstrap.min.css" />
     <Content Include="Resource\Scripts\bootstrap.min.js" />
     <Content Include="Resource\Scripts\jquery-3.2.1.js" />
     <Content Include="Resource\Scripts\jquery-3.2.1.min.js" />
     <Content Include="Resource\Scripts\jquery-ui.min.js" />
-    <Content Include="Resource\Scripts\layer.js" />
     <Content Include="Resource\Scripts\MyCss.css" />
     <Content Include="Resource\Scripts\MyJs.js" />
     <Content Include="Resource\Scripts\sweetalert\sweetalert-dev.min.js" />
@@ -162,6 +181,16 @@
       <Project>{8CDB6F7C-4E56-40F4-9302-FE7E78613C4B}</Project>
       <Name>Lab.MIS.Model</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resource\Scripts\bootstrap-3.3.7-dist\css\bootstrap-theme.css.map" />
+    <Content Include="Resource\Scripts\bootstrap-3.3.7-dist\css\bootstrap-theme.min.css.map" />
+    <Content Include="Resource\Scripts\bootstrap-3.3.7-dist\css\bootstrap.css.map" />
+    <Content Include="Resource\Scripts\bootstrap-3.3.7-dist\css\bootstrap.min.css.map" />
+    <Content Include="Resource\Scripts\bootstrap-3.3.7-dist\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Resource\Scripts\bootstrap-3.3.7-dist\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Resource\Scripts\bootstrap-3.3.7-dist\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Resource\Scripts\bootstrap-3.3.7-dist\fonts\glyphicons-halflings-regular.woff2" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

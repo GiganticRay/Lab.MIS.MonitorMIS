@@ -132,8 +132,36 @@ namespace Lab.MIS.MonitorMIS.Controllers
             List<MonitorPointInfo> monitorPointInfos = monitorPointInfoService.Get(a => a.Id > 0).ToList();
             var res = new JsonResult();
             res.Data = JsonConvert.SerializeObject(monitorPointInfos, setting);
-
             return res;
+        }
+        /// <summary>
+        /// 获取所有检测设备的信息
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult GetAllDevicePoints() {
+
+            List< DeviceInfo > getaAllDeviceInfo = deviceInfoService.Get(a => a.Id > 0).ToList();
+
+            var res = new JsonResult();
+            res.Data = JsonConvert.SerializeObject(getaAllDeviceInfo, setting);
+            return res;
+        }
+        /// <summary>
+        /// 根据id删除检测设备
+        /// </summary>
+        /// <param name="id">id</param>
+        /// <returns></returns>
+        public ActionResult DeleteDevice(int id=0) {
+
+            //DeviceInfo deviceinfo = deviceInfoService.Get(a => a.Id > 0).First();
+
+
+            return Content(deviceInfoService.Delete(a => a.Id ==id).ToString());
+        }
+
+        public ActionResult SaveDevice(DeviceInfo deviceinfo) {
+            bool getResult =  deviceInfoService.Update(deviceinfo);
+            return Content(getResult.ToString());
         }
     }
 }

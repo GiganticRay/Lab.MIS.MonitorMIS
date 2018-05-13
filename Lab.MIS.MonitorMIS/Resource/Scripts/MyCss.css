@@ -137,3 +137,15 @@ input, b, p {
     border-radius: 100px;
     margin: 0 auto;
 }
+
+
+table
+{
+    text-align:left;    
+    font-size: 19px;
+    font-family: "Slim-Joe";
+}
+
+#H1{
+    text-align:center;
+}

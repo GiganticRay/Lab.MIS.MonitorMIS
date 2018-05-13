@@ -94,7 +94,7 @@ input, b, p {
     width: 337px;
     height: 100%;
     top: 61px;
-    left: 0px;
+    left: -337px;
     background: #fff;
     border-right: 1px solid #aaa;
     -webkit-transition: left .5s ease;
@@ -137,6 +137,7 @@ input, b, p {
     border-radius: 100px;
     margin: 0 auto;
 }
+<<<<<<< HEAD
 
 
 table
@@ -148,4 +149,13 @@ table
 
 #H1{
     text-align:center;
+=======
+#Layer{
+    position:absolute;
+    width:100px;
+    height:40px;
+    left:94%;
+    top:80%;
+    z-index:1000;
+>>>>>>> c7da0abf07e472c4f979f33b31ef7471a56a3bbb
 }

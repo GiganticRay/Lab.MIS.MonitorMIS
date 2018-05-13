@@ -1,6 +1,14 @@
 ﻿<%@ Page Language="C#" Inherits="System.Web.Mvc.ViewPage<dynamic>" %>
 
 <!DOCTYPE html>
+<script runat="server">
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+
+    }
+</script>
+
 
 <html>
 <head runat="server">
@@ -14,13 +22,13 @@
     <link href="../../Resource/Scripts/sweetalert/sweetalert.css" rel="stylesheet" />
     <link href="../../Resource/Scripts/MyCss.css" rel="stylesheet" />
 
-
     <%--js--%>
     <script src="../../Resource/Scripts/jquery-3.2.1.js"></script>
     <script src="../../Resource/Scripts/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
     <script src="../../Resource/Scripts/jquery-ui.min.js"></script>
     <script src="../../Resource/Scripts/sweetalert/sweetalert-dev.min.js"></script>
     <script src="../../Resource/Scripts/MyJs.js"></script>
+
 
 </head>
 
@@ -67,7 +75,11 @@
         <div id="side_bar">
             <span id="side_barController"></span>
         </div>
-
+        <div id="Layer">
+            <button type="button" id="layer">
+                切换图层
+            </button>
+        </div>
     </div>
 
     <div class="modal fade login" id="loginModal">

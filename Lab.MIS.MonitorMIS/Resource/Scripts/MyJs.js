@@ -2,7 +2,7 @@
 
 var map;
 var zoom = 12;
-var open = false;
+var open = true;
 var handler, handler1;
 var polygonTool;
 var lineTool, markerTool;
@@ -12,14 +12,32 @@ var markers = null;
 var arrayObj = null;
 //判断用户是否登录
 var isLog = false;
+
 //表示是否显示设备信息
 var isShowDevice = false;
 
 
+
+//判断目前所属图层
+var layer = false;
+
+//用于判断工具是否添加
+
 var bool1 = false, bool2 = false, bool3 = false, bool4 = false, bool5 = false;
+//图层url
+var imageURL = "http://t0.tianditu.cn/img_w/wmts?" +
+                "SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=img&STYLE=default&TILEMATRIXSET=w&FORMAT=tiles" +
+                "&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}";
+//创建自定义图层对象
+var lay = new T.TileLayer(imageURL, { minZoom: 1, maxZoom: 18 });
+
 
 
 ///初始化函数
+
+var textURL = "http://t3.tianditu.com/DataServer?T=cva_w&x={x}&y={y}&l={z}";
+var textlay = new T.TileLayer(textURL, { minZoom: 1, maxZoom: 18 });
+
 $(document).ready(function () {
 
     //为模态对话框添加拖拽
@@ -107,6 +125,7 @@ $(document).ready(function () {
     localsearch.search("奉节县");
 
 
+
     $("#showDevice").click(function () {
         if (!isShowDevice) {
             $("#showDevice").html("隐藏设备");
@@ -147,6 +166,11 @@ $(document).ready(function () {
     $("#SaveDeviceInfo").click(function () {
         SavaDevideInfo();
     });
+
+    $("#layer").click(function () {
+        changelayer();
+    })
+
 });
 
 //获取缩放级别
@@ -319,6 +343,7 @@ function logoff(Func) {
 }
 
 
+
 //注册信息点触碰、移开、点击事件 
 // content 标记的文字信息  
 //marker 标记对象 
@@ -478,47 +503,73 @@ function ShowDevice() {
 
 //保存设备信息
 function SavaDevideInfo() {
-    //获取表单数据
-    var getData = $("#DeviceInfoForm");
+    //判断是否登录
+    if (isLog == true) {
+        //获取表单数据
+        var getData = $("#DeviceInfoForm");
 
-    var objectData = {
-        Id: getData[0]["Id"].value,
-        DeviceName: getData[0]["DeviceName"].value,
-        ShuCaiNum: getData[0]["ShuCaiNum"].value,
-        SensorNum: getData[0]["SensorNum"].value,
-        PhoneNum: getData[0]["PhoneNum"].value,
-        YaoshiNum: getData[0]["YaoshiNum"].value,
-        DeviceLon: getData[0]["DeviceLon"].value,
-        DeviceLat: getData[0]["DeviceLat"].value,
-        MonitorType: getData[0]["MonitorType"].value,
-        MonitorName: getData[0]["MonitorName"].value,
-        MonitorPointInfoId: getData[0]["MonitorPointInfoId"].value,
-        PointPicture: getData[0]["PointPicture"].value,
-    };
-    $.ajax({
-        url: "/Home/SaveDevice",
-        type: "POST",
-        data: objectData,
-        success: function (Backdata) {
-            if (Backdata == "True") {
-                swal({
-                    title: "保存成功！",
-                    type: "success",
-                    timer: 1500
-                });
-                //关闭窗口
-                $("#CloseDeviceInfo").click();
-                //刷新
-                $("#showDevice").click();
-                $("#showDevice").click();
+        var objectData = {
+            Id: getData[0]["Id"].value,
+            DeviceName: getData[0]["DeviceName"].value,
+            ShuCaiNum: getData[0]["ShuCaiNum"].value,
+            SensorNum: getData[0]["SensorNum"].value,
+            PhoneNum: getData[0]["PhoneNum"].value,
+            YaoshiNum: getData[0]["YaoshiNum"].value,
+            DeviceLon: getData[0]["DeviceLon"].value,
+            DeviceLat: getData[0]["DeviceLat"].value,
+            MonitorType: getData[0]["MonitorType"].value,
+            MonitorName: getData[0]["MonitorName"].value,
+            MonitorPointInfoId: getData[0]["MonitorPointInfoId"].value,
+            PointPicture: getData[0]["PointPicture"].value,
+        };
+        $.ajax({
+            url: "/Home/SaveDevice",
+            type: "POST",
+            data: objectData,
+            success: function (Backdata) {
+                if (Backdata == "True") {
+                    swal({
+                        title: "保存成功！",
+                        type: "success",
+                        timer: 1500
+                    });
+                    //关闭窗口
+                    $("#CloseDeviceInfo").click();
+                    //刷新
+                    $("#showDevice").click();
+                    $("#showDevice").click();
+                }
+                else {
+                    swal({
+                        title: "保存失败！",
+                        type: "error",
+                        timer: 1500
+                    });
+                }
             }
-            else {
-                swal({
-                    title: "保存失败！",
-                    type: "error",
-                    timer: 1500
-                });
-            }
-        }
-    });
+        });
+    } else {
+        swal({
+            title: "请先登录！",
+            type: "error",
+            timer: 1500
+        });
+        openLoginModal();
+    }
 }
+function changelayer() {
+    if(layer==false)
+    {
+        //将图层增加到地图上
+        map.addLayer(lay);
+        map.addLayer(textlay);
+        layer = true;
+    }
+    else {
+        map.removeLayer(lay);
+        map.removeLayer(textlay);
+
+        layer = false;
+    }
+}
+

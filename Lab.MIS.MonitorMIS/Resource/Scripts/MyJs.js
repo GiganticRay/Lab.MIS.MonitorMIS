@@ -276,8 +276,9 @@ function changelayer() {
         layer = true;
     }
     else {
-        
         map.removeLayer(lay);
+        map.removeLayer(textlay);
+
         layer = false;
     }
 }

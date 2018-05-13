@@ -2,18 +2,27 @@
 
 var map;
 var zoom = 12;
-var open = false;
+var open = true;
 var handler, handler1;
 var polygonTool;
 var lineTool, markerTool;
 
 //判断用户是否登录
 var isLog = false;
+//判断目前所属图层
+var layer = false;
 
-
-
+//用于判断工具是否添加
 var bool1 = false, bool2 = false, bool3 = false, bool4 = false, bool5 = false;
+//图层url
+var imageURL = "http://t0.tianditu.cn/img_w/wmts?" +
+                "SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=img&STYLE=default&TILEMATRIXSET=w&FORMAT=tiles" +
+                "&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}";
+//创建自定义图层对象
+var lay = new T.TileLayer(imageURL, { minZoom: 1, maxZoom: 18 });
 
+var textURL = "http://t3.tianditu.com/DataServer?T=cva_w&x={x}&y={y}&l={z}";
+var textlay = new T.TileLayer(textURL, { minZoom: 1, maxZoom: 18 });
 $(document).ready(function () {
 
     //为模态对话框添加拖拽
@@ -99,6 +108,9 @@ $(document).ready(function () {
     //创建搜索对象
     localsearch = new T.LocalSearch(map, config2);
     localsearch.search("奉节县");
+    $("#layer").click(function () {
+        changelayer();
+    })
 });
 //移动控件的位置
 function MoveControl() {
@@ -254,4 +266,18 @@ function logoff(Func) {
                  }
              }
          )
+}
+function changelayer() {
+    if(layer==false)
+    {
+        //将图层增加到地图上
+        map.addLayer(lay);
+        map.addLayer(textlay);
+        layer = true;
+    }
+    else {
+        
+        map.removeLayer(lay);
+        layer = false;
+    }
 }

@@ -94,7 +94,7 @@ input, b, p {
     width: 337px;
     height: 100%;
     top: 61px;
-    left: 0px;
+    left: -337px;
     background: #fff;
     border-right: 1px solid #aaa;
     -webkit-transition: left .5s ease;
@@ -136,4 +136,12 @@ input, b, p {
 .img-responsive {
     border-radius: 100px;
     margin: 0 auto;
+}
+#Layer{
+    position:absolute;
+    width:100px;
+    height:40px;
+    left:94%;
+    top:80%;
+    z-index:1000;
 }

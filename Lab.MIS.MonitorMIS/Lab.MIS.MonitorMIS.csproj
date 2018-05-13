@@ -128,7 +128,6 @@
     <Content Include="Resource\Scripts\jquery-3.2.1.js" />
     <Content Include="Resource\Scripts\jquery-3.2.1.min.js" />
     <Content Include="Resource\Scripts\jquery-ui.min.js" />
-    <Content Include="Resource\Scripts\layer.js" />
     <Content Include="Resource\Scripts\MyCss.css" />
     <Content Include="Resource\Scripts\MyJs.js" />
     <Content Include="Resource\Scripts\sweetalert\sweetalert-dev.min.js" />

@@ -91,7 +91,7 @@ input, b, p {
     z-index: 1000;
     background: aqua;
     position: absolute;
-    width: 337px;
+    width: 530px;
     height: 100%;
     top: 61px;
     left: 0px;
@@ -102,6 +102,14 @@ input, b, p {
     z-index: 6;
     box-shadow: 1px 0 5px rgba(0,0,0,.5);
     border-collapse: separate;
+}
+
+#handlerDiv {
+    width: 2px;
+    height: 100%;
+    float: right;
+    cursor: col-resize;
+    background-color: black;
 }
 
 #side_barController {
@@ -136,4 +144,30 @@ input, b, p {
 .img-responsive {
     border-radius: 100px;
     margin: 0 auto;
+}
+
+#SearchMainTable {
+    /*position: absolute;*/
+    left: 0px;
+    top: 0px;
+    border: 1px;
+    width: 95%;
+}
+
+tr {
+    height: 40px;
+}
+#SearchDiseaseInfoDiv {
+    width: 90%;
+    height: 500px;
+    margin: 0px;
+}
+#SearchDiseaseInfoTable {
+    position: absolute;
+    width: 95%;
+}
+#LoadingGif {
+    width: 320px;
+    height: 240px;
+    position: absolute;
 }

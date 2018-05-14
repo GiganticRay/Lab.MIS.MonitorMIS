@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" Inherits="System.Web.Mvc.ViewPage<dynamic>" %>
+<%@ Import Namespace="System.Data" %>
 
 <!DOCTYPE html>
 <script runat="server">
@@ -17,7 +18,11 @@
     <title>天地图－地图API－范例－经纬度直投地图</title>
     <script type="text/javascript" src="http://api.tianditu.com/api?v=4.0"></script>
     <%--css--%>
-    <link href="../../Resource/Scripts/bootstrap-3.3.7-dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="../../Resource/Scripts/bootstrap.css" rel="stylesheet" />
+    <link href="../../Resource/Scripts/MyCss.css" rel="stylesheet" />
+    <link href="../../Resource/Scripts/LogIn/login-register.css" rel="stylesheet" />
+    <link href="../../Resource/Scripts/sweetalert/sweetalert.css" rel="stylesheet" />
+    <link href="../../Resource/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.css" rel="stylesheet" />
     <link href="../../Resource/Scripts/LogIn/login-register.css" rel="stylesheet" />
     <link href="../../Resource/Scripts/sweetalert/sweetalert.css" rel="stylesheet" />
     <link href="../../Resource/Scripts/MyCss.css" rel="stylesheet" />
@@ -27,6 +32,7 @@
     <script src="../../Resource/Scripts/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
     <script src="../../Resource/Scripts/jquery-ui.min.js"></script>
     <script src="../../Resource/Scripts/sweetalert/sweetalert-dev.min.js"></script>
+    <script src="../../Resource/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.js"></script>    
     <script src="../../Resource/Scripts/MyJs.js"></script>
 
 
@@ -73,7 +79,73 @@
 
         <div id="mapDiv"></div>
         <div id="side_bar">
+            <div id="handlerDiv"></div>
             <span id="side_barController"></span>
+            <table id="SearchMainTable" class="table table-striped">
+                <caption>查询</caption>
+                <tbody>
+                <tr>
+                    <td colspan="2"><h4>预警起始时间：</h4></td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="date" class="form-control" id="beforeTimeDate" value="2017-12-01"/>
+                    </td>
+                    <td>
+                        <input type="time" class="form-control" step="3" id="beforeTimeHMS" value="01:01:01"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2"><h4>预警结束时间：</h4></td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="date" class="form-control" id="endTimeDate" value="2017-12-04"/>
+                    </td>
+                    <td>
+                        <input type="time" class="form-control" step="3" id="endTimeHMS" value="01:01:01"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2"><h4>请选择监测阵列：</h4></td>
+                </tr>
+                <tr>
+                    <td>
+                        <select class="btn btn-lg btn-default" id="searchSelect">
+                            <option>全选</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><button class="btn btn-lg btn-default" id="selectConfirmBtn">确定</button></td>
+                    <td><button class="btn btn-lg btn-default" id="selectResetBtn">重置</button></td>
+                </tr>
+                
+                </tbody>
+            </table>
+            <div id="SearchDiseaseInfoDiv">
+                <img src="../../Resource/Img/searching.gif" id="LoadingGif"/>
+                <table class="table table-bordered" id="SearchDiseaseInfoTable">
+                    <caption>监测预警查询结果</caption>
+                    <thead>
+                        <tr>
+                            <th>监测阵列</th>                      
+                            <th>阵经度</th>
+                            <th>阵纬度</th>
+                            <th>经度</th>
+                            <th>纬度</th>
+                            <th>预警方位</th>
+                            <th>监测类型</th>
+                            <th>预警等级</th>
+                            <th>预警时间</th>
+                            <th>预留</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
         </div>
         <div id="Layer">
             <button type="button" id="layer">

@@ -14,6 +14,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BLL", "BLL", "{C95636F6-3076-47E6-B5B3-E53CD0701437}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTest", "UnitTest", "{24812227-6AAE-4704-B55D-CF3A97B32F78}"
+	ProjectSection(SolutionItems) = preProject
+		C:\Users\Ray\Desktop\searching.gif = C:\Users\Ray\Desktop\searching.gif
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab.MIS.Model", "Lab.MIS.Model\Lab.MIS.Model.csproj", "{8CDB6F7C-4E56-40F4-9302-FE7E78613C4B}"
 EndProject

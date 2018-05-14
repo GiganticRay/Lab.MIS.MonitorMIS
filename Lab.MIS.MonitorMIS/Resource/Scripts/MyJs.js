@@ -6,23 +6,21 @@ var open = true;
 var handler, handler1;
 var polygonTool;
 var lineTool, markerTool;
+var OptionsDict = "[";
+
+//判断用户是否登录
+var isLog = false;
 //聚合标记
 var markers = null;
 //标记数组
 var arrayObj = null;
 //判断用户是否登录
 var isLog = false;
-
 //表示是否显示设备信息
 var isShowDevice = false;
-
-
-
 //判断目前所属图层
 var layer = false;
-
 //用于判断工具是否添加
-
 var bool1 = false, bool2 = false, bool3 = false, bool4 = false, bool5 = false;
 //图层url
 var imageURL = "http://t0.tianditu.cn/img_w/wmts?" +
@@ -39,6 +37,44 @@ var textURL = "http://t3.tianditu.com/DataServer?T=cva_w&x={x}&y={y}&l={z}";
 var textlay = new T.TileLayer(textURL, { minZoom: 1, maxZoom: 18 });
 
 $(document).ready(function () {
+    //隐藏loading
+    $("#LoadingGif").css("display", "none");
+    //绑定搜索栏事件
+    BindSelectConfirmBtn();
+    BindSelectResetBtn();
+    BindSelectOptions();
+    BindSelectChange();
+
+    //日期选择器的配置
+    $(".form_datetime").datetimepicker({
+        format: "yyyy-mm-dd hh:ii:ss",
+        autoclose: true,
+        todayBtn: true,
+        startDate: "2013-02-14 10:00",
+        minuteStep: 10
+    });
+    //为leftDiv添加拖动
+    var doc = $(document), dl = $("#side_bar");
+    var sum = dl.width() +
+        $("#handlerDiv").mousedown(function (e) {
+            var me = $(this);
+            var deltaX = e.clientX - (parseFloat(me.css("left")) || parseFloat(me.prop("clientLeft")));
+            lt = e.clientX;
+            doc.mousemove(function (e) {
+                lt = e.clientX;
+                lt = lt < 530 ? 531 : lt;
+                me.css("left", lt + "px");
+                dl.width(lt);
+            });
+        }).width();
+    doc.mouseup(function () {
+        doc.unbind("mousemove");
+    });
+    doc[0].ondragstart
+        = doc[0].onselectstart
+        = function () {
+            return false;
+        };
 
     //为模态对话框添加拖拽
     $(".modal").draggable();
@@ -62,31 +98,31 @@ $(document).ready(function () {
     lineTool = new T.PolylineTool(map, config);
     polygonTool = new T.PolygonTool(map, config);
     markerTool = new T.MarkTool(map, { follow: true });
-    $("#MeasureLength").click(function () {
+    $("#MeasureLength").click(function() {
         lineTool.open();
         bool1 = true;
-    })
-    $("#MeasureArea").click(function () {
+    });
+    $("#MeasureArea").click(function() {
         polygonTool.open();
         bool2 = true;
-    })
-    $("#MeasurearkPoint").click(function () {
+    });
+    $("#MeasurearkPoint").click(function() {
         editMarker();
         markerTool.open();
         bool3 = true;
-    })
-    $("#MarkLine").click(function () {
+    });
+    $("#MarkLine").click(function() {
         if (handler) handler.close();
         handler = new T.PolylineTool(map);
         handler.open();
         bool4 = true;
-    })
-    $("#MarkArea").click(function () {
+    });
+    $("#MarkArea").click(function() {
         if (handler1) handler1.close();
         handler1 = new T.PolygonTool(map);
         handler1.open();
         bool5 = true;
-    })
+    });
     $("#clearOverLays").click(function () {
         if (bool1) {
             lineTool.clear();
@@ -194,7 +230,7 @@ function MoveControl() {
 //左窗口的移动
 function MoveLeftWindow() {
     if (open == false) {
-        $("#side_bar").animate({ left: '-337px' }, 100);
+        $("#side_bar").animate({ left: '-' + $("#side_bar").width() + 'px' }, 100);
         open = true;
     }
     else {
@@ -343,6 +379,111 @@ function logoff(Func) {
 }
 
 
+//绑定搜索栏的下拉select options
+function BindSelectOptions() {
+    $.ajax({
+        url: "http://localhost:56818/Home/GetMonitorInfos",
+        type: "Post",
+        dataType: "Json",
+        success: function(result) {
+            var postRes = $.parseJSON(result);
+            $("#searchSelect").empty();
+            $("#searchSelect").append("<option value='" + 0 + "'>" + '全选' + "</option>");
+            $(postRes).each(function(i, item) {
+                $("#searchSelect").append("<option value='" + item.MonitorId + "'>" + item.Name + "</option>");
+                OptionsDict += "{ \"value\":\"" + item.MonitorId + "\" , \"Key\":\"" + item.Name + "\" },";
+            });
+            OptionsDict = OptionsDict.slice(0, OptionsDict.length - 1) + "]";
+            //获取的Json对象  监测块ID和监测块
+            OptionsDict = $.parseJSON(OptionsDict);
+        }
+    });
+}
+
+//绑定搜索栏下拉select 改变事件
+function BindSelectChange() {
+    $("#searchSelect").change(function() {
+    });
+}
+
+//绑定搜索栏确定按钮
+function BindSelectConfirmBtn() {
+    $("#selectConfirmBtn").click(function () {
+        $("#SearchDiseaseInfoTable").empty();
+        $("#SearchDiseaseInfoTable")
+                .append(
+                    "<caption>监测预警查询结果</caption><thead><tr><th>监测阵列</th><th>阵经度</th><th>阵纬度</th><th>经度</th><th>纬度</th><th>预警方位</th><th>监测类型</th><th>预警等级</th><th>预警时间</th><th>预留</th></tr></thead><tbody></tbody>");
+
+        var arrayId = $("#SearchMainTable option:selected").val();
+        if (arrayId != 0) {
+            loadDataToTable(arrayId);
+        } else {
+            var array = $("#searchSelect option:not(:selected)");
+            for (var i = 0; i < array.length; i++) {
+                loadDataToTable(array[i].value);
+            }
+        }
+    });
+}
+//绑定搜索栏重置按钮
+function BindSelectResetBtn() {
+    $("#selectResetBtn").click(function() {
+        $("#SearchDiseaseInfoTable").empty();
+    }); 
+}
+//获取对应arrayId的数据加载到table里面
+function loadDataToTable(arrayId) {
+    var urlString = "http://localhost:56818/Home/GetDiseaseInfo";
+    //Load loading gif
+    $("#LoadingGif").css("display", "inline");
+    $.ajax({
+        url: urlString,
+        type: "Get",
+        dataType: "Json",
+        data: {
+            arrayId: arrayId,
+            beforeTime: convertFormat($("#beforeTimeDate").val()) + " " + $("#beforeTimeHMS").val(),
+            endTime: convertFormat($("#endTimeDate").val()) + " " + $("#endTimeHMS").val()
+        },
+        success: function (result) {          
+            //成功隐藏loading gif
+            $("#LoadingGif").css("display", "none");
+            var tmpjsonOb = eval("(" + result + ")");
+            var appendStr = "";
+            
+            $.each(tmpjsonOb, function (i, tmpItem) {
+                var item = tmpjsonOb[i];
+
+                appendStr += "<tr><td>";
+                for (j in tmpjsonOb[i]) {
+                    if (j == "ArrayID") {
+                        //ArrayID  要换成对应的中文， 用到一个全局的                      
+                        for (tmpj in OptionsDict) {
+                            if (OptionsDict[tmpj].value == tmpjsonOb[i][j]) {
+                                appendStr += OptionsDict[tmpj].Key + "</td><td>";
+                            }
+                        }
+                    } else {
+                        appendStr += tmpjsonOb[i][j] + "</td><td>";
+                    }
+                }
+                appendStr += "</td></tr>";
+            });
+            $("#SearchDiseaseInfoTable").append(appendStr);
+        },
+        error:function(xhr, status, error) {
+            alert(status + "," + error);
+        }
+    });
+
+}
+
+//将YY-MM-DD 转换为 YY/MM/DD
+function convertFormat(str) {
+
+    var reg = new RegExp("-", "g");//g,表示全部替换。
+    return str.replace(reg, "/");
+}
 
 //注册信息点触碰、移开、点击事件 
 // content 标记的文字信息  

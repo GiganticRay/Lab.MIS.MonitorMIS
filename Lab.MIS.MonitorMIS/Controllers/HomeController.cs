@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -146,6 +147,15 @@ namespace Lab.MIS.MonitorMIS.Controllers
             res.Data = JsonConvert.SerializeObject(getaAllDeviceInfo, setting);
             return res;
         }
+
+
+        public ActionResult GetDiseaseInfo(string arrayId, string beforeTime, string endTime)
+        {
+            string GetUrl = "http://47.92.125.37/mudrock/user/getResult" + "?arrayId=" + arrayId + "&beforeTime=" + beforeTime + "&endTime=" + endTime;
+            string Jsonstr = JsonToTableClass.GetJson(GetUrl);
+            return Content(Jsonstr);
+        }
+
         /// <summary>
         /// 根据id删除检测设备
         /// </summary>

@@ -38,3 +38,13 @@ F:\课程集合\工程实践2\clone\Lab.MIS.IDAL\bin\Debug\zh-Hans\EntityFramewo
 F:\课程集合\工程实践2\clone\Lab.MIS.IDAL\obj\Debug\Lab.MIS.IDAL.csprojResolveAssemblyReference.cache
 F:\课程集合\工程实践2\clone\Lab.MIS.IDAL\obj\Debug\Lab.MIS.IDAL.dll
 F:\课程集合\工程实践2\clone\Lab.MIS.IDAL\obj\Debug\Lab.MIS.IDAL.pdb
+G:\GitHub\Lab.MIS.IDAL\bin\Debug\Lab.MIS.IDAL.dll
+G:\GitHub\Lab.MIS.IDAL\bin\Debug\Lab.MIS.IDAL.pdb
+G:\GitHub\Lab.MIS.IDAL\bin\Debug\Lab.MIS.Model.dll
+G:\GitHub\Lab.MIS.IDAL\bin\Debug\EntityFramework.dll
+G:\GitHub\Lab.MIS.IDAL\bin\Debug\Lab.MIS.Model.pdb
+G:\GitHub\Lab.MIS.IDAL\bin\Debug\EntityFramework.xml
+G:\GitHub\Lab.MIS.IDAL\bin\Debug\zh-Hans\EntityFramework.resources.dll
+G:\GitHub\Lab.MIS.IDAL\obj\Debug\Lab.MIS.IDAL.csprojResolveAssemblyReference.cache
+G:\GitHub\Lab.MIS.IDAL\obj\Debug\Lab.MIS.IDAL.dll
+G:\GitHub\Lab.MIS.IDAL\obj\Debug\Lab.MIS.IDAL.pdb

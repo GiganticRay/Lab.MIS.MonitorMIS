@@ -120,6 +120,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="Global.asax" />
     <Content Include="Resource\Img\Clear.png" />
+    <Content Include="Resource\Img\layer-skin.jpg" />
     <Content Include="Resource\Img\Logo.png" />
     <Content Include="Resource\Img\Search.png" />
     <Content Include="Resource\Img\TiandituIcon.png" />

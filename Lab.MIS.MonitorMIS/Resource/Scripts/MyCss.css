@@ -54,7 +54,7 @@ input, b, p {
     float: right;
 }
 
-#mine {
+/*#mine {
     float: right;
     height: 34px;
     width: 34px;
@@ -63,7 +63,7 @@ input, b, p {
     background-repeat: no-repeat;
     background-position-x: -23px;
     background-position-y: -315px;
-}
+}*/
 
 .seperator {
     float: right;
@@ -137,11 +137,231 @@ input, b, p {
     border-radius: 100px;
     margin: 0 auto;
 }
-#Layer{
+
+#layer{
+    width:30px;
+    height:30px;
+    background-color:white;
+    background-image:url("../../Resource/Img/TiandituIcon.png");
+    background-repeat: no-repeat;
+    background-position-x: -521px;
+    background-position-y: -210px;
     position:absolute;
-    width:100px;
-    height:40px;
-    left:94%;
+    right:10px;
     top:80%;
     z-index:1000;
+    box-shadow: 0 1px 3px rgba(0,0,0,.25);
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*动态按钮*/
+a {
+    color: inherit; /*继承*/
+}
+
+.menu {
+    position: absolute;
+    right:20px;
+    width: 350px;
+    height: 60px;
+    box-sizing: border-box;
+    font-size: 20px;
+    text-align: center;
+}
+
+.menu-item, .menu-open-button {
+    background: #3199d6;
+    border-radius: 100%;
+    width: 40px;
+    height: 40px;
+    -moz-box-shadow: 0 1px 3px rgba(0,0,0,.25);
+    -webkit-box-shadow: 0 1px 3px rgba(0,0,0,.25);
+    box-shadow: 0 1px 3px rgba(0,0,0,.25);
+    margin-left: -20px;
+    position: absolute;
+    top:10px;
+    right:0px;
+    color: white;
+    text-align: center;
+    line-height: 50px;
+    -webkit-transform: translate3d(0, 0, 0); /*translate3d(0, 0, 0)定义 3D 转换。分别表示他在三个方向上移动的距离*/
+    transform: translate3d(0, 0, 0);
+    transition: -webkit-transform ease-out 200ms; /*设置过渡动画*/
+    transition: transform ease-out 200ms;
+    transition: transform ease-out 200ms, -webkit-transform ease-out 200ms;
+}
+
+.menu-open {
+    display: none;
+}
+
+.hamburger {
+    width: 20px;
+    height: 3px;
+    background: white;
+    display: block;
+    position: absolute; /*绝对定位*/
+    top: 50%;
+    left: 50%;
+    margin-left: -10px;
+    margin-top: -1.5px;
+    transition: -webkit-transform 200ms;
+    transition: transform 200ms;
+    transition: transform 200ms, -webkit-transform 200ms;
+}
+
+.hamburger-1 {
+    -webkit-transform: translate3d(0, -8px, 0);
+    transform: translate3d(0, -8px, 0);
+}
+
+.hamburger-2 {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+}
+
+.hamburger-3 {
+    -webkit-transform: translate3d(0, 8px, 0);
+    transform: translate3d(0, 8px, 0);
+}
+
+.menu-open:checked + .menu-open-button .hamburger-1 {
+    -webkit-transform: rotate(45deg) translate3d(-2px, -5px, 0);
+    transform: rotate(45deg) translate3d(-2px, -5px, 0);
+    height: 5px;
+}
+
+.menu-open:checked + .menu-open-button .hamburger-2 {
+    -webkit-transform: translate3d(2px, 0, 0) scale(0, 0);
+    transform: translate3d(2.5px, 0, 0) scale(.1, .1);
+}
+
+.menu-open:checked + .menu-open-button .hamburger-3 {
+    -webkit-transform: rotate(-45deg) translate3d(-2px, 5px, 0);
+    transform: rotate(-45deg) translate3d(-2px, 5px, 0);
+    height: 5px;
+}
+
+
+.menu-item:hover {
+    background: white;
+    color: #3199d6;
+}
+
+.menu-item:nth-child(3) {
+    transition-duration: 180ms; /*持续时间*/
+}
+
+.menu-item:nth-child(4) {
+    transition-duration: 180ms;
+}
+
+.menu-item:nth-child(5) {
+    transition-duration: 180ms;
+}
+
+.menu-item:nth-child(6) {
+    transition-duration: 180ms;
+}
+
+.menu-item:nth-child(7) {
+    transition-duration: 180ms;
+}
+
+
+.menu-open-button {
+    z-index: 2;
+    /*transition-timing-function 属性规定过渡效果的速度曲线。在 cubic-bezier 函数中定义自己的值。可能的值是 0 至 1 之间的数值。*/
+    transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition-duration: 400ms; /*持续时间*/
+    -webkit-transform: scale(1.1, 1.1) translate3d(0, 0, 0);
+    transform: scale(1.1, 1.1) translate3d(0, 0, 0);
+    cursor: pointer; /*光标为手*/
+}
+
+    .menu-open-button:hover {
+        -webkit-transform: scale(1.2, 1.2) translate3d(0, 0, 0);
+        transform: scale(1.2, 1.2) translate3d(0, 0, 0);
+    }
+
+/*选中之后变小*/
+.menu-open:checked + .menu-open-button {
+    transition-timing-function: linear;
+    transition-duration: 200ms;
+    -webkit-transform: scale(0.8, 0.8) translate3d(0, 0, 0);
+    transform: scale(0.8, 0.8) translate3d(0, 0, 0);
+}
+
+.menu-open:checked ~ .menu-item {
+    transition-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+    /*选择前面有 .menu-open:checked元素的每个 .menu-item:nth-child(3) 元素*/
+    .menu-open:checked ~ .menu-item:nth-child(3) {
+        transition-duration: 190ms;
+        -webkit-transform: translate3d(-60px, 0, 0);
+        transform: translate3d(-60px, 0, 0);
+    }
+
+    .menu-open:checked ~ .menu-item:nth-child(4) {
+        transition-duration: 290ms;
+        -webkit-transform: translate3d(-120px, 0, 0);
+        transform: translate3d(-120px, 0, 0);
+    }
+
+    .menu-open:checked ~ .menu-item:nth-child(5) {
+        transition-duration: 390ms;
+        -webkit-transform: translate3d(-180px, 0, 0);
+        transform: translate3d(-180px, 0, 0);
+    }
+
+    .menu-open:checked ~ .menu-item:nth-child(6) {
+        transition-duration: 490ms;
+        -webkit-transform: translate3d(-240px, 0, 0);
+        transform: translate3d(-240px, 0, 0);
+    }
+
+    .menu-open:checked ~ .menu-item:nth-child(7) {
+        transition-duration: 490ms;
+        -webkit-transform: translate3d(-300px, 0, 0);
+        transform: translate3d(-300px, 0, 0);
+    }
+
+.menu-item span {
+    width:100%;
+    height:100%;
+    float:left;
+    font-family:"Microsoft YaHei";
+    font-size:15px;
+    line-height:40px;
+    font-weight:bold;
+}
+

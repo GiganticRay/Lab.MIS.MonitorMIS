@@ -50,3 +50,16 @@ F:\课程集合\工程实践2\clone\Lab.MIS.EFDAL\bin\Debug\zh-Hans\EntityFramew
 F:\课程集合\工程实践2\clone\Lab.MIS.EFDAL\obj\Debug\Lab.MIS.EFDAL.csprojResolveAssemblyReference.cache
 F:\课程集合\工程实践2\clone\Lab.MIS.EFDAL\obj\Debug\Lab.MIS.EFDAL.dll
 F:\课程集合\工程实践2\clone\Lab.MIS.EFDAL\obj\Debug\Lab.MIS.EFDAL.pdb
+G:\GitHub\Lab.MIS.EFDAL\bin\Debug\Lab.MIS.EFDAL.dll.config
+G:\GitHub\Lab.MIS.EFDAL\bin\Debug\Lab.MIS.EFDAL.dll
+G:\GitHub\Lab.MIS.EFDAL\bin\Debug\Lab.MIS.EFDAL.pdb
+G:\GitHub\Lab.MIS.EFDAL\bin\Debug\EntityFramework.dll
+G:\GitHub\Lab.MIS.EFDAL\bin\Debug\Lab.MIS.IDAL.dll
+G:\GitHub\Lab.MIS.EFDAL\bin\Debug\Lab.MIS.Model.dll
+G:\GitHub\Lab.MIS.EFDAL\bin\Debug\Lab.MIS.IDAL.pdb
+G:\GitHub\Lab.MIS.EFDAL\bin\Debug\Lab.MIS.Model.pdb
+G:\GitHub\Lab.MIS.EFDAL\bin\Debug\EntityFramework.xml
+G:\GitHub\Lab.MIS.EFDAL\bin\Debug\zh-Hans\EntityFramework.resources.dll
+G:\GitHub\Lab.MIS.EFDAL\obj\Debug\Lab.MIS.EFDAL.csprojResolveAssemblyReference.cache
+G:\GitHub\Lab.MIS.EFDAL\obj\Debug\Lab.MIS.EFDAL.dll
+G:\GitHub\Lab.MIS.EFDAL\obj\Debug\Lab.MIS.EFDAL.pdb

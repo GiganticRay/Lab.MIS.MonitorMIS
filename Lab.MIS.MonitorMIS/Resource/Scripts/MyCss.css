@@ -146,6 +146,7 @@ input, b, p {
     margin: 0 auto;
 }
 
+
 #SearchMainTable {
     /*position: absolute;*/
     left: 0px;
@@ -170,4 +171,24 @@ tr {
     width: 320px;
     height: 240px;
     position: absolute;
+}
+
+
+table
+{
+    text-align:left;    
+    font-size: 19px;
+    font-family: "Slim-Joe";
+}
+
+#H1{
+    text-align:center;
+}
+#Layer{
+    position:absolute;
+    width:100px;
+    height:40px;
+    left:94%;
+    top:80%;
+    z-index:1000;
 }

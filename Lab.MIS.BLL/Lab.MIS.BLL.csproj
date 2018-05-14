@@ -32,6 +32,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -41,6 +42,7 @@
   <ItemGroup>
     <Compile Include="BaseService.cs" />
     <Compile Include="DeviceInfoService.cs" />
+    <Compile Include="JsonToTableClass.cs" />
     <Compile Include="MonitorPointInfoService.cs" />
     <Compile Include="PointPictureService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

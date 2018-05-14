@@ -2,7 +2,7 @@
 
 var map;
 var zoom = 12;
-var open = false;
+var open = true;
 var handler, handler1;
 var polygonTool;
 var lineTool, markerTool;
@@ -10,8 +10,31 @@ var OptionsDict = "[";
 
 //判断用户是否登录
 var isLog = false;
-
+//聚合标记
+var markers = null;
+//标记数组
+var arrayObj = null;
+//判断用户是否登录
+var isLog = false;
+//表示是否显示设备信息
+var isShowDevice = false;
+//判断目前所属图层
+var layer = false;
+//用于判断工具是否添加
 var bool1 = false, bool2 = false, bool3 = false, bool4 = false, bool5 = false;
+//图层url
+var imageURL = "http://t0.tianditu.cn/img_w/wmts?" +
+                "SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=img&STYLE=default&TILEMATRIXSET=w&FORMAT=tiles" +
+                "&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}";
+//创建自定义图层对象
+var lay = new T.TileLayer(imageURL, { minZoom: 1, maxZoom: 18 });
+
+
+
+///初始化函数
+
+var textURL = "http://t3.tianditu.com/DataServer?T=cva_w&x={x}&y={y}&l={z}";
+var textlay = new T.TileLayer(textURL, { minZoom: 1, maxZoom: 18 });
 
 $(document).ready(function () {
     //隐藏loading
@@ -57,7 +80,7 @@ $(document).ready(function () {
     $(".modal").draggable();
 
     map = new T.Map('mapDiv');
-    map.centerAndZoom(new T.LngLat(116.40769, 39.89945), zoom);
+    map.centerAndZoom(new T.LngLat(116.40769, 39.89945), 14);
     //添加缩放按钮
     control = new T.Control.Zoom();
     map.addControl(control);
@@ -65,7 +88,7 @@ $(document).ready(function () {
     var scale = new T.Control.Scale();
     map.addControl(scale);
     MoveControl();
-    $("#side_barController").click(function() {
+    $("#side_barController").click(function () {
         MoveLeftWindow();
     });
     var config = {
@@ -136,14 +159,76 @@ $(document).ready(function () {
     //创建搜索对象
     localsearch = new T.LocalSearch(map, config2);
     localsearch.search("奉节县");
+
+
+
+    $("#showDevice").click(function () {
+        if (!isShowDevice) {
+            $("#showDevice").html("隐藏设备");
+            ShowDevice();
+            isShowDevice = true;
+        } else {
+            //表示当前已经显示设备标记
+            //删除标记
+            var AllOverlays = map.getOverlays();
+            $.each(AllOverlays, function (AllOverlays_Index, item) {
+                if (item.getType() == 2) {
+                    map.removeOverLay(item);
+                }
+            });
+            //如果存在聚合的标记，则删除
+            if (arrayObj != null) {
+                //删除聚合标记
+                if (markers.removeMarkers(arrayObj)) {
+                    arrayObj == null;
+                }
+            }
+            $("#showDevice").html("显示设备");
+            isShowDevice = false;
+        }
+
+    });
+
+
+    //添加地图的缩放改变事件  请勿删除
+    // map.addEventListener("zoomstart", MapGetZoom);
+
+    //删除检测设备信息
+    $("#DeleteDeviceInfo").click(function () {
+        DeleteDeviceInfo();
+    });
+
+    //保存检测设备信息
+    $("#SaveDeviceInfo").click(function () {
+        SavaDevideInfo();
+    });
+
+    $("#layer").click(function () {
+        changelayer();
+    })
+
 });
+
+//获取缩放级别
+function MapGetZoom(e) {
+
+    //alert(map.getZoom());
+    //if (map.getZoom()>=12) {
+    //    //将聚合标记移除
+    //    markers.removeMarkers(arrayObj);
+    //}
+    //alert(markers.getGridSize());
+    //markers.setGridSize(1);
+}
+
+
 //移动控件的位置
 function MoveControl() {
     var controlPosition = T_ANCHOR_BOTTOM_RIGHT;
     control.setPosition(controlPosition);
 }
 //左窗口的移动
-function MoveLeftWindow(){
+function MoveLeftWindow() {
     if (open == false) {
         $("#side_bar").animate({ left: '-' + $("#side_bar").width() + 'px' }, 100);
         open = true;
@@ -176,7 +261,7 @@ function openLoginModal() {
     $('.error').removeClass('alert alert-danger').html('');
     //打开窗口
     $('#loginModal').modal('show');
- 
+
 }
 //一个没啥用的函数
 function localSearchResult(result) {
@@ -285,7 +370,7 @@ function logoff(Func) {
                  else {
                      swal({
                          title: "已取消",
-                         type: "error",
+                         type: "`",
                          timer: 1500
                      })
                  }
@@ -399,3 +484,233 @@ function convertFormat(str) {
     var reg = new RegExp("-", "g");//g,表示全部替换。
     return str.replace(reg, "/");
 }
+
+//注册信息点触碰、移开、点击事件 
+// content 标记的文字信息  
+//marker 标记对象 
+//dataId 标记对象对应的id
+function addClickHandler(content, marker, data) {
+    //鼠标触碰事件
+    marker.addEventListener("mouseover", function (e) {
+        //获取坐标
+        var point = e.lnglat;
+        //创建一个信息窗实例
+        var markerInfoWin = new T.InfoWindow(content, { offset: new T.Point(0, -30) }); // 创建信息窗口对象
+        map.openInfoWindow(markerInfoWin, point); //开启信息窗口
+    }
+    );
+    //鼠标移开事件
+    marker.addEventListener("mouseout", function (e) {
+        //关闭信息窗
+        map.closeInfoWindow();
+    }
+    );
+    //鼠标单击事件
+    marker.addEventListener("click", function (e) {
+        clickOpenWindow(data);
+    }
+    );
+}
+
+
+//点击marker打开窗口
+function clickOpenWindow(data) {
+    //将数据加载时窗口中
+    var getForm = $("#DeviceInfoForm");
+
+
+    var num = 0;
+    for (var item in data) {
+        if (num < getForm[0].length - 1) {
+            getForm[0][num].value = data[item];
+            num++;
+        }
+    }
+
+    //给隐藏域赋值
+    $("#hiddenDeviceID").val(data["Id"]);
+
+    $("#DeviceInfoModal").modal('show');
+}
+
+//删除检测设备信息
+function DeleteDeviceInfo() {
+    //判断是否登录
+    if (isLog == true) {
+        //获取隐藏于id
+        var getHiddenId = $("#hiddenDeviceID").val();
+        $.ajax({
+            url: "/Home/DeleteDevice",
+            type: "POST",
+            data: { id: getHiddenId },
+            success: function (Backdata) {
+                if (Backdata > 0) {
+                    swal({
+                        title: "删除成功！",
+                        type: "success",
+                        timer: 1500
+                    });
+                    //关闭窗口
+                    $("#CloseDeviceInfo").click();
+                }
+                else {
+                    swal({
+                        title: "删除失败！",
+                        type: "error",
+                        timer: 1500
+                    });
+                }
+            }
+        });
+
+    } else {
+        swal({
+            title: "请先登录！",
+            type: "error",
+            timer: 1500
+        });
+        openLoginModal();
+    }
+}
+
+
+//显示设备标记
+function ShowDevice() {
+    //当地图加载时将设备信息已标记的形式在地图上显示
+    //存取数据的数组
+    var data_info = [];
+    $.ajax({
+        url: "/Home/GetAllDevicePoints",
+        type: "post",
+        datatype: "Json",
+        success: function (BackData) {
+            //将string转换成json
+            var newData = JSON.parse(BackData);
+            $.each(newData, function (index, element) {
+                //js中二维数组必须进行重复的声明，否则会undefind  
+                data_info[index] = [];
+                data_info[index]["MonitorType"] = element.MonitorType;
+                data_info[index]["DeviceName"] = element.DeviceName;
+                data_info[index]["ShuCaiNum"] = element.ShuCaiNum;
+                data_info[index]["SensorNum"] = element.SensorNum;
+                data_info[index]["PhoneNum"] = element.PhoneNum;
+                data_info[index]["YaoshiNum"] = element.YaoshiNum;
+                data_info[index]["DeviceLon"] = element.DeviceLon;
+                data_info[index]["DeviceLat"] = element.DeviceLat;
+                data_info[index]["Id"] = element.Id;
+                data_info[index]["MonitorName"] = element.MonitorName;
+                data_info[index]["MonitorPointInfoId"] = element.MonitorPointInfoId;
+                data_info[index]["PointPicture"] = element.PointPicture;
+                data_info[index]["content"] = "监测点:" + element.DeviceName + "<br>" + "联系电话：" + element.PhoneNum + "<br>" + "检测类型:" + element.MonitorType;
+            });
+
+            arrayObj = new Array();
+            //添加标记
+            for (var j = 0; j < data_info.length; j++) {
+                var icon = null;
+                if (data_info[j]["MonitorType"] == "泥石流") {
+                    //创建图片对象
+                    icon = new T.Icon({
+                        iconUrl: "../../Resource/Img/mud/0.bmp",
+                        iconSize: new T.Point(19, 27),
+                        iconAnchor: new T.Point(10, 25)
+                    });
+                } else {
+                    //创建图片对象
+                    icon = new T.Icon({
+                        iconUrl: "../../Resource/Img/coast/0.bmp",
+                        iconSize: new T.Point(19, 27),
+                        iconAnchor: new T.Point(10, 25)
+                    });
+                }
+
+                // 创建标注
+                var marker = new T.Marker(new T.LngLat(data_info[j]["DeviceLon"], data_info[j]["DeviceLat"]), { icon: icon });
+                arrayObj.push(marker);
+                //获取标记文本
+                var content = data_info[j]["content"];
+                // 将标注添加到地图中
+                // map.addOverLay(marker);
+                //注册标记的鼠标触摸,移开事件           
+                addClickHandler(content, marker, data_info[j]);
+            }
+            //聚合marker
+            markers = new T.MarkerClusterer(map, { markers: arrayObj });
+            //设置网格大小
+            markers.setGridSize(1);
+        }
+    });
+}
+
+//保存设备信息
+function SavaDevideInfo() {
+    //判断是否登录
+    if (isLog == true) {
+        //获取表单数据
+        var getData = $("#DeviceInfoForm");
+
+        var objectData = {
+            Id: getData[0]["Id"].value,
+            DeviceName: getData[0]["DeviceName"].value,
+            ShuCaiNum: getData[0]["ShuCaiNum"].value,
+            SensorNum: getData[0]["SensorNum"].value,
+            PhoneNum: getData[0]["PhoneNum"].value,
+            YaoshiNum: getData[0]["YaoshiNum"].value,
+            DeviceLon: getData[0]["DeviceLon"].value,
+            DeviceLat: getData[0]["DeviceLat"].value,
+            MonitorType: getData[0]["MonitorType"].value,
+            MonitorName: getData[0]["MonitorName"].value,
+            MonitorPointInfoId: getData[0]["MonitorPointInfoId"].value,
+            PointPicture: getData[0]["PointPicture"].value,
+        };
+        $.ajax({
+            url: "/Home/SaveDevice",
+            type: "POST",
+            data: objectData,
+            success: function (Backdata) {
+                if (Backdata == "True") {
+                    swal({
+                        title: "保存成功！",
+                        type: "success",
+                        timer: 1500
+                    });
+                    //关闭窗口
+                    $("#CloseDeviceInfo").click();
+                    //刷新
+                    $("#showDevice").click();
+                    $("#showDevice").click();
+                }
+                else {
+                    swal({
+                        title: "保存失败！",
+                        type: "error",
+                        timer: 1500
+                    });
+                }
+            }
+        });
+    } else {
+        swal({
+            title: "请先登录！",
+            type: "error",
+            timer: 1500
+        });
+        openLoginModal();
+    }
+}
+function changelayer() {
+    if(layer==false)
+    {
+        //将图层增加到地图上
+        map.addLayer(lay);
+        map.addLayer(textlay);
+        layer = true;
+    }
+    else {
+        map.removeLayer(lay);
+        map.removeLayer(textlay);
+
+        layer = false;
+    }
+}
+

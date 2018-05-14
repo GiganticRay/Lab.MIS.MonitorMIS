@@ -30,6 +30,7 @@ namespace Lab.MIS.Model
         public string MonitorType { get; set; }
         public string MonitorName { get; set; }
         public int MonitorPointInfoId { get; set; }
+        public string Beizhu { get; set; }
     
         public virtual MonitorPointInfo MonitorPointInfo { get; set; }
         public virtual ICollection<PointPicture> PointPicture { get; set; }

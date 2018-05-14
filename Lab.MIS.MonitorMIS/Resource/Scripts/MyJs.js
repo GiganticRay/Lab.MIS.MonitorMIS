@@ -62,7 +62,7 @@ $(document).ready(function () {
             lt = e.clientX;
             doc.mousemove(function (e) {
                 lt = e.clientX;
-                lt = lt < 530 ? 531 : lt;
+                lt = lt < 670 ? 670 : lt;
                 me.css("left", lt + "px");
                 dl.width(lt);
             });
@@ -611,14 +611,14 @@ function ShowDevice() {
                 if (data_info[j]["MonitorType"] == "泥石流") {
                     //创建图片对象
                     icon = new T.Icon({
-                        iconUrl: "../../Resource/Img/mud/0.bmp",
+                        iconUrl: "../../Resource/Img/mud/0.png",
                         iconSize: new T.Point(19, 27),
                         iconAnchor: new T.Point(10, 25)
                     });
                 } else {
                     //创建图片对象
                     icon = new T.Icon({
-                        iconUrl: "../../Resource/Img/coast/0.bmp",
+                        iconUrl: "../../Resource/Img/coast/0.png",
                         iconSize: new T.Point(19, 27),
                         iconAnchor: new T.Point(10, 25)
                     });

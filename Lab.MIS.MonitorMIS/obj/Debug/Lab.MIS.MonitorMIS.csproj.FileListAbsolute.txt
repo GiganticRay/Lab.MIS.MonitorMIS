@@ -89,8 +89,6 @@ F:\课程集合\工程实践2\clone\Lab.MIS.MonitorMIS\bin\zh-Hans\EntityFramewo
 F:\课程集合\工程实践2\clone\Lab.MIS.MonitorMIS\obj\Debug\Lab.MIS.MonitorMIS.csprojResolveAssemblyReference.cache
 F:\课程集合\工程实践2\clone\Lab.MIS.MonitorMIS\obj\Debug\Lab.MIS.MonitorMIS.dll
 F:\课程集合\工程实践2\clone\Lab.MIS.MonitorMIS\obj\Debug\Lab.MIS.MonitorMIS.pdb
-D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAndWarningSystem\Git\Lab.MIS.MonitorMIS\Lab.MIS.MonitorMIS\obj\Debug\Lab.MIS.MonitorMIS.csprojResolveAssemblyReference.cache
-D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAndWarningSystem\Git\Lab.MIS.MonitorMIS\Lab.MIS.MonitorMIS\obj\Debug\Lab.MIS.MonitorMIS.dll
 D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAndWarningSystem\Git\Lab.MIS.MonitorMIS\Lab.MIS.MonitorMIS\bin\Lab.MIS.MonitorMIS.dll.config
 D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAndWarningSystem\Git\Lab.MIS.MonitorMIS\Lab.MIS.MonitorMIS\bin\Lab.MIS.MonitorMIS.dll
 D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAndWarningSystem\Git\Lab.MIS.MonitorMIS\Lab.MIS.MonitorMIS\bin\Lab.MIS.MonitorMIS.pdb
@@ -138,4 +136,6 @@ D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAnd
 D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAndWarningSystem\Git\Lab.MIS.MonitorMIS\Lab.MIS.MonitorMIS\bin\zh-Hans\System.Web.WebPages.Deployment.resources.dll
 D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAndWarningSystem\Git\Lab.MIS.MonitorMIS\Lab.MIS.MonitorMIS\bin\zh-Hans\System.Web.WebPages.Razor.resources.dll
 D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAndWarningSystem\Git\Lab.MIS.MonitorMIS\Lab.MIS.MonitorMIS\bin\zh-Hans\EntityFramework.resources.dll
+D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAndWarningSystem\Git\Lab.MIS.MonitorMIS\Lab.MIS.MonitorMIS\obj\Debug\Lab.MIS.MonitorMIS.csprojResolveAssemblyReference.cache
+D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAndWarningSystem\Git\Lab.MIS.MonitorMIS\Lab.MIS.MonitorMIS\obj\Debug\Lab.MIS.MonitorMIS.dll
 D:\Experience_Lab\CQfengjiexianLandslideDebrisFlowGeologicalDisasterDetectionAndWarningSystem\Git\Lab.MIS.MonitorMIS\Lab.MIS.MonitorMIS\obj\Debug\Lab.MIS.MonitorMIS.pdb

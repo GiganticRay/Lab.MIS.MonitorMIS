@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -132,8 +133,45 @@ namespace Lab.MIS.MonitorMIS.Controllers
             List<MonitorPointInfo> monitorPointInfos = monitorPointInfoService.Get(a => a.Id > 0).ToList();
             var res = new JsonResult();
             res.Data = JsonConvert.SerializeObject(monitorPointInfos, setting);
-
             return res;
+        }
+        /// <summary>
+        /// 获取所有检测设备的信息
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult GetAllDevicePoints() {
+
+            List< DeviceInfo > getaAllDeviceInfo = deviceInfoService.Get(a => a.Id > 0).ToList();
+
+            var res = new JsonResult();
+            res.Data = JsonConvert.SerializeObject(getaAllDeviceInfo, setting);
+            return res;
+        }
+
+
+        public ActionResult GetDiseaseInfo(string arrayId, string beforeTime, string endTime)
+        {
+            string GetUrl = "http://47.92.125.37/mudrock/user/getResult" + "?arrayId=" + arrayId + "&beforeTime=" + beforeTime + "&endTime=" + endTime;
+            string Jsonstr = JsonToTableClass.GetJson(GetUrl);
+            return Content(Jsonstr);
+        }
+
+        /// <summary>
+        /// 根据id删除检测设备
+        /// </summary>
+        /// <param name="id">id</param>
+        /// <returns></returns>
+        public ActionResult DeleteDevice(int id=0) {
+
+            //DeviceInfo deviceinfo = deviceInfoService.Get(a => a.Id > 0).First();
+
+
+            return Content(deviceInfoService.Delete(a => a.Id ==id).ToString());
+        }
+
+        public ActionResult SaveDevice(DeviceInfo deviceinfo) {
+            bool getResult =  deviceInfoService.Update(deviceinfo);
+            return Content(getResult.ToString());
         }
     }
 }

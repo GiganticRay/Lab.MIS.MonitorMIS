@@ -15,6 +15,7 @@
     <Property Name="MonitorType" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="MonitorName" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="MonitorPointInfoId" Type="int" Nullable="false" />
+    <Property Name="Beizhu" Type="nvarchar" MaxLength="255" />
   </EntityType>
   <EntityType Name="MonitorPointInfo">
     <Key>

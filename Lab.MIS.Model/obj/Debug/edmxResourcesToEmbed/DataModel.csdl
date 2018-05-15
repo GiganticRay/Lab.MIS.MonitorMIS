@@ -49,6 +49,7 @@
     <NavigationProperty Name="MonitorPointInfo" Relationship="DataModel.MonitorPointInfoDeviceInfo" FromRole="DeviceInfo" ToRole="MonitorPointInfo" />
     <Property Name="MonitorPointInfoId" Type="Int32" Nullable="false" />
     <NavigationProperty Name="PointPicture" Relationship="DataModel.DeviceInfoPointPicture" FromRole="DeviceInfo" ToRole="PointPicture" />
+    <Property Name="Beizhu" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="MonitorPointInfo">
     <Key>

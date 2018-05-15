@@ -35,7 +35,6 @@
     <script src="../../Resource/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.js"></script>    
     <script src="../../Resource/Scripts/MyJs.js"></script>
 
-
 </head>
 
 <body>
@@ -43,38 +42,51 @@
 
         <div id="headDiv">
             <img src="../../Resource/Img/Logo.png" id="LogoImg" />
-            <div id="rightBar">
-                <div id="mine"></div>
-                <div class="seperator"></div>
-                <div id="mainMenuBtn"></div>
-            </div>
-            <div class="btn-group my_btn-group">
-                <div class="btn-group">
-                    <button type="button" class="btn btn-default" id="showDevice"><span></span>显示设备</button>
+            <nav class="menu">
+                <!-- 创建主按钮 -->
+                <input type="checkbox" href="#" class="menu-open" name="menu-open" id="menu-open" />
+                <label class="menu-open-button" for="menu-open">
+                    <!-- 三根白线 -->
+                    <span class="hamburger hamburger-1"></span>
+                    <span class="hamburger hamburger-2"></span>
+                    <span class="hamburger hamburger-3"></span>
+                </label>
 
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">工具<span class="caret"></span></button>
+
+                <div class="menu-item" id="clearOverLays">
+                    <span <%--class="glyphicon glyphicon-search"--%> aria-hidden="true">清空</span>
+                </div>
+
+
+                <div class="menu-item dropdown">
+                    <span class="<%--glyphicon glyphicon-plus--%> dropdown-toggle" data-toggle="dropdown" aria-hidden="true">录入</span>
                     <ul class="dropdown-menu">
-                        <li class="ToolBox"><a href="#" id="MeasureLength"><span></span>测量</a></li>
+                        <li class="ToolBox" id="EnteringDeviceInfo"><span>录入监测设备信息</span></li>
                         <li role="separator" class="divider"></li>
-                        <li class="ToolBox"><a href="#" id="MeasureArea"><span></span>测面</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li class="ToolBox"><a href="#" id="MeasurearkPoint"><span></span>标点</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li class="ToolBox"><a href="#" id="MarkLine"><span></span>标线</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li class="ToolBox"><a href="#" id="MarkArea"><span></span>标面</a></li>
+                        <li class="ToolBox" id="EnteringMonitorInfo"><span>录入检测阵信息</span></li>
                     </ul>
                 </div>
-                <div class="btn-group">
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">录入<span class="caret"></span></button>
-                    <ul class="dropdown-menu">
-                        <li class="ToolBox"><a href="#" id="EnteringDeviceInfo"><span></span>录入监测设备信息</a></li>
+
+
+                <div class="menu-item dropdown">
+                    <span class="<%--glyphicon glyphicon-wrench--%> dropdown-toggle" data-toggle="dropdown" aria-hidden="true">工具</span>
+                    <ul class="dropdown-menu pull-right">
+                        <li class="ToolBox" id="MeasureLength"><span>测量</span></li>
                         <li role="separator" class="divider"></li>
-                        <li class="ToolBox"><a href="#" id="EnteringMonitorInfo"><span></span>录入检测阵信息</a></li>
+                        <li class="ToolBox" id="MeasureArea"><span>测面</span></li>
+                        <li role="separator" class="divider"></li>
+                        <li class="ToolBox" id="MeasurearkPoint"><span>标点</span></li>
+                        <li role="separator" class="divider"></li>
+                        <li class="ToolBox" id="MarkLine"><span>标线</span></li>
+                        <li role="separator" class="divider"></li>
+                        <li class="ToolBox" id="MarkArea"><span>标面</span></li>
                     </ul>
                 </div>
-                <button type="button" class="btn btn-default" id="clearOverLays">清空</button>
-            </div>
+
+                <div class="menu-item" id="mine"><span <%--class="glyphicon glyphicon-user"--%> aria-hidden="true">登陆</span> </div>
+
+                <div class="menu-item" id="showDevice"><span>显示</span></div>
+            </nav>
         </div>
 
         <div id="mapDiv"></div>
@@ -148,9 +160,9 @@
             </div>
         </div>
         <div id="Layer">
-            <button type="button" id="layer">
-                切换图层
-            </button>
+            <div id="layer">
+             <%--   <span>图层</span>--%>
+            </div>
         </div>
     </div>
 

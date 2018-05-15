@@ -62,7 +62,7 @@ $(document).ready(function () {
             lt = e.clientX;
             doc.mousemove(function (e) {
                 lt = e.clientX;
-                lt = lt < 530 ? 531 : lt;
+                lt = lt < 670 ? 670 : lt;
                 me.css("left", lt + "px");
                 dl.width(lt);
             });
@@ -141,6 +141,24 @@ $(document).ready(function () {
         }
     })
 
+    //悬浮下拉
+
+    $(".dropdown").mouseover(function () {
+        $(this).addClass("open");
+    });
+
+    $(".dropdown").mouseleave(function () {
+        $(this).removeClass("open");
+    });
+
+    $(".dropdown").click(function () {
+        $(this).find(".dropdown-menu").removeClass("open");
+    });
+    $(".dropdown-menu").animate({ left: '-65px' }, 100);
+
+
+
+
     //点击登录按钮 
     $("#mine").click(function () {
         openLoginModal();
@@ -164,7 +182,7 @@ $(document).ready(function () {
 
     $("#showDevice").click(function () {
         if (!isShowDevice) {
-            $("#showDevice").html("隐藏设备");
+            $("#showDevice").find("span").html("隐藏");
             ShowDevice();
             isShowDevice = true;
         } else {
@@ -183,7 +201,7 @@ $(document).ready(function () {
                     arrayObj == null;
                 }
             }
-            $("#showDevice").html("显示设备");
+            $("#showDevice").find("span").html("显示");
             isShowDevice = false;
         }
 
@@ -613,14 +631,14 @@ function ShowDevice() {
                 if (data_info[j]["MonitorType"] == "泥石流") {
                     //创建图片对象
                     icon = new T.Icon({
-                        iconUrl: "../../Resource/Img/mud/0.bmp",
+                        iconUrl: "../../Resource/Img/mud/0.png",
                         iconSize: new T.Point(19, 27),
                         iconAnchor: new T.Point(10, 25)
                     });
                 } else {
                     //创建图片对象
                     icon = new T.Icon({
-                        iconUrl: "../../Resource/Img/coast/0.bmp",
+                        iconUrl: "../../Resource/Img/coast/0.png",
                         iconSize: new T.Point(19, 27),
                         iconAnchor: new T.Point(10, 25)
                     });

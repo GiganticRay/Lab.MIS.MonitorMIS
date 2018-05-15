@@ -18,13 +18,10 @@
     <title>天地图－地图API－范例－经纬度直投地图</title>
     <script type="text/javascript" src="http://api.tianditu.com/api?v=4.0"></script>
     <%--css--%>
-    <link href="../../Resource/Scripts/bootstrap.css" rel="stylesheet" />
-    <link href="../../Resource/Scripts/MyCss.css" rel="stylesheet" />
-    <link href="../../Resource/Scripts/LogIn/login-register.css" rel="stylesheet" />
+    <link href="../../Resource/Scripts/bootstrap-3.3.7-dist/css/bootstrap.css" rel="stylesheet" />
     <link href="../../Resource/Scripts/sweetalert/sweetalert.css" rel="stylesheet" />
     <link href="../../Resource/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.css" rel="stylesheet" />
     <link href="../../Resource/Scripts/LogIn/login-register.css" rel="stylesheet" />
-    <link href="../../Resource/Scripts/sweetalert/sweetalert.css" rel="stylesheet" />
     <link href="../../Resource/Scripts/MyCss.css" rel="stylesheet" />
 
     <%--js--%>

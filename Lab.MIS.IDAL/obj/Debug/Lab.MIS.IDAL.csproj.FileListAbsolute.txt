@@ -48,3 +48,13 @@ G:\GitHub\Lab.MIS.IDAL\bin\Debug\zh-Hans\EntityFramework.resources.dll
 G:\GitHub\Lab.MIS.IDAL\obj\Debug\Lab.MIS.IDAL.csprojResolveAssemblyReference.cache
 G:\GitHub\Lab.MIS.IDAL\obj\Debug\Lab.MIS.IDAL.dll
 G:\GitHub\Lab.MIS.IDAL\obj\Debug\Lab.MIS.IDAL.pdb
+E:\工程实践\Lab.MIS.MonitorMIS\Lab.MIS.IDAL\bin\Debug\Lab.MIS.IDAL.dll
+E:\工程实践\Lab.MIS.MonitorMIS\Lab.MIS.IDAL\bin\Debug\Lab.MIS.IDAL.pdb
+E:\工程实践\Lab.MIS.MonitorMIS\Lab.MIS.IDAL\bin\Debug\Lab.MIS.Model.dll
+E:\工程实践\Lab.MIS.MonitorMIS\Lab.MIS.IDAL\bin\Debug\EntityFramework.dll
+E:\工程实践\Lab.MIS.MonitorMIS\Lab.MIS.IDAL\bin\Debug\Lab.MIS.Model.pdb
+E:\工程实践\Lab.MIS.MonitorMIS\Lab.MIS.IDAL\bin\Debug\EntityFramework.xml
+E:\工程实践\Lab.MIS.MonitorMIS\Lab.MIS.IDAL\bin\Debug\zh-Hans\EntityFramework.resources.dll
+E:\工程实践\Lab.MIS.MonitorMIS\Lab.MIS.IDAL\obj\Debug\Lab.MIS.IDAL.csprojResolveAssemblyReference.cache
+E:\工程实践\Lab.MIS.MonitorMIS\Lab.MIS.IDAL\obj\Debug\Lab.MIS.IDAL.dll
+E:\工程实践\Lab.MIS.MonitorMIS\Lab.MIS.IDAL\obj\Debug\Lab.MIS.IDAL.pdb

@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" Inherits="System.Web.Mvc.ViewPage<dynamic>" %>
+
 <%@ Import Namespace="System.Data" %>
 
 <!DOCTYPE html>
@@ -18,21 +19,20 @@
     <title>天地图－地图API－范例－经纬度直投地图</title>
     <script type="text/javascript" src="http://api.tianditu.com/api?v=4.0"></script>
     <%--css--%>
-    <link href="../../Resource/Scripts/bootstrap.css" rel="stylesheet" />
-    <link href="../../Resource/Scripts/MyCss.css" rel="stylesheet" />
-    <link href="../../Resource/Scripts/LogIn/login-register.css" rel="stylesheet" />
+    <link href="../../Resource/Scripts/bootstrap-3.3.7-dist/css/bootstrap.css" rel="stylesheet" />
     <link href="../../Resource/Scripts/sweetalert/sweetalert.css" rel="stylesheet" />
     <link href="../../Resource/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.css" rel="stylesheet" />
     <link href="../../Resource/Scripts/LogIn/login-register.css" rel="stylesheet" />
-    <link href="../../Resource/Scripts/sweetalert/sweetalert.css" rel="stylesheet" />
     <link href="../../Resource/Scripts/MyCss.css" rel="stylesheet" />
 
     <%--js--%>
     <script src="../../Resource/Scripts/jquery-3.2.1.js"></script>
+    <script src="../../Resource/Scripts/jquery-ui.js"></script>
     <script src="../../Resource/Scripts/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
-    <script src="../../Resource/Scripts/jquery-ui.min.js"></script>
     <script src="../../Resource/Scripts/sweetalert/sweetalert-dev.min.js"></script>
-    <script src="../../Resource/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.js"></script>    
+    <script src="../../Resource/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.js"></script>
+
+
     <script src="../../Resource/Scripts/MyJs.js"></script>
 
 </head>
@@ -96,52 +96,60 @@
             <table id="SearchMainTable" class="table table-striped">
                 <caption>查询</caption>
                 <tbody>
-                <tr>
-                    <td colspan="2"><h4>预警起始时间：</h4></td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="date" class="form-control" id="beforeTimeDate" value="2017-12-01"/>
-                    </td>
-                    <td>
-                        <input type="time" class="form-control" step="3" id="beforeTimeHMS" value="01:01:01"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2"><h4>预警结束时间：</h4></td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="date" class="form-control" id="endTimeDate" value="2017-12-04"/>
-                    </td>
-                    <td>
-                        <input type="time" class="form-control" step="3" id="endTimeHMS" value="01:01:01"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2"><h4>请选择监测阵列：</h4></td>
-                </tr>
-                <tr>
-                    <td>
-                        <select class="btn btn-lg btn-default" id="searchSelect">
-                            <option>全选</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td><button class="btn btn-lg btn-default" id="selectConfirmBtn">确定</button></td>
-                    <td><button class="btn btn-lg btn-default" id="selectResetBtn">重置</button></td>
-                </tr>
-                
+                    <tr>
+                        <td colspan="2">
+                            <h4>预警起始时间：</h4>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="date" class="form-control" id="beforeTimeDate" value="2017-12-01" />
+                        </td>
+                        <td>
+                            <input type="time" class="form-control" step="3" id="beforeTimeHMS" value="01:01:01" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <h4>预警结束时间：</h4>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="date" class="form-control" id="endTimeDate" value="2017-12-04" />
+                        </td>
+                        <td>
+                            <input type="time" class="form-control" step="3" id="endTimeHMS" value="01:01:01" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <h4>请选择监测阵列：</h4>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <select class="btn btn-lg btn-default" id="searchSelect">
+                                <option>全选</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button class="btn btn-lg btn-default" id="selectConfirmBtn">确定</button></td>
+                        <td>
+                            <button class="btn btn-lg btn-default" id="selectResetBtn">重置</button></td>
+                    </tr>
+
                 </tbody>
             </table>
             <div id="SearchDiseaseInfoDiv">
-                <img src="../../Resource/Img/searching.gif" id="LoadingGif"/>
+                <img src="../../Resource/Img/searching.gif" id="LoadingGif" />
                 <table class="table table-bordered" id="SearchDiseaseInfoTable">
                     <caption>监测预警查询结果</caption>
                     <thead>
                         <tr>
-                            <th>监测阵列</th>                      
+                            <th>监测阵列</th>
                             <th>阵经度</th>
                             <th>阵纬度</th>
                             <th>经度</th>
@@ -150,18 +158,16 @@
                             <th>监测类型</th>
                             <th>预警等级</th>
                             <th>预警时间</th>
-                            <th>预留</th>
                         </tr>
                     </thead>
                     <tbody>
-
                     </tbody>
                 </table>
             </div>
         </div>
         <div id="Layer">
             <div id="layer">
-             <%--   <span>图层</span>--%>
+                <%--   <span>图层</span>--%>
             </div>
         </div>
     </div>
@@ -205,7 +211,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                         &times;
                     </button>
-                    <h4 class="modal-title" id="H1">检测设备信息
+                    <h4 class="modal-title H1">检测设备信息
                     </h4>
                 </div>
                 <div class="modal-body">
@@ -254,11 +260,11 @@
                                 <td>
                                     <input type="text" name="DeviceLat" value="" /></td>
                             </tr>
-                            <%--<tr>
+                            <tr>
                                 <td>备注:</td>
                                 <td>
                                     <input type="text" name="Beizhu" value="" /></td>
-                            </tr>--%>
+                            </tr>
                         </table>
                         <input type="hidden" name="Id" id="hiddenDeviceID" value="" />
                         <input type="hidden" name="MonitorName" value="" />
@@ -274,6 +280,125 @@
                         删除
                     </button>
                     <button type="button" class="btn btn-primary glyphicon glyphicon-off" data-dismiss="modal" id="CloseDeviceInfo">
+                        关闭
+                    </button>
+                </div>
+                <%--</div>--%>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal -->
+        </div>
+    </div>
+
+    <div class="modal fade " id="DiseaseInfoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <%--  <div class="panel panel-info">--%>
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title H1">预警点信息
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <form id="DiseaseInfoForm">
+                        <table class="table table-striped table-bordered table-hover">
+                            <tr>
+                                <td>监测阵列:</td>
+                                <td>
+                                    <input type="text" id="MonitorName" readonly="readonly" value="" /></td>
+                                <td>阵经度:</td>
+                                <td>
+                                    <input type="text" id="MonitorLon" readonly="readonly" value="" /></td>
+                            </tr>
+                            <tr>
+                                <td>阵纬度:</td>
+                                <td>
+                                    <input type="text" id="MonitorLat" readonly="readonly" value="" /></td>
+                                <td>经度:</td>
+                                <td>
+                                    <input type="text" id="Lon" readonly="readonly" value="" /></td>
+                            </tr>
+                            <tr>
+                                <td>纬度:</td>
+                                <td>
+                                    <input type="text" id="Lat" readonly="readonly" value="" /></td>
+                                <td>预警方位</td>
+                                <td>
+                                    <input type="text" id="WarningDirection" readonly="readonly" value="" /></td>
+                            </tr>
+                            <tr>
+                                <td>监测类型</td>
+                                <td>
+                                    <input type="text" id="MonitorType" readonly="readonly" value="" /></td>
+                                <td>预警等级</td>
+                                <td>
+                                    <input type="text" id="WarningLevel" readonly="readonly" value="" /></td>
+                            </tr>
+                            <tr>
+                                <td>预警时间</td>
+                                <td>
+                                    <input type="text" id="WarningTime" readonly="readonly" value="" /></td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary glyphicon glyphicon-off" data-dismiss="modal">
+                        关闭
+                    </button>
+                </div>
+                <%--</div>--%>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal -->
+        </div>
+    </div>
+
+    <div class="modal fade " id="MonitorInfoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <%--  <div class="panel panel-info">--%>
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title H1">录入检测阵信息
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <form id="MonitorInfoForm">
+                        <table class="table table-striped table-bordered table-hover">
+                            <tr>
+                                <td>检测阵列Id:</td>
+                                <td>
+                                    <input type="text" name="MonitorId" value="" /></td>
+                            </tr>
+                            <tr>
+                                <td>检测阵列名称:</td>
+                                <td>
+                                    <input type="text" name="MonitorIdName" value="" /></td>
+                            </tr>
+                            <tr>
+                                <td>检测类型:</td>
+                                <td>
+                                    <select name="MonitorType">
+                                        <option value="滑坡">滑坡</option>
+                                        <option value="泥石流">泥石流</option>
+                                    </select></td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    
+                    <button type="button" class="btn btn-danger glyphicon glyphicon-remove-circle" id="EnteringMonitorInfoBtn">
+                        录入
+                    </button>
+                    <button type="button" class="btn btn-primary glyphicon glyphicon-off" data-dismiss="modal" id="CloseMonitorInfo">
                         关闭
                     </button>
                 </div>

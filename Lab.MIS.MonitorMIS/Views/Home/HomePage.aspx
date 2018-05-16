@@ -62,7 +62,7 @@
                     <span class="<%--glyphicon glyphicon-plus--%> dropdown-toggle" data-toggle="dropdown" aria-hidden="true">录入</span>
                     <ul class="dropdown-menu">
                         <li class="ToolBox" id="EnteringDeviceInfo"><span>录入监测设备信息</span></li>
-                        <li role="separator" class="divider"></li>
+                       <%-- <li role="separator" class="divider"></li>--%>
                         <li class="ToolBox" id="EnteringMonitorInfo"><span>录入检测阵信息</span></li>
                     </ul>
                 </div>

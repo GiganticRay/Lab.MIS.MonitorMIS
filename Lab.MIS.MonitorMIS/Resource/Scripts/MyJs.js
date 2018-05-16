@@ -2,7 +2,7 @@
 
 var map;
 var zoom = 12;
-var open = true;
+var open = false;
 var handler, handler1;
 var polygonTool;
 var lineTool, markerTool;
@@ -143,18 +143,20 @@ $(document).ready(function () {
 
     //悬浮下拉
 
-    $(".dropdown").mouseover(function () {
-        $(this).addClass("open");
-    });
+    //$(".dropdown").mouseover(function () {
+    //    $(this).addClass("open");
+    //});
 
-    $(".dropdown").mouseleave(function () {
-        $(this).removeClass("open");
-    });
+    //$(".dropdown").mouseleave(function () {
+    //    $(this).removeClass("open");
+    //});
 
-    $(".dropdown").click(function () {
-        $(this).find(".dropdown-menu").removeClass("open");
-    });
+    //$(".dropdown").click(function () {
+    //    $(this).find(".dropdown-menu").removeClass("open");
+    //});
+
     $(".dropdown-menu").animate({ left: '-65px' }, 100);
+
 
 
 

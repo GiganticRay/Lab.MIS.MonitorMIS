@@ -42,3 +42,12 @@ G:\GitHub\Lab.MIS.Model\bin\Debug\zh-Hans\EntityFramework.resources.dll
 G:\GitHub\Lab.MIS.Model\obj\Debug\Lab.MIS.Model.csprojResolveAssemblyReference.cache
 G:\GitHub\Lab.MIS.Model\obj\Debug\Lab.MIS.Model.dll
 G:\GitHub\Lab.MIS.Model\obj\Debug\Lab.MIS.Model.pdb
+E:\工程实践\Lab.MIS.MonitorMIS\Lab.MIS.Model\bin\Debug\Lab.MIS.Model.dll.config
+E:\工程实践\Lab.MIS.MonitorMIS\Lab.MIS.Model\bin\Debug\Lab.MIS.Model.dll
+E:\工程实践\Lab.MIS.MonitorMIS\Lab.MIS.Model\bin\Debug\Lab.MIS.Model.pdb
+E:\工程实践\Lab.MIS.MonitorMIS\Lab.MIS.Model\bin\Debug\EntityFramework.dll
+E:\工程实践\Lab.MIS.MonitorMIS\Lab.MIS.Model\bin\Debug\EntityFramework.xml
+E:\工程实践\Lab.MIS.MonitorMIS\Lab.MIS.Model\bin\Debug\zh-Hans\EntityFramework.resources.dll
+E:\工程实践\Lab.MIS.MonitorMIS\Lab.MIS.Model\obj\Debug\Lab.MIS.Model.csprojResolveAssemblyReference.cache
+E:\工程实践\Lab.MIS.MonitorMIS\Lab.MIS.Model\obj\Debug\Lab.MIS.Model.dll
+E:\工程实践\Lab.MIS.MonitorMIS\Lab.MIS.Model\obj\Debug\Lab.MIS.Model.pdb

@@ -734,7 +734,7 @@ function ShowDevice() {
                 // 将标注添加到地图中
                 // map.addOverLay(marker);
                 //注册标记的鼠标触摸,移开事件           
-                addClickHandler(content, marker, data_info[j]);
+                addClickHandler(content, marker, data_info[j], false);
             }
             //聚合marker
             markers = new T.MarkerClusterer(map, { markers: arrayObj });

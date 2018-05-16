@@ -4,17 +4,22 @@
     margin: 0;
     font-family: "Microsoft YaHei";
     cursor: pointer;
+    overflow:hidden;
 }
 
 #MainDiv {
     width: 100%;
     height: 100%;
+    
 }
+
 
 #mapDiv {
     z-index: 1;
     width: 100%;
     height: 100%;
+    position:absolute;
+ 
 }
 
 input, b, p {
@@ -90,9 +95,9 @@ input, b, p {
 #side_bar {
     z-index: 1000;
     background: aqua;
-    position: absolute;
+    position:absolute;
     width: 670px;
-    height: 100%;
+    height: 93.8%;
     top: 61px;
     left: 0px;
     background: #fff;
@@ -102,7 +107,15 @@ input, b, p {
     z-index: 6;
     box-shadow: 1px 0 5px rgba(0,0,0,.5);
     border-collapse: separate;
+ 
+
+  
+   
+
 }
+
+
+
 
 #handlerDiv {
     width: 2px;
@@ -420,4 +433,5 @@ a {
     line-height:40px;
     font-weight:bold;
 }
+
 

@@ -63,3 +63,16 @@ G:\GitHub\Lab.MIS.EFDAL\bin\Debug\zh-Hans\EntityFramework.resources.dll
 G:\GitHub\Lab.MIS.EFDAL\obj\Debug\Lab.MIS.EFDAL.csprojResolveAssemblyReference.cache
 G:\GitHub\Lab.MIS.EFDAL\obj\Debug\Lab.MIS.EFDAL.dll
 G:\GitHub\Lab.MIS.EFDAL\obj\Debug\Lab.MIS.EFDAL.pdb
+E:\工程实践\Lab.MIS.MonitorMIS\Lab.MIS.EFDAL\bin\Debug\Lab.MIS.EFDAL.dll.config
+E:\工程实践\Lab.MIS.MonitorMIS\Lab.MIS.EFDAL\bin\Debug\Lab.MIS.EFDAL.dll
+E:\工程实践\Lab.MIS.MonitorMIS\Lab.MIS.EFDAL\bin\Debug\Lab.MIS.EFDAL.pdb
+E:\工程实践\Lab.MIS.MonitorMIS\Lab.MIS.EFDAL\bin\Debug\EntityFramework.dll
+E:\工程实践\Lab.MIS.MonitorMIS\Lab.MIS.EFDAL\bin\Debug\Lab.MIS.IDAL.dll
+E:\工程实践\Lab.MIS.MonitorMIS\Lab.MIS.EFDAL\bin\Debug\Lab.MIS.Model.dll
+E:\工程实践\Lab.MIS.MonitorMIS\Lab.MIS.EFDAL\bin\Debug\Lab.MIS.IDAL.pdb
+E:\工程实践\Lab.MIS.MonitorMIS\Lab.MIS.EFDAL\bin\Debug\Lab.MIS.Model.pdb
+E:\工程实践\Lab.MIS.MonitorMIS\Lab.MIS.EFDAL\bin\Debug\EntityFramework.xml
+E:\工程实践\Lab.MIS.MonitorMIS\Lab.MIS.EFDAL\bin\Debug\zh-Hans\EntityFramework.resources.dll
+E:\工程实践\Lab.MIS.MonitorMIS\Lab.MIS.EFDAL\obj\Debug\Lab.MIS.EFDAL.csprojResolveAssemblyReference.cache
+E:\工程实践\Lab.MIS.MonitorMIS\Lab.MIS.EFDAL\obj\Debug\Lab.MIS.EFDAL.dll
+E:\工程实践\Lab.MIS.MonitorMIS\Lab.MIS.EFDAL\obj\Debug\Lab.MIS.EFDAL.pdb

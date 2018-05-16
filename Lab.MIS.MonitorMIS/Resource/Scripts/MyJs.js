@@ -78,6 +78,7 @@ $(document).ready(function () {
 
     //为模态对话框添加拖拽
     $(".modal").draggable();
+    //$(".modal").draggable({ cancel: ".title"});
     //$(".modal-content").draggable();
 
 
@@ -444,7 +445,7 @@ function BindSelectConfirmBtn() {
         $("#SearchDiseaseInfoTable").empty();
         $("#SearchDiseaseInfoTable")
                 .append(
-                    "<caption>监测预警查询结果</caption><thead><tr><th>监测阵列</th><th>阵经度</th><th>阵纬度</th><th>经度</th><th>纬度</th><th>预警方位</th><th>监测类型</th><th>预警等级</th><th>预警时间</th><th>预留</th></tr></thead><tbody></tbody>");
+                    "<caption>监测预警查询结果</caption><thead><tr><th>监测阵列</th><th>阵经度</th><th>阵纬度</th><th>经度</th><th>纬度</th><th>预警方位</th><th>监测类型</th><th>预警等级</th><th>预警时间</th></tr></thead><tbody></tbody>");
 
         var arrayId = $("#SearchMainTable option:selected").val();
         if (arrayId != 0) {
@@ -457,12 +458,14 @@ function BindSelectConfirmBtn() {
         }
     });
 }
+
 //绑定搜索栏重置按钮
 function BindSelectResetBtn() {
     $("#selectResetBtn").click(function () {
         $("#SearchDiseaseInfoTable").empty();
     });
 }
+
 //获取对应arrayId的数据加载到table里面
 function loadDataToTable(arrayId) {
     var urlString = "http://localhost:56818/Home/GetDiseaseInfo";
@@ -499,15 +502,54 @@ function loadDataToTable(arrayId) {
                         appendStr += tmpjsonOb[i][j] + "</td><td>";
                     }
                 }
-                appendStr += "</td></tr>";
+                appendStr = appendStr.slice(0, appendStr.length - 4);
+                appendStr += "</tr>";
             });
             $("#SearchDiseaseInfoTable").append(appendStr);
+            BindClickRow();
         },
         error: function (xhr, status, error) {
             alert(status + "," + error);
         }
     });
 
+}
+
+//点击表格行加载对应受灾害点
+function BindClickRow() {
+    $("#SearchDiseaseInfoTable tr").click(function () { //给每行绑定了一个点击事件：var td = $( this ).find( "td" );
+        var td = $(this).find("td");
+        //this指向了当前点击的行，通过find我们获得了该行所有的td对象。
+        //题中说到某个td，为了演示所以我们假设是要获得第3个td的数据。
+        var data = td.eq(3).html() + ", " + td.eq(4).html() + ", " + td.eq(7).html();
+
+        if (td.eq(7).html() == "泥石流") {
+            //创建图片对象
+            icon = new T.Icon({
+                iconUrl: "../../Resource/Img/mud/" + td.eq(7).html() + ".png",
+                iconSize: new T.Point(25, 41),
+                iconAnchor: new T.Point(10, 25)
+            });
+        } else {
+            //创建图片对象
+            icon = new T.Icon({
+                iconUrl: "../../Resource/Img/coast/" + td.eq(7).html() + ".png",
+                iconSize: new T.Point(19, 27),
+                iconAnchor: new T.Point(10, 25)
+            });
+        }
+
+        // 创建标注
+        var marker = new T.Marker(new T.LngLat(td.eq(3).html(), td.eq(4).html()), { icon: icon });
+        //arrayObj.push(marker);
+        //获取标记文本
+        var content = td.eq(0).html() + td.eq(6).html() + "预警点";
+        // 将标注添加到地图中
+        map.addOverLay(marker);
+        //注册标记的鼠标触摸,移开事件           
+        addClickHandler(content, marker, td, true);
+        //通过eq可以得到具体的某个td对象，从而得到相应的数据} );
+    });
 }
 
 //将YY-MM-DD 转换为 YY/MM/DD
@@ -521,7 +563,8 @@ function convertFormat(str) {
 // content 标记的文字信息  
 //marker 标记对象 
 //dataId 标记对象对应的id
-function addClickHandler(content, marker, data) {
+//IsDiseasePoint 是否是预警点
+function addClickHandler(content, marker, data, IsDiseasePoint) {
     //鼠标触碰事件
     marker.addEventListener("mouseover", function (e) {
         //获取坐标
@@ -537,14 +580,24 @@ function addClickHandler(content, marker, data) {
         map.closeInfoWindow();
     }
     );
-    //鼠标单击事件
-    marker.addEventListener("click", function (e) {
-        clickOpenWindow(data);
+    if (IsDiseasePoint == false) {
+        //鼠标单击事件deviceInfoPoint
+        marker.addEventListener("click",
+            function(e) {
+                clickOpenWindow(data);
+            }
+        );
+    } else {
+        //鼠标单击事件预警点
+        marker.addEventListener("click",
+            function (e) {
+                clickOpenDiseaseWindow(data);
+            }
+        );
     }
-    );
 }
 
-//点击marker打开窗口
+//点击marker打开设备信息窗口
 function clickOpenWindow(data) {
     //将数据加载时窗口中
     var getForm = $("#DeviceInfoForm");
@@ -563,6 +616,23 @@ function clickOpenWindow(data) {
 
     $("#DeviceInfoModal").modal('show');
 }
+
+//点击marker打开预警点信息窗口
+function clickOpenDiseaseWindow(data) {
+    //将数据加载时窗口中
+    $("#MonitorName").val(data.eq(0).html());
+    $("#MonitorLon").val(data.eq(1).html());
+    $("#MonitorLat").val(data.eq(2).html());
+    $("#Lon").val(data.eq(3).html());
+    $("#Lat").val(data.eq(4).html());
+    $("#WarningDirection").val(data.eq(5).html());
+    $("#MonitorType").val(data.eq(6).html());
+    $("#WarningLevel").val(data.eq(7).html());
+    $("#WarningTime").val(data.eq(8).html());
+
+    $("#DiseaseInfoModal").modal('show');
+}
+
 
 //删除检测设备信息
 function DeleteDeviceInfo() {
@@ -644,7 +714,7 @@ function ShowDevice() {
                     //创建图片对象
                     icon = new T.Icon({
                         iconUrl: "../../Resource/Img/mud/0.png",
-                        iconSize: new T.Point(19, 27),
+                        iconSize: new T.Point(25, 41),
                         iconAnchor: new T.Point(10, 25)
                     });
                 } else {
@@ -881,3 +951,4 @@ function EnteringMonitorInfo() {
         openLoginModal();
     }
 }
+

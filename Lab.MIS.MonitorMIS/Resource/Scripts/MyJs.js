@@ -78,11 +78,15 @@ $(document).ready(function () {
 
     //为模态对话框添加拖拽
     $(".modal").draggable();
+    //$(".modal-content").draggable();
+
+
 
     map = new T.Map('mapDiv');
     map.centerAndZoom(new T.LngLat(116.40769, 39.89945), 14);
     //添加缩放按钮
     control = new T.Control.Zoom();
+
     map.addControl(control);
     //添加比例尺
     var scale = new T.Control.Scale();
@@ -98,26 +102,26 @@ $(document).ready(function () {
     lineTool = new T.PolylineTool(map, config);
     polygonTool = new T.PolygonTool(map, config);
     markerTool = new T.MarkTool(map, { follow: true });
-    $("#MeasureLength").click(function() {
+    $("#MeasureLength").click(function () {
         lineTool.open();
         bool1 = true;
     });
-    $("#MeasureArea").click(function() {
+    $("#MeasureArea").click(function () {
         polygonTool.open();
         bool2 = true;
     });
-    $("#MeasurearkPoint").click(function() {
+    $("#MeasurearkPoint").click(function () {
         editMarker();
         markerTool.open();
         bool3 = true;
     });
-    $("#MarkLine").click(function() {
+    $("#MarkLine").click(function () {
         if (handler) handler.close();
         handler = new T.PolylineTool(map);
         handler.open();
         bool4 = true;
     });
-    $("#MarkArea").click(function() {
+    $("#MarkArea").click(function () {
         if (handler1) handler1.close();
         handler1 = new T.PolygonTool(map);
         handler1.open();
@@ -179,7 +183,7 @@ $(document).ready(function () {
     localsearch.search("奉节县");
 
 
-
+    //显示隐藏检测设备按钮
     $("#showDevice").click(function () {
         if (!isShowDevice) {
             $("#showDevice").find("span").html("隐藏");
@@ -224,6 +228,16 @@ $(document).ready(function () {
     $("#layer").click(function () {
         changelayer();
     })
+
+    //打开录入检测阵数据窗口
+    $("#EnteringMonitorInfo").click(function () {
+        OpenEnteringMonitorInfo();
+    });
+
+    //录入检测阵数据
+    $("#EnteringMonitorInfoBtn").click(function () {
+        EnteringMonitorInfo();
+    });
 
 });
 
@@ -403,11 +417,11 @@ function BindSelectOptions() {
         url: "http://localhost:56818/Home/GetMonitorInfos",
         type: "Post",
         dataType: "Json",
-        success: function(result) {
+        success: function (result) {
             var postRes = $.parseJSON(result);
             $("#searchSelect").empty();
             $("#searchSelect").append("<option value='" + 0 + "'>" + '全选' + "</option>");
-            $(postRes).each(function(i, item) {
+            $(postRes).each(function (i, item) {
                 $("#searchSelect").append("<option value='" + item.MonitorId + "'>" + item.Name + "</option>");
                 OptionsDict += "{ \"value\":\"" + item.MonitorId + "\" , \"Key\":\"" + item.Name + "\" },";
             });
@@ -420,7 +434,7 @@ function BindSelectOptions() {
 
 //绑定搜索栏下拉select 改变事件
 function BindSelectChange() {
-    $("#searchSelect").change(function() {
+    $("#searchSelect").change(function () {
     });
 }
 
@@ -445,9 +459,9 @@ function BindSelectConfirmBtn() {
 }
 //绑定搜索栏重置按钮
 function BindSelectResetBtn() {
-    $("#selectResetBtn").click(function() {
+    $("#selectResetBtn").click(function () {
         $("#SearchDiseaseInfoTable").empty();
-    }); 
+    });
 }
 //获取对应arrayId的数据加载到table里面
 function loadDataToTable(arrayId) {
@@ -463,12 +477,12 @@ function loadDataToTable(arrayId) {
             beforeTime: convertFormat($("#beforeTimeDate").val()) + " " + $("#beforeTimeHMS").val(),
             endTime: convertFormat($("#endTimeDate").val()) + " " + $("#endTimeHMS").val()
         },
-        success: function (result) {          
+        success: function (result) {
             //成功隐藏loading gif
             $("#LoadingGif").css("display", "none");
             var tmpjsonOb = eval("(" + result + ")");
             var appendStr = "";
-            
+
             $.each(tmpjsonOb, function (i, tmpItem) {
                 var item = tmpjsonOb[i];
 
@@ -489,7 +503,7 @@ function loadDataToTable(arrayId) {
             });
             $("#SearchDiseaseInfoTable").append(appendStr);
         },
-        error:function(xhr, status, error) {
+        error: function (xhr, status, error) {
             alert(status + "," + error);
         }
     });
@@ -530,7 +544,6 @@ function addClickHandler(content, marker, data) {
     );
 }
 
-
 //点击marker打开窗口
 function clickOpenWindow(data) {
     //将数据加载时窗口中
@@ -555,32 +568,33 @@ function clickOpenWindow(data) {
 function DeleteDeviceInfo() {
     //判断是否登录
     if (isLog == true) {
-        //获取隐藏于id
-        var getHiddenId = $("#hiddenDeviceID").val();
-        $.ajax({
-            url: "/Home/DeleteDevice",
-            type: "POST",
-            data: { id: getHiddenId },
-            success: function (Backdata) {
-                if (Backdata > 0) {
-                    swal({
-                        title: "删除成功！",
-                        type: "success",
-                        timer: 1500
-                    });
-                    //关闭窗口
-                    $("#CloseDeviceInfo").click();
+        Delete(function () {
+            //获取隐藏于id
+            var getHiddenId = $("#hiddenDeviceID").val();
+            $.ajax({
+                url: "/Home/DeleteDevice",
+                type: "POST",
+                data: { id: getHiddenId },
+                success: function (Backdata) {
+                    if (Backdata > 0) {
+                        swal({
+                            title: "删除成功！",
+                            type: "success",
+                            timer: 1500
+                        });
+                        //关闭窗口
+                        $("#CloseDeviceInfo").click();
+                    }
+                    else {
+                        swal({
+                            title: "删除失败！",
+                            type: "error",
+                            timer: 1500
+                        });
+                    }
                 }
-                else {
-                    swal({
-                        title: "删除失败！",
-                        type: "error",
-                        timer: 1500
-                    });
-                }
-            }
+            });
         });
-
     } else {
         swal({
             title: "请先登录！",
@@ -590,7 +604,6 @@ function DeleteDeviceInfo() {
         openLoginModal();
     }
 }
-
 
 //显示设备标记
 function ShowDevice() {
@@ -615,6 +628,7 @@ function ShowDevice() {
                 data_info[index]["YaoshiNum"] = element.YaoshiNum;
                 data_info[index]["DeviceLon"] = element.DeviceLon;
                 data_info[index]["DeviceLat"] = element.DeviceLat;
+                data_info[index]["Beizhu"] = element.Beizhu;
                 data_info[index]["Id"] = element.Id;
                 data_info[index]["MonitorName"] = element.MonitorName;
                 data_info[index]["MonitorPointInfoId"] = element.MonitorPointInfoId;
@@ -664,48 +678,51 @@ function ShowDevice() {
 function SavaDevideInfo() {
     //判断是否登录
     if (isLog == true) {
-        //获取表单数据
-        var getData = $("#DeviceInfoForm");
+        save(function () {
+            //获取表单数据
+            var getData = $("#DeviceInfoForm");
 
-        var objectData = {
-            Id: getData[0]["Id"].value,
-            DeviceName: getData[0]["DeviceName"].value,
-            ShuCaiNum: getData[0]["ShuCaiNum"].value,
-            SensorNum: getData[0]["SensorNum"].value,
-            PhoneNum: getData[0]["PhoneNum"].value,
-            YaoshiNum: getData[0]["YaoshiNum"].value,
-            DeviceLon: getData[0]["DeviceLon"].value,
-            DeviceLat: getData[0]["DeviceLat"].value,
-            MonitorType: getData[0]["MonitorType"].value,
-            MonitorName: getData[0]["MonitorName"].value,
-            MonitorPointInfoId: getData[0]["MonitorPointInfoId"].value,
-            PointPicture: getData[0]["PointPicture"].value,
-        };
-        $.ajax({
-            url: "/Home/SaveDevice",
-            type: "POST",
-            data: objectData,
-            success: function (Backdata) {
-                if (Backdata == "True") {
-                    swal({
-                        title: "保存成功！",
-                        type: "success",
-                        timer: 1500
-                    });
-                    //关闭窗口
-                    $("#CloseDeviceInfo").click();
-                    //刷新
-                    $("#showDevice").click();
-                    $("#showDevice").click();
+            var objectData = {
+                Id: getData[0]["Id"].value,
+                DeviceName: getData[0]["DeviceName"].value,
+                ShuCaiNum: getData[0]["ShuCaiNum"].value,
+                SensorNum: getData[0]["SensorNum"].value,
+                PhoneNum: getData[0]["PhoneNum"].value,
+                YaoshiNum: getData[0]["YaoshiNum"].value,
+                DeviceLon: getData[0]["DeviceLon"].value,
+                DeviceLat: getData[0]["DeviceLat"].value,
+                Beizhu: getData[0]["Beizhu"].value,
+                MonitorType: getData[0]["MonitorType"].value,
+                MonitorName: getData[0]["MonitorName"].value,
+                MonitorPointInfoId: getData[0]["MonitorPointInfoId"].value,
+                PointPicture: getData[0]["PointPicture"].value,
+            };
+            $.ajax({
+                url: "/Home/SaveDevice",
+                type: "POST",
+                data: objectData,
+                success: function (Backdata) {
+                    if (Backdata == "True") {
+                        swal({
+                            title: "保存成功！",
+                            type: "success",
+                            timer: 1500
+                        });
+                        //关闭窗口
+                        $("#CloseDeviceInfo").click();
+                        //刷新
+                        $("#showDevice").click();
+                        $("#showDevice").click();
+                    }
+                    else {
+                        swal({
+                            title: "保存失败！",
+                            type: "error",
+                            timer: 1500
+                        });
+                    }
                 }
-                else {
-                    swal({
-                        title: "保存失败！",
-                        type: "error",
-                        timer: 1500
-                    });
-                }
-            }
+            });
         });
     } else {
         swal({
@@ -716,9 +733,9 @@ function SavaDevideInfo() {
         openLoginModal();
     }
 }
+
 function changelayer() {
-    if(layer==false)
-    {
+    if (layer == false) {
         //将图层增加到地图上
         map.addLayer(lay);
         map.addLayer(textlay);
@@ -732,3 +749,135 @@ function changelayer() {
     }
 }
 
+//删除提示框
+function Delete(Func) {
+    swal({
+        title: "您确定要删除这条数据吗",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "确定删除！",
+        cancelButtonText: "取消",
+        closeOnConfirm: false,
+        closeOnCancel: false
+    },
+        function (isConfirm) {
+            if (isConfirm) {
+                Func();
+            }
+            else {
+                swal({
+                    title: "已取消",
+                    type: "error",
+                    timer: 1500
+                })
+            }
+        }
+    )
+}
+
+//保存提示框
+function save(Func) {
+    swal({
+        title: "您确定要保存吗",
+        type: "info",
+        showCancelButton: true,
+        confirmButtonColor: "#6CE26C",
+        confirmButtonText: "确定保存！",
+        cancelButtonText: "取消",
+        closeOnConfirm: false,
+        closeOnCancel: false
+    },
+             function (isConfirm) {
+                 if (isConfirm) {
+                     Func();
+                 }
+                 else {
+                     swal({
+                         title: "已取消",
+                         type: "error",
+                         timer: 1500
+                     })
+                 }
+             }
+         )
+}
+
+//录入提示框
+function EnteringData(Func) {
+    swal({
+        title: "您确定要录入吗",
+        type: "info",
+        showCancelButton: true,
+        confirmButtonColor: "#6CE26C",
+        confirmButtonText: "确定录入！",
+        cancelButtonText: "取消",
+        closeOnConfirm: false,
+        closeOnCancel: false
+    },
+             function (isConfirm) {
+                 if (isConfirm) {
+                     Func();
+                 }
+                 else {
+                     swal({
+                         title: "已取消",
+                         type: "error",
+                         timer: 1500
+                     })
+                 }
+             }
+         )
+}
+
+//打开检测阵列信息录入窗口
+function OpenEnteringMonitorInfo() {
+    $("#MonitorInfoModal").modal('show');
+}
+
+//录入检测阵列信息
+function EnteringMonitorInfo() {
+    //判断是否登录
+    if (isLog == true) {
+        EnteringData(function () {
+            //获取表单数据
+            var getData = $("#MonitorInfoForm");
+
+            var objectData = {
+                MonitorId: getData[0]["MonitorId"].value,
+                Name: getData[0]["MonitorIdName"].value,
+                Type: getData[0]["MonitorType"].value
+            };
+            $.ajax({
+                url: "/Home/EnteringMonitorPointInfo",
+                type: "POST",
+                data: objectData,
+                success: function (Backdata) {
+                    if (Backdata["state"] == true) {
+                        swal({
+                            title: "录入成功！",
+                            type: "success",
+                            timer: 1500
+                        });
+                        //关闭窗口
+                        $("#CloseMonitorInfo").click();
+                    }
+                    else {
+                        swal({
+                            title: "录入失败！",
+                            type: "error",
+                            timer: 1500
+                        });
+                    }
+                }
+            });
+        });
+    } else {
+        swal({
+            title: "请先登录！",
+            type: "error",
+            timer: 1500
+        });
+        openLoginModal();
+    }
+}

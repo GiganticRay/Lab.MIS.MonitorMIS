@@ -29,6 +29,9 @@ var imageURL = "http://t0.tianditu.cn/img_w/wmts?" +
 //创建自定义图层对象
 var lay = new T.TileLayer(imageURL, { minZoom: 1, maxZoom: 18 });
 
+//所有通过table查询出来的点击的marker
+var DiseaseMarkerArray = [];
+
 
 
 ///初始化函数
@@ -37,6 +40,9 @@ var textURL = "http://t3.tianditu.com/DataServer?T=cva_w&x={x}&y={y}&l={z}";
 var textlay = new T.TileLayer(textURL, { minZoom: 1, maxZoom: 18 });
 
 $(document).ready(function () {
+    
+    //每隔一分钟刷新一次预警点信息
+    UpdateOneMinute();
     //隐藏loading
     $("#LoadingGif").css("display", "none");
     //绑定搜索栏事件
@@ -146,25 +152,7 @@ $(document).ready(function () {
         }
     })
 
-    //悬浮下拉
-
-    //$(".dropdown").mouseover(function () {
-    //    $(this).addClass("open");
-    //});
-
-    //$(".dropdown").mouseleave(function () {
-    //    $(this).removeClass("open");
-    //});
-
-    //$(".dropdown").click(function () {
-    //    $(this).find(".dropdown-menu").removeClass("open");
-    //});
-
     $(".dropdown-menu").animate({ left: '-65px' }, 100);
-
-
-
-
 
     //点击登录按钮 
     $("#mine").click(function () {
@@ -242,6 +230,7 @@ $(document).ready(function () {
         EnteringMonitorInfo();
     });
 
+    BindClickRemoveWarningPointBtn();
 });
 
 //获取缩放级别
@@ -275,7 +264,7 @@ function MoveLeftWindow() {
 }
 //标记点函数
 function editMarker() {
-    var markers = markerTool.getMarkers()
+    var markers = markerTool.getMarkers();
     for (var i = 0; i < markers.length; i++) {
         markers[i].enableDragging();
     }
@@ -417,7 +406,7 @@ function logoff(Func) {
 //绑定搜索栏的下拉select options
 function BindSelectOptions() {
     $.ajax({
-        url: "http://localhost:56818/Home/GetMonitorInfos",
+        url: "/Home/GetMonitorInfos",
         type: "Post",
         dataType: "Json",
         success: function (result) {
@@ -449,7 +438,7 @@ function BindSelectConfirmBtn() {
                 .append(
                     "<caption>监测预警查询结果</caption><thead><tr><th>监测阵列</th><th>阵经度</th><th>阵纬度</th><th>经度</th><th>纬度</th><th>预警方位</th><th>监测类型</th><th>预警等级</th><th>预警时间</th></tr></thead><tbody></tbody>");
 
-        var arrayId = $("#SearchMainTable option:selected").val();
+        var arrayId = $("#searchSelect option:selected").val();
         if (arrayId != 0) {
             loadDataToTable(arrayId);
         } else {
@@ -470,7 +459,7 @@ function BindSelectResetBtn() {
 
 //获取对应arrayId的数据加载到table里面
 function loadDataToTable(arrayId) {
-    var urlString = "http://localhost:56818/Home/GetDiseaseInfo";
+    var urlString = "/Home/GetDiseaseInfo";
     //Load loading gif
     $("#LoadingGif").css("display", "inline");
     $.ajax({
@@ -521,36 +510,52 @@ function loadDataToTable(arrayId) {
 function BindClickRow() {
     $("#SearchDiseaseInfoTable tr").click(function () { //给每行绑定了一个点击事件：var td = $( this ).find( "td" );
         var td = $(this).find("td");
-        //this指向了当前点击的行，通过find我们获得了该行所有的td对象。
-        //题中说到某个td，为了演示所以我们假设是要获得第3个td的数据。
-        var data = td.eq(3).html() + ", " + td.eq(4).html() + ", " + td.eq(7).html();
+        var RowData = [
+            td.eq(0).html(), td.eq(1).html(), td.eq(2).html(), td.eq(3).html(), td.eq(4).html(), td.eq(5).html(),
+            td.eq(6).html(), td.eq(7).html(), td.eq(8).html()
+        ];
+        AddWarningPointToMap(RowData);
+    });
+}
 
-        if (td.eq(7).html() == "泥石流") {
-            //创建图片对象
-            icon = new T.Icon({
-                iconUrl: "../../Resource/Img/mud/" + td.eq(7).html() + ".png",
-                iconSize: new T.Point(25, 41),
-                iconAnchor: new T.Point(10, 25)
-            });
-        } else {
-            //创建图片对象
-            icon = new T.Icon({
-                iconUrl: "../../Resource/Img/coast/" + td.eq(7).html() + ".png",
-                iconSize: new T.Point(19, 27),
-                iconAnchor: new T.Point(10, 25)
-            });
-        }
+//添加单个预警点点到地图上并绑定点击事件
+function AddWarningPointToMap(RowData) {
+    var data = RowData[3] + ", " + RowData[4] + ", " + RowData[7];
 
-        // 创建标注
-        var marker = new T.Marker(new T.LngLat(td.eq(3).html(), td.eq(4).html()), { icon: icon });
-        //arrayObj.push(marker);
-        //获取标记文本
-        var content = td.eq(0).html() + td.eq(6).html() + "预警点";
-        // 将标注添加到地图中
-        map.addOverLay(marker);
-        //注册标记的鼠标触摸,移开事件           
-        addClickHandler(content, marker, td, true);
-        //通过eq可以得到具体的某个td对象，从而得到相应的数据} );
+    if (RowData[7] == "泥石流") {
+        //创建图片对象
+        icon = new T.Icon({
+            iconUrl: "../../Resource/Img/mud/" + RowData[7] + ".png",
+            iconSize: new T.Point(25, 41),
+            iconAnchor: new T.Point(10, 25)
+        });
+    } else {
+        //创建图片对象
+        icon = new T.Icon({
+            iconUrl: "../../Resource/Img/coast/" + RowData[7] + ".png",
+            iconSize: new T.Point(25, 41),
+            iconAnchor: new T.Point(10, 25)
+        });
+    }
+
+    // 创建标注
+    var marker = new T.Marker(new T.LngLat(RowData[3], RowData[4]), { icon: icon });
+    DiseaseMarkerArray.push(marker);
+    //arrayObj.push(marker);
+    //获取标记文本
+    var content = RowData[0] + RowData[6] + "预警点";
+    // 将标注添加到地图中
+    map.addOverLay(marker);
+
+    //注册标记的鼠标触摸,移开事件           
+    addClickHandler(content, marker, RowData, true);
+}
+//绑定移除预警点信息按钮
+function BindClickRemoveWarningPointBtn() {
+    $("#RemoveWarningPointBtn").click(function () {
+        $.each(DiseaseMarkerArray, function (i, item) {
+            item.hide();
+        });
     });
 }
 
@@ -622,15 +627,15 @@ function clickOpenWindow(data) {
 //点击marker打开预警点信息窗口
 function clickOpenDiseaseWindow(data) {
     //将数据加载时窗口中
-    $("#MonitorName").val(data.eq(0).html());
-    $("#MonitorLon").val(data.eq(1).html());
-    $("#MonitorLat").val(data.eq(2).html());
-    $("#Lon").val(data.eq(3).html());
-    $("#Lat").val(data.eq(4).html());
-    $("#WarningDirection").val(data.eq(5).html());
-    $("#MonitorType").val(data.eq(6).html());
-    $("#WarningLevel").val(data.eq(7).html());
-    $("#WarningTime").val(data.eq(8).html());
+    $("#MonitorName").val(data[0]);
+    $("#MonitorLon").val(data[1]);
+    $("#MonitorLat").val(data[2]);
+    $("#Lon").val(data[3]);
+    $("#Lat").val(data[4]);
+    $("#WarningDirection").val(data[5]);
+    $("#MonitorType").val(data[6]);
+    $("#WarningLevel").val(data[7]);
+    $("#WarningTime").val(data[8]);
 
     $("#DiseaseInfoModal").modal('show');
 }
@@ -954,3 +959,85 @@ function EnteringMonitorInfo() {
     }
 }
 
+//每隔一分钟刷新一次加载在地图上面
+function UpdateOneMinute() {
+    var urlString = "/Home/GetDiseaseInfo";
+    
+
+    setInterval(function () {
+        //获取当前时间戳
+        var timestamp = Math.round(new Date() / 1000);
+        var NowTime = getFormatDate(timestamp);
+        timestamp = timestamp - 60;
+        var BeforeTime = getFormatDate(timestamp);
+
+        var array = $("#searchSelect option:not(:selected)");
+        array.push($("#searchSelect option:selected")[0]);
+        for (var i = 0; i < array.length; i++) {
+            $.ajax({
+                url: urlString,
+                type: "Get",
+                dataType: "Json",
+                data: {
+                    arrayId: array[i].value,
+                    beforeTime: BeforeTime,
+                    endTime: NowTime
+                },
+                success: function (result) {
+                    var tmpjsonOb = eval("(" + result + ")");
+                    var DataArray = [];
+
+                    $.each(tmpjsonOb, function (i, tmpItem) {
+                        var item = tmpjsonOb[i];
+                        for (j in tmpjsonOb[i]) {
+                            if (j == "ArrayID") {
+                                //ArrayID  要换成对应的中文， 用到一个全局的                      
+                                for (tmpj in OptionsDict) {
+                                    if (OptionsDict[tmpj].value == tmpjsonOb[i][j]) {
+                                        DataArray.push(tmpjsonOb[i][j]);
+                                    }
+                                }
+                            } else {
+                                DataArray.push(tmpjsonOb[i][j]);
+                            }
+                        }
+                        //添加此预警点到地图上面
+                        AddWarningPointToMap(DataArray);
+                    });
+                },
+                error: function (xhr, status, error) {
+                    alert(status + "," + error);
+                }
+            });
+        }
+    }, 60000);
+
+}
+
+//根据时间戳获取格式化日期
+function getFormatDate(timestamp) {
+    timestamp = parseInt(timestamp + '000');
+    var newDate = new Date(timestamp);
+    Date.prototype.format = function (format) {
+        var date = {
+            'M+': this.getMonth() + 1,
+            'd+': this.getDate(),
+            'h+': this.getHours(),
+            'm+': this.getMinutes(),
+            's+': this.getSeconds(),
+            'q+': Math.floor((this.getMonth() + 3) / 3),
+            'S+': this.getMilliseconds()
+        };
+        if (/(y+)/i.test(format)) {
+            format = format.replace(RegExp.$1, (this.getFullYear() + '').substr(4 - RegExp.$1.length));
+        }
+        for (var k in date) {
+            if (new RegExp('(' + k + ')').test(format)) {
+                format = format.replace(RegExp.$1, RegExp.$1.length == 1
+                    ? date[k] : ('00' + date[k]).substr(('' + date[k]).length));
+            }
+        }
+        return format;
+    }
+    return newDate.format('yyyy/MM/dd hh:mm:ss');
+}

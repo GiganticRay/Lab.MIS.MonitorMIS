@@ -136,15 +136,19 @@
                     </tr>
                     <tr>
                         <td>
-                            <button class="btn btn-lg btn-default" id="selectConfirmBtn">确定</button></td>
+                            <button class="btn btn-lg btn-default" id="selectConfirmBtn">确定</button>
+                            <button class="btn btn-lg btn-default" id="selectResetBtn">重置</button>
+                        </td>
                         <td>
-                            <button class="btn btn-lg btn-default" id="selectResetBtn">重置</button></td>
+                            <button class="btn btn-lg btn-default" id="RemoveWarningPointBtn">在地图上隐藏预警点</button></td>
+                            
                     </tr>
 
                 </tbody>
             </table>
             <div id="SearchDiseaseInfoDiv">
                 <img src="../../Resource/Img/searching.gif" id="LoadingGif" />
+                
                 <table class="table table-bordered" id="SearchDiseaseInfoTable">
                     <caption>监测预警查询结果</caption>
                     <thead>

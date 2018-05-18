@@ -41,6 +41,8 @@ var textURL = "http://t3.tianditu.com/DataServer?T=cva_w&x={x}&y={y}&l={z}";
 var textlay = new T.TileLayer(textURL, { minZoom: 1, maxZoom: 18 });
 
 $(document).ready(function () {
+    //每隔一分钟刷新一次预警点信息
+    UpdateOneMinute();
     //隐藏loading
     $("#LoadingGif").css("display", "none");
     //绑定搜索栏事件
@@ -82,6 +84,7 @@ $(document).ready(function () {
 
     //为模态对话框添加拖拽
     $(".modal").draggable();
+    //$(".modal").draggable({ cancel: ".title"});
     //$(".modal-content").draggable();
 
 
@@ -149,23 +152,7 @@ $(document).ready(function () {
         }
     })
 
-    //悬浮下拉
-
-    //$(".dropdown").mouseover(function () {
-    //    $(this).addClass("open");
-    //});
-
-    //$(".dropdown").mouseleave(function () {
-    //    $(this).removeClass("open");
-    //});
-
-    //$(".dropdown").click(function () {
-    //    $(this).find(".dropdown-menu").removeClass("open");
-    //});
     $(".dropdown-menu").animate({ left: '-65px' }, 100);
-
-
-
 
     //点击登录按钮 
     $("#mine").click(function () {
@@ -201,11 +188,7 @@ $(document).ready(function () {
                 if (item.getType() == 2) {
                     map.removeOverLay(item);
                 }
-                if (item.getType() == 4) {
-                    map.removeOverLay(item);
-                }
             });
-            // line3.clear();
             //如果存在聚合的标记，则删除
             if (arrayObj != null) {
                 //删除聚合标记
@@ -225,16 +208,12 @@ $(document).ready(function () {
 
     //删除检测设备信息
     $("#DeleteDeviceInfo").click(function () {
-        //获取隐藏于id
-        var getHiddenId = $("#hiddenDeviceID").val();
-        DeleteDeviceInfo(getHiddenId, "#CloseDeviceInfo");
+        DeleteDeviceInfo();
     });
 
     //保存检测设备信息
     $("#SaveDeviceInfo").click(function () {
-        //获取表单数据
-        var getData = $("#DeviceInfoForm");
-        SavaDevideInfo(getData, "#CloseDeviceInfo");
+        SavaDevideInfo();
     });
 
     $("#layer").click(function () {
@@ -250,6 +229,8 @@ $(document).ready(function () {
     $("#EnteringMonitorInfoBtn").click(function () {
         EnteringMonitorInfo();
     });
+
+    BindClickRemoveWarningPointBtn();
 
 
     //打开录入检测设备信息窗口
@@ -557,9 +538,11 @@ function loadDataToTable(arrayId) {
                         appendStr += tmpjsonOb[i][j] + "</td><td>";
                     }
                 }
-                appendStr += "</td></tr>";
+                appendStr = appendStr.slice(0, appendStr.length - 4);
+                appendStr += "</tr>";
             });
             $("#SearchDiseaseInfoTable").append(appendStr);
+            BindClickRow();
         },
         error: function (xhr, status, error) {
             alert(status + "," + error);
@@ -568,6 +551,58 @@ function loadDataToTable(arrayId) {
 
 }
 
+//点击表格行加载对应受灾害点
+function BindClickRow() {
+    $("#SearchDiseaseInfoTable tr").click(function () { //给每行绑定了一个点击事件：var td = $( this ).find( "td" );
+        var td = $(this).find("td");
+        var RowData = [
+            td.eq(0).html(), td.eq(1).html(), td.eq(2).html(), td.eq(3).html(), td.eq(4).html(), td.eq(5).html(),
+            td.eq(6).html(), td.eq(7).html(), td.eq(8).html()
+        ];
+        AddWarningPointToMap(RowData);
+    });
+}
+
+//添加单个预警点点到地图上并绑定点击事件
+function AddWarningPointToMap(RowData) {
+    var data = RowData[3] + ", " + RowData[4] + ", " + RowData[7];
+
+    if (RowData[7] == "泥石流") {
+        //创建图片对象
+        icon = new T.Icon({
+            iconUrl: "../../Resource/Img/mud/" + RowData[7] + ".png",
+            iconSize: new T.Point(25, 41),
+            iconAnchor: new T.Point(10, 25)
+        });
+    } else {
+        //创建图片对象
+        icon = new T.Icon({
+            iconUrl: "../../Resource/Img/coast/" + RowData[7] + ".png",
+            iconSize: new T.Point(25, 41),
+            iconAnchor: new T.Point(10, 25)
+        });
+    }
+
+    // 创建标注
+    var marker = new T.Marker(new T.LngLat(RowData[3], RowData[4]), { icon: icon });
+    DiseaseMarkerArray.push(marker);
+    //arrayObj.push(marker);
+    //获取标记文本
+    var content = RowData[0] + RowData[6] + "预警点";
+    // 将标注添加到地图中
+    map.addOverLay(marker);
+
+    //注册标记的鼠标触摸,移开事件           
+    addClickHandler(content, marker, RowData, true);
+}
+//绑定移除预警点信息按钮
+function BindClickRemoveWarningPointBtn() {
+    $("#RemoveWarningPointBtn").click(function () {
+        $.each(DiseaseMarkerArray, function (i, item) {
+            item.hide();
+        });
+    });
+}
 //将YY-MM-DD 转换为 YY/MM/DD
 function convertFormat(str) {
 
@@ -579,30 +614,42 @@ function convertFormat(str) {
 // content 标记的文字信息  
 //marker 标记对象 
 //dataId 标记对象对应的id
-function addClickHandler(content, marker, data) {
+//IsDiseasePoint 是否是预警点
+function addClickHandler(content, marker, data, IsDiseasePoint) {
     //鼠标触碰事件
     marker.addEventListener("mouseover", function (e) {
-        //获取坐标
-        var point = e.lnglat;
-        //创建一个信息窗实例
-        var markerInfoWin = new T.InfoWindow(content, { offset: new T.Point(0, -30) }); // 创建信息窗口对象
-        map.openInfoWindow(markerInfoWin, point); //开启信息窗口
-    }
+            //获取坐标
+            var point = e.lnglat;
+            //创建一个信息窗实例
+            var markerInfoWin = new T.InfoWindow(content, { offset: new T.Point(0, -30) }); // 创建信息窗口对象
+            map.openInfoWindow(markerInfoWin, point); //开启信息窗口
+        }
     );
     //鼠标移开事件
     marker.addEventListener("mouseout", function (e) {
-        //关闭信息窗
-        map.closeInfoWindow();
-    }
+            //关闭信息窗
+            map.closeInfoWindow();
+        }
     );
-    //鼠标单击事件
-    marker.addEventListener("click", function (e) {
-        clickOpenWindow(data);
+    if (IsDiseasePoint == false) {
+        //鼠标单击事件deviceInfoPoint
+        marker.addEventListener("click",
+            function (e) {
+                clickOpenWindow(data);
+            }
+        );
+    } else {
+        //鼠标单击事件预警点
+        marker.addEventListener("click",
+            function (e) {
+                clickOpenDiseaseWindow(data);
+            }
+        );
     }
-    );
 }
 
-//点击marker打开窗口
+
+//点击marker打开设备信息窗口
 function clickOpenWindow(data) {
     //将数据加载时窗口中
     var getForm = $("#DeviceInfoForm");
@@ -620,6 +667,106 @@ function clickOpenWindow(data) {
     $("#hiddenDeviceID").val(data["Id"]);
 
     $("#DeviceInfoModal").modal('show');
+}
+
+//点击marker打开预警点信息窗口
+function clickOpenDiseaseWindow(data) {
+    //将数据加载时窗口中
+    $("#MonitorName").val(data[0]);
+    $("#MonitorLon").val(data[1]);
+    $("#MonitorLat").val(data[2]);
+    $("#Lon").val(data[3]);
+    $("#Lat").val(data[4]);
+    $("#WarningDirection").val(data[5]);
+    $("#MonitorType").val(data[6]);
+    $("#WarningLevel").val(data[7]);
+    $("#WarningTime").val(data[8]);
+
+    $("#DiseaseInfoModal").modal('show');
+}
+
+
+//每隔一分钟刷新一次加载在地图上面
+function UpdateOneMinute() {
+    var urlString = "/Home/GetDiseaseInfo";
+
+
+    setInterval(function () {
+        //获取当前时间戳
+        var timestamp = Math.round(new Date() / 1000);
+        var NowTime = getFormatDate(timestamp);
+        timestamp = timestamp - 60;
+        var BeforeTime = getFormatDate(timestamp);
+
+        var array = $("#searchSelect option:not(:selected)");
+        array.push($("#searchSelect option:selected")[0]);
+        for (var i = 0; i < array.length; i++) {
+            $.ajax({
+                url: urlString,
+                type: "Get",
+                dataType: "Json",
+                data: {
+                    arrayId: array[i].value,
+                    beforeTime: BeforeTime,
+                    endTime: NowTime
+                },
+                success: function (result) {
+                    var tmpjsonOb = eval("(" + result + ")");
+                    var DataArray = [];
+
+                    $.each(tmpjsonOb, function (i, tmpItem) {
+                        var item = tmpjsonOb[i];
+                        for (j in tmpjsonOb[i]) {
+                            if (j == "ArrayID") {
+                                //ArrayID  要换成对应的中文， 用到一个全局的                      
+                                for (tmpj in OptionsDict) {
+                                    if (OptionsDict[tmpj].value == tmpjsonOb[i][j]) {
+                                        DataArray.push(tmpjsonOb[i][j]);
+                                    }
+                                }
+                            } else {
+                                DataArray.push(tmpjsonOb[i][j]);
+                            }
+                        }
+                        //添加此预警点到地图上面
+                        AddWarningPointToMap(DataArray);
+                    });
+                },
+                error: function (xhr, status, error) {
+                    alert(status + "," + error);
+                }
+            });
+        }
+    }, 60000);
+
+}
+
+//根据时间戳获取格式化日期
+function getFormatDate(timestamp) {
+    timestamp = parseInt(timestamp + '000');
+    var newDate = new Date(timestamp);
+    Date.prototype.format = function (format) {
+        var date = {
+            'M+': this.getMonth() + 1,
+            'd+': this.getDate(),
+            'h+': this.getHours(),
+            'm+': this.getMinutes(),
+            's+': this.getSeconds(),
+            'q+': Math.floor((this.getMonth() + 3) / 3),
+            'S+': this.getMilliseconds()
+        };
+        if (/(y+)/i.test(format)) {
+            format = format.replace(RegExp.$1, (this.getFullYear() + '').substr(4 - RegExp.$1.length));
+        }
+        for (var k in date) {
+            if (new RegExp('(' + k + ')').test(format)) {
+                format = format.replace(RegExp.$1, RegExp.$1.length == 1
+                    ? date[k] : ('00' + date[k]).substr(('' + date[k]).length));
+            }
+        }
+        return format;
+    }
+    return newDate.format('yyyy/MM/dd hh:mm:ss');
 }
 
 //删除检测设备信息
@@ -739,7 +886,7 @@ function ShowDevice() {
                 // 将标注添加到地图中
                 // map.addOverLay(marker);
                 //注册标记的鼠标触摸,移开事件           
-                addClickHandler(content, marker, data_info[j]);
+                addClickHandler(content, marker, data_info[j],false);
             }
             //聚合marker
             markers = new T.MarkerClusterer(map, { markers: arrayObj });

@@ -143,14 +143,14 @@
                         </td>
                         <td>
                             <button class="btn btn-lg btn-default" id="RemoveWarningPointBtn">在地图上隐藏预警点</button></td>
-                            
+
                     </tr>
 
                 </tbody>
             </table>
             <div id="SearchDiseaseInfoDiv">
                 <img src="../../Resource/Img/searching.gif" id="LoadingGif" />
-                
+
                 <table class="table table-bordered" id="SearchDiseaseInfoTable">
                     <caption>监测预警查询结果</caption>
                     <thead>
@@ -281,7 +281,7 @@
                         <input type="hidden" name="MonitorPointInfoId" value="" />
                         <input type="hidden" name="PointPicture" value="" />
                         <!--用来清空表单数据-->
-                            <input type="reset" name="reset" style="display: none;" />
+                        <input type="reset" name="reset" style="display: none;" />
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -292,6 +292,73 @@
                         删除
                     </button>
                     <button type="button" class="btn btn-primary glyphicon glyphicon-off" data-dismiss="modal" id="CloseDeviceInfo">
+                        关闭
+                    </button>
+                </div>
+                <%--</div>--%>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal -->
+        </div>
+    </div>
+
+    <div class="modal fade " id="DiseaseInfoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <%--  <div class="panel panel-info">--%>
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title H1">预警点信息
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <form id="DiseaseInfoForm">
+                        <table class="table table-striped table-bordered table-hover">
+                            <tr>
+                                <td>监测阵列:</td>
+                                <td>
+                                    <input type="text" id="MonitorName" readonly="readonly" value="" /></td>
+                                <td>阵经度:</td>
+                                <td>
+                                    <input type="text" id="MonitorLon" readonly="readonly" value="" /></td>
+                            </tr>
+                            <tr>
+                                <td>阵纬度:</td>
+                                <td>
+                                    <input type="text" id="MonitorLat" readonly="readonly" value="" /></td>
+                                <td>经度:</td>
+                                <td>
+                                    <input type="text" id="Lon" readonly="readonly" value="" /></td>
+                            </tr>
+                            <tr>
+                                <td>纬度:</td>
+                                <td>
+                                    <input type="text" id="Lat" readonly="readonly" value="" /></td>
+                                <td>预警方位</td>
+                                <td>
+                                    <input type="text" id="WarningDirection" readonly="readonly" value="" /></td>
+                            </tr>
+                            <tr>
+                                <td>监测类型</td>
+                                <td>
+                                    <input type="text" id="MonitorType" readonly="readonly" value="" /></td>
+                                <td>预警等级</td>
+                                <td>
+                                    <input type="text" id="WarningLevel" readonly="readonly" value="" /></td>
+                            </tr>
+                            <tr>
+                                <td>预警时间</td>
+                                <td>
+                                    <input type="text" id="WarningTime" readonly="readonly" value="" /></td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary glyphicon glyphicon-off" data-dismiss="modal">
                         关闭
                     </button>
                 </div>
@@ -337,8 +404,8 @@
                                     </select></td>
                             </tr>
                         </table>
-                         <!--用来清空表单数据-->
-                            <input type="reset" name="reset" id="resetInMonitorInfoForm" style="display: none;" />
+                        <!--用来清空表单数据-->
+                        <input type="reset" name="reset" id="resetInMonitorInfoForm" style="display: none;" />
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -427,8 +494,8 @@
                         </table>
                         <%--对应的检测阵id   MonitorPointInfoId--%>
                         <input type="hidden" name="MonitorPointInfoId" id="MonitorPointInfoId" value="" />
-                          <!--用来清空表单数据-->
-                            <input type="reset" name="reset" style="display: none;" />
+                        <!--用来清空表单数据-->
+                        <input type="reset" name="reset" style="display: none;" />
                     </form>
                 </div>
                 <div class="modal-footer">

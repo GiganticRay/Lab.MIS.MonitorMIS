@@ -173,5 +173,18 @@ namespace Lab.MIS.MonitorMIS.Controllers
             bool getResult =  deviceInfoService.Update(deviceinfo);
             return Content(getResult.ToString());
         }
+
+        /// <summary>
+        /// 根据id查询监测阵列的三个监测设备信息
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ActionResult GetDeviceInfoByMonitorId(int id)
+        {
+            List<DeviceInfo> tmp = deviceInfoService.Get(a => a.MonitorPointInfoId == id).ToList();
+            var res = new JsonResult();
+            res.Data = JsonConvert.SerializeObject(tmp, setting);
+            return res;
+        }
     }
 }

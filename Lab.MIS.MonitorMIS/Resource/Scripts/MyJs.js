@@ -7,7 +7,7 @@ var handler, handler1;
 var polygonTool;
 var lineTool, markerTool;
 var OptionsDict = "[";
-
+var line3;
 //判断用户是否登录
 var isLog = false;
 //聚合标记
@@ -31,7 +31,8 @@ var lay = new T.TileLayer(imageURL, { minZoom: 1, maxZoom: 18 });
 
 //所有通过table查询出来的点击的marker
 var DiseaseMarkerArray = [];
-
+//阵列id
+var group_id = [];
 
 
 ///初始化函数
@@ -188,7 +189,11 @@ $(document).ready(function () {
                 if (item.getType() == 2) {
                     map.removeOverLay(item);
                 }
+                if (item.getType() == 4) {
+                    map.removeOverLay(item);
+                }
             });
+           // line3.clear();
             //如果存在聚合的标记，则删除
             if (arrayObj != null) {
                 //删除聚合标记
@@ -747,8 +752,59 @@ function ShowDevice() {
             markers = new T.MarkerClusterer(map, { markers: arrayObj });
             //设置网格大小
             markers.setGridSize(1);
+            //以下代码是为了获得不重复的阵列id
+            var num = [];
+            num[0] = 0;
+            for(var i=0;i<data_info.length;i++)
+            {
+                var exit = false;
+                for (var j = 0; j < group_id.length; j++)
+                {
+                    if(group_id[j]==data_info[i]["MonitorPointInfoId"])
+                    {
+                        exit = true;
+                        break;
+                    }
+                }
+                if(exit==false)
+                {
+                    group_id[num[0]] = data_info[i]["MonitorPointInfoId"];
+                    num[0]++;
+                }
+            }
+            DrawLineForGroup();
         }
     });
+}
+//为阵列画线
+function DrawLineForGroup() {   
+    for (var i = 0; i < group_id.length; i++) {
+        var first_point = [];
+        var points1 = [];
+        $.ajax({
+            url: "/Home/GetDeviceInfoByMonitorId",
+            type: "post",
+            datatype: "Json",
+            data:{id:group_id[i]},
+            success: function (BackData) {
+                var newData = JSON.parse(BackData);
+                $.each(newData, function (index, element) {
+                    if (index == 0) {
+                        first_point[0] = element.DeviceLon;
+                        first_point[1] = element.DeviceLat;
+                    }
+                    points1.push(new T.LngLat(element.DeviceLon, element.DeviceLat));
+                });
+                points1.push(new T.LngLat(first_point[0], first_point[1]));
+                line3 = new T.Polyline(points1);
+                //向地图上添加线
+                map.addOverLay(line3);
+                points1 = [];
+                first_point = [];
+            }
+        })
+    }
+
 }
 
 //保存设备信息

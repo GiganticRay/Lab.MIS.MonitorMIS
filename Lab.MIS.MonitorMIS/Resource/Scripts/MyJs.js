@@ -147,17 +147,17 @@ $(document).ready(function () {
 
     //悬浮下拉
 
-    $(".dropdown").mouseover(function () {
-        $(this).addClass("open");
-    });
+    //$(".dropdown").mouseover(function () {
+    //    $(this).addClass("open");
+    //});
 
-    $(".dropdown").mouseleave(function () {
-        $(this).removeClass("open");
-    });
+    //$(".dropdown").mouseleave(function () {
+    //    $(this).removeClass("open");
+    //});
 
-    $(".dropdown").click(function () {
-        $(this).find(".dropdown-menu").removeClass("open");
-    });
+    //$(".dropdown").click(function () {
+    //    $(this).find(".dropdown-menu").removeClass("open");
+    //});
     $(".dropdown-menu").animate({ left: '-65px' }, 100);
 
 
@@ -217,12 +217,16 @@ $(document).ready(function () {
 
     //删除检测设备信息
     $("#DeleteDeviceInfo").click(function () {
-        DeleteDeviceInfo();
+        //获取隐藏于id
+        var getHiddenId = $("#hiddenDeviceID").val();
+        DeleteDeviceInfo(getHiddenId, "#CloseDeviceInfo");
     });
 
     //保存检测设备信息
     $("#SaveDeviceInfo").click(function () {
-        SavaDevideInfo();
+        //获取表单数据
+        var getData = $("#DeviceInfoForm");
+        SavaDevideInfo(getData, "#CloseDeviceInfo");
     });
 
     $("#layer").click(function () {
@@ -239,6 +243,52 @@ $(document).ready(function () {
         EnteringMonitorInfo();
     });
 
+
+    //打开录入检测设备信息窗口
+    $("#EnteringDeviceInfo").click(function () {
+        OpenEnteringDeviceInfo();
+    });
+
+    //录入检测设备信息
+    $("#SaveEnteringDeviceInfo").click(function () {
+        EnteringDeviceInfo();
+    });
+
+    //下拉列表改变事件
+    $("#DeviceSelect").change(function () {
+        //获取检测阵列id
+        var getSelectVal = $("#DeviceSelect").val();
+        $("#MonitorPointInfoId").val(getSelectVal);
+        $.ajax({
+            url: "/Home/GetOneMonitorPointInfo",
+            type: "POST",
+            data: { id: getSelectVal },
+            success: function (backData) {
+                $("#MonitorType").html(backData);
+
+            }
+
+        });
+    });
+
+    //tree详情管理
+    $("#showAllDevice").click(function () {
+        OpenTreeDeviceWindow();
+    });
+
+    //tree详情管理中删除检测设备
+    $("#TreeDeleteDeviceInfo").click(function () {
+        //获取隐藏于id
+        var getHiddenId = $("#TreehiddenDeviceID").val();
+        DeleteDeviceInfo(getHiddenId, null);
+    });
+
+    //tree详情管理中保存检测设备
+    $("#TreeSaveDeviceInfo").click(function () {
+        //获取表单数据
+        var getData = $("#TreeDeviceInfoForm");
+        SavaDevideInfo(getData, null);
+    });
 });
 
 //获取缩放级别
@@ -414,7 +464,7 @@ function logoff(Func) {
 //绑定搜索栏的下拉select options
 function BindSelectOptions() {
     $.ajax({
-        url: "http://localhost:56818/Home/GetMonitorInfos",
+        url: "/Home/GetMonitorInfos",
         type: "Post",
         dataType: "Json",
         success: function (result) {
@@ -465,7 +515,7 @@ function BindSelectResetBtn() {
 }
 //获取对应arrayId的数据加载到table里面
 function loadDataToTable(arrayId) {
-    var urlString = "http://localhost:56818/Home/GetDiseaseInfo";
+    var urlString = "/Home/GetDiseaseInfo";
     //Load loading gif
     $("#LoadingGif").css("display", "inline");
     $.ajax({
@@ -565,12 +615,13 @@ function clickOpenWindow(data) {
 }
 
 //删除检测设备信息
-function DeleteDeviceInfo() {
+//getHiddenId 表单数据
+//select_option 关闭窗口的选择器 null表示是树状结构窗体中
+function DeleteDeviceInfo(getHiddenId, select_option) {
     //判断是否登录
     if (isLog == true) {
         Delete(function () {
-            //获取隐藏于id
-            var getHiddenId = $("#hiddenDeviceID").val();
+
             $.ajax({
                 url: "/Home/DeleteDevice",
                 type: "POST",
@@ -582,8 +633,23 @@ function DeleteDeviceInfo() {
                             type: "success",
                             timer: 1500
                         });
-                        //关闭窗口
-                        $("#CloseDeviceInfo").click();
+
+                        if (select_option != null) {
+                            //关闭窗口
+                            $(select_option).click();
+                        } else {
+                            //表示是树状结构中的保存操作，需要刷新树状结构中的数据
+                            $.ajax({
+                                url: "/Home/GetTreeJson",
+                                type: "POST",
+                                success: function (backData) {
+                                    //像树状结构中添加数据
+                                    AddDataToTree(backData);
+                                }
+                            });
+                        }
+                        //清空窗体数据
+                        $("input[type=reset]").trigger("click");
                     }
                     else {
                         swal({
@@ -604,6 +670,7 @@ function DeleteDeviceInfo() {
         openLoginModal();
     }
 }
+
 
 //显示设备标记
 function ShowDevice() {
@@ -675,12 +742,12 @@ function ShowDevice() {
 }
 
 //保存设备信息
-function SavaDevideInfo() {
+//getData 表单数据
+//select_option 关闭窗口的选择器
+function SavaDevideInfo(getData, select_option) {
     //判断是否登录
     if (isLog == true) {
         save(function () {
-            //获取表单数据
-            var getData = $("#DeviceInfoForm");
 
             var objectData = {
                 Id: getData[0]["Id"].value,
@@ -708,8 +775,24 @@ function SavaDevideInfo() {
                             type: "success",
                             timer: 1500
                         });
-                        //关闭窗口
-                        $("#CloseDeviceInfo").click();
+                        if (select_option != null) {
+                            //关闭窗口
+                            $(select_option).click();
+                        } else {
+                            //表示是树状结构中的保存操作，需要刷新树状结构中的数据
+                            $.ajax({
+                                url: "/Home/GetTreeJson",
+                                type: "POST",
+                                success: function (backData) {
+                                    //像树状结构中添加数据
+                                    AddDataToTree(backData);
+                                }
+                            });
+                        }
+
+                        //清空窗体数据
+                        $("input[type=reset]").trigger("click");
+
                         //刷新
                         $("#showDevice").click();
                         $("#showDevice").click();
@@ -832,7 +915,55 @@ function EnteringData(Func) {
 
 //打开检测阵列信息录入窗口
 function OpenEnteringMonitorInfo() {
+    //清空窗体数据
+    $("input[type=reset]").trigger("click");
+    
     $("#MonitorInfoModal").modal('show');
+}
+
+//打开检测设备信息录入窗口
+function OpenEnteringDeviceInfo() {
+    //清空窗体数据
+    $("input[type=reset]").trigger("click");
+    //将select清空，重新加载
+    $("#DeviceSelect").html("");
+    //在打开窗口之前查询出所有的检测阵列
+    $.ajax({
+        url: "/Home/GetNewMonitorInfos",
+        type: "POSt",
+        success: function (getData) {
+            //将string转换成json
+            var newData = JSON.parse(getData);
+            //给隐藏域添加MonitorPointInfoId
+            $("#MonitorPointInfoId").val(newData[0].MonitorId);
+            //获取检测类型
+            $("#MonitorType").html(newData[0].Type);
+
+
+            $.each(newData, function (index, element) {
+                $("#DeviceSelect").append("<option value='" + element.MonitorId + "'>" + element.Name + "</option>");
+            });
+        }
+    });
+    $("#EnteringDeviceInfoModal").modal('show');
+}
+
+//打开tree详情管理检测设备
+function OpenTreeDeviceWindow() {
+
+    //清空窗体数据
+    $("input[type=reset]").trigger("click");
+
+    $.ajax({
+        url: "/Home/GetTreeJson",
+        type: "POST",
+        success: function (backData) {
+            $("#TreeDeviceInfoModal").modal('show');
+            //像树状结构中添加数据
+            AddDataToTree(backData);
+        }
+    });
+
 }
 
 //录入检测阵列信息
@@ -861,6 +992,7 @@ function EnteringMonitorInfo() {
                         });
                         //关闭窗口
                         $("#CloseMonitorInfo").click();
+                       
                     }
                     else {
                         swal({
@@ -880,4 +1012,113 @@ function EnteringMonitorInfo() {
         });
         openLoginModal();
     }
+}
+
+//录入检测设备信息
+function EnteringDeviceInfo() {
+    //判断是否登录
+    if (isLog == true) {
+        EnteringData(function () {
+            //获取表单数据
+            var getData = $("#EnteringDeviceInfoForm");
+
+            var objectData = {
+                DeviceName: getData[0]["DeviceName"].value,
+                ShuCaiNum: getData[0]["ShuCaiNum"].value,
+                SensorNum: getData[0]["SensorNum"].value,
+                PhoneNum: getData[0]["PhoneNum"].value,
+                YaoshiNum: getData[0]["YaoshiNum"].value,
+                DeviceLon: getData[0]["DeviceLon"].value,
+                DeviceLat: getData[0]["DeviceLat"].value,
+                MonitorType: $("#MonitorType")[0].innerText,
+                MonitorName: getData[0]["MonitorName"].value,
+                MonitorPointInfoId: $("#DeviceSelect")[0].options[$("#DeviceSelect")[0].selectedIndex].value,
+                Beizhu: getData[0]["Beizhu"].value
+            };
+            $.ajax({
+                url: "/Home/EnteringDeviceInfo",
+                type: "POST",
+                data: objectData,
+                success: function (Backdata) {
+                    if (Backdata["state"] == true) {
+                        swal({
+                            title: "录入成功！",
+                            type: "success",
+                            timer: 1500
+                        });
+                        //关闭窗口
+                        $("#CloseEnteringDeviceInfo").click();
+                    }
+                    else {
+                        swal({
+                            title: "录入失败！",
+                            type: "error",
+                            timer: 1500
+                        });
+                    }
+                }
+            });
+        });
+    } else {
+        swal({
+            title: "请先登录！",
+            type: "error",
+            timer: 1500
+        });
+        openLoginModal();
+    }
+}
+
+//向树状结构中添加数据
+function AddDataToTree(backData) {
+    $('#tree').treeview({
+        data: backData,   // data is not optional
+        levels: 1,
+        //点击节点
+        onNodeSelected: function (event, data) {
+            //data["tags"]  选中的ID
+            if (data["tags"] >= 0) {
+                var data_info = [];
+                $.ajax({
+                    url: "/Home/GetOneDevice",
+                    data: { id: data["tags"][0] },
+                    type: "post",
+                    datatype: "Json",
+                    success: function (BackData) {
+                        //将string转换成json
+                        var newData = JSON.parse(BackData);
+                        $.each(newData, function (index, element) {
+                            //js中二维数组必须进行重复的声明，否则会undefind  
+                            data_info["MonitorType"] = element.MonitorType;
+                            data_info["DeviceName"] = element.DeviceName;
+                            data_info["ShuCaiNum"] = element.ShuCaiNum;
+                            data_info["SensorNum"] = element.SensorNum;
+                            data_info["PhoneNum"] = element.PhoneNum;
+                            data_info["YaoshiNum"] = element.YaoshiNum;
+                            data_info["DeviceLon"] = element.DeviceLon;
+                            data_info["DeviceLat"] = element.DeviceLat;
+                            data_info["Beizhu"] = element.Beizhu;
+                            data_info["Id"] = element.Id;
+                            data_info["MonitorName"] = element.MonitorName;
+                            data_info["MonitorPointInfoId"] = element.MonitorPointInfoId;
+                            data_info["PointPicture"] = element.PointPicture;
+                        });
+
+                        //将数据加载时窗口中
+                        var getForm = $("#TreeDeviceInfoForm");
+
+                        var num = 0;
+                        for (var item in data_info) {
+                            if (num < getForm[0].length - 1) {
+                                getForm[0][num].value = data_info[item];
+                                num++;
+                            }
+                        }
+                        //给隐藏域赋值
+                        $("#TreehiddenDeviceID").val(data_info["Id"]);
+                    }
+                });
+            }
+        }
+    });
 }

@@ -255,8 +255,7 @@
     <Content Include="Resource\Scripts\bootstrap-3.3.7-dist\js\bootstrap.js" />
     <Content Include="Resource\Scripts\bootstrap-3.3.7-dist\js\bootstrap.min.js" />
     <Content Include="Resource\Scripts\bootstrap-3.3.7-dist\js\npm.js" />
-    <Content Include="Resource\Scripts\bootstrap.min.css" />
-    <Content Include="Resource\Scripts\bootstrap.min.js" />
+    <Content Include="Resource\Scripts\bootstrap-treeview.js" />
     <Content Include="Resource\Scripts\jquery-3.2.1.js" />
     <Content Include="Resource\Scripts\jquery-3.2.1.min.js" />
     <Content Include="Resource\Scripts\jquery-ui.js" />

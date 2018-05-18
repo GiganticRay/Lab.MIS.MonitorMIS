@@ -20,7 +20,6 @@ F:\课程集合\工程实践2\clone\Lab.MIS.Model\bin\Debug\Lab.MIS.Model.pdb
 F:\课程集合\工程实践2\clone\Lab.MIS.Model\bin\Debug\EntityFramework.dll
 F:\课程集合\工程实践2\clone\Lab.MIS.Model\bin\Debug\EntityFramework.xml
 F:\课程集合\工程实践2\clone\Lab.MIS.Model\bin\Debug\zh-Hans\EntityFramework.resources.dll
-F:\课程集合\工程实践2\clone\Lab.MIS.Model\obj\Debug\Lab.MIS.Model.csprojResolveAssemblyReference.cache
 F:\课程集合\工程实践2\clone\Lab.MIS.Model\obj\Debug\Lab.MIS.Model.dll
 F:\课程集合\工程实践2\clone\Lab.MIS.Model\obj\Debug\Lab.MIS.Model.pdb
 E:\泥石流滑坡预警系统\github\Lab.MIS.MonitorMIS\Lab.MIS.Model\obj\Debug\Lab.MIS.Model.csprojResolveAssemblyReference.cache

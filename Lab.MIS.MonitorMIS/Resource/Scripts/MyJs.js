@@ -2,7 +2,7 @@
 
 var map;
 var zoom = 12;
-var open = false;
+var open = true;
 var handler, handler1;
 var polygonTool;
 var lineTool, markerTool;
@@ -41,9 +41,6 @@ var textURL = "http://t3.tianditu.com/DataServer?T=cva_w&x={x}&y={y}&l={z}";
 var textlay = new T.TileLayer(textURL, { minZoom: 1, maxZoom: 18 });
 
 $(document).ready(function () {
-    
-    //每隔一分钟刷新一次预警点信息
-    UpdateOneMinute();
     //隐藏loading
     $("#LoadingGif").css("display", "none");
     //绑定搜索栏事件
@@ -85,7 +82,6 @@ $(document).ready(function () {
 
     //为模态对话框添加拖拽
     $(".modal").draggable();
-    //$(".modal").draggable({ cancel: ".title"});
     //$(".modal-content").draggable();
 
 
@@ -153,7 +149,23 @@ $(document).ready(function () {
         }
     })
 
+    //悬浮下拉
+
+    //$(".dropdown").mouseover(function () {
+    //    $(this).addClass("open");
+    //});
+
+    //$(".dropdown").mouseleave(function () {
+    //    $(this).removeClass("open");
+    //});
+
+    //$(".dropdown").click(function () {
+    //    $(this).find(".dropdown-menu").removeClass("open");
+    //});
     $(".dropdown-menu").animate({ left: '-65px' }, 100);
+
+
+
 
     //点击登录按钮 
     $("#mine").click(function () {
@@ -213,12 +225,16 @@ $(document).ready(function () {
 
     //删除检测设备信息
     $("#DeleteDeviceInfo").click(function () {
-        DeleteDeviceInfo();
+        //获取隐藏于id
+        var getHiddenId = $("#hiddenDeviceID").val();
+        DeleteDeviceInfo(getHiddenId, "#CloseDeviceInfo");
     });
 
     //保存检测设备信息
     $("#SaveDeviceInfo").click(function () {
-        SavaDevideInfo();
+        //获取表单数据
+        var getData = $("#DeviceInfoForm");
+        SavaDevideInfo(getData, "#CloseDeviceInfo");
     });
 
     $("#layer").click(function () {
@@ -235,7 +251,52 @@ $(document).ready(function () {
         EnteringMonitorInfo();
     });
 
-    BindClickRemoveWarningPointBtn();
+
+    //打开录入检测设备信息窗口
+    $("#EnteringDeviceInfo").click(function () {
+        OpenEnteringDeviceInfo();
+    });
+
+    //录入检测设备信息
+    $("#SaveEnteringDeviceInfo").click(function () {
+        EnteringDeviceInfo();
+    });
+
+    //下拉列表改变事件
+    $("#DeviceSelect").change(function () {
+        //获取检测阵列id
+        var getSelectVal = $("#DeviceSelect").val();
+        $("#MonitorPointInfoId").val(getSelectVal);
+        $.ajax({
+            url: "/Home/GetOneMonitorPointInfo",
+            type: "POST",
+            data: { id: getSelectVal },
+            success: function (backData) {
+                $("#MonitorType").html(backData);
+
+            }
+
+        });
+    });
+
+    //tree详情管理
+    $("#showAllDevice").click(function () {
+        OpenTreeDeviceWindow();
+    });
+
+    //tree详情管理中删除检测设备
+    $("#TreeDeleteDeviceInfo").click(function () {
+        //获取隐藏于id
+        var getHiddenId = $("#TreehiddenDeviceID").val();
+        DeleteDeviceInfo(getHiddenId, null);
+    });
+
+    //tree详情管理中保存检测设备
+    $("#TreeSaveDeviceInfo").click(function () {
+        //获取表单数据
+        var getData = $("#TreeDeviceInfoForm");
+        SavaDevideInfo(getData, null);
+    });
 });
 
 //获取缩放级别
@@ -269,7 +330,7 @@ function MoveLeftWindow() {
 }
 //标记点函数
 function editMarker() {
-    var markers = markerTool.getMarkers();
+    var markers = markerTool.getMarkers()
     for (var i = 0; i < markers.length; i++) {
         markers[i].enableDragging();
     }
@@ -441,9 +502,9 @@ function BindSelectConfirmBtn() {
         $("#SearchDiseaseInfoTable").empty();
         $("#SearchDiseaseInfoTable")
                 .append(
-                    "<caption>监测预警查询结果</caption><thead><tr><th>监测阵列</th><th>阵经度</th><th>阵纬度</th><th>经度</th><th>纬度</th><th>预警方位</th><th>监测类型</th><th>预警等级</th><th>预警时间</th></tr></thead><tbody></tbody>");
+                    "<caption>监测预警查询结果</caption><thead><tr><th>监测阵列</th><th>阵经度</th><th>阵纬度</th><th>经度</th><th>纬度</th><th>预警方位</th><th>监测类型</th><th>预警等级</th><th>预警时间</th><th>预留</th></tr></thead><tbody></tbody>");
 
-        var arrayId = $("#searchSelect option:selected").val();
+        var arrayId = $("#SearchMainTable option:selected").val();
         if (arrayId != 0) {
             loadDataToTable(arrayId);
         } else {
@@ -454,14 +515,12 @@ function BindSelectConfirmBtn() {
         }
     });
 }
-
 //绑定搜索栏重置按钮
 function BindSelectResetBtn() {
     $("#selectResetBtn").click(function () {
         $("#SearchDiseaseInfoTable").empty();
     });
 }
-
 //获取对应arrayId的数据加载到table里面
 function loadDataToTable(arrayId) {
     var urlString = "/Home/GetDiseaseInfo";
@@ -498,70 +557,15 @@ function loadDataToTable(arrayId) {
                         appendStr += tmpjsonOb[i][j] + "</td><td>";
                     }
                 }
-                appendStr = appendStr.slice(0, appendStr.length - 4);
-                appendStr += "</tr>";
+                appendStr += "</td></tr>";
             });
             $("#SearchDiseaseInfoTable").append(appendStr);
-            BindClickRow();
         },
         error: function (xhr, status, error) {
             alert(status + "," + error);
         }
     });
 
-}
-
-//点击表格行加载对应受灾害点
-function BindClickRow() {
-    $("#SearchDiseaseInfoTable tr").click(function () { //给每行绑定了一个点击事件：var td = $( this ).find( "td" );
-        var td = $(this).find("td");
-        var RowData = [
-            td.eq(0).html(), td.eq(1).html(), td.eq(2).html(), td.eq(3).html(), td.eq(4).html(), td.eq(5).html(),
-            td.eq(6).html(), td.eq(7).html(), td.eq(8).html()
-        ];
-        AddWarningPointToMap(RowData);
-    });
-}
-
-//添加单个预警点点到地图上并绑定点击事件
-function AddWarningPointToMap(RowData) {
-    var data = RowData[3] + ", " + RowData[4] + ", " + RowData[7];
-
-    if (RowData[7] == "泥石流") {
-        //创建图片对象
-        icon = new T.Icon({
-            iconUrl: "../../Resource/Img/mud/" + RowData[7] + ".png",
-            iconSize: new T.Point(25, 41),
-            iconAnchor: new T.Point(10, 25)
-        });
-    } else {
-        //创建图片对象
-        icon = new T.Icon({
-            iconUrl: "../../Resource/Img/coast/" + RowData[7] + ".png",
-            iconSize: new T.Point(25, 41),
-            iconAnchor: new T.Point(10, 25)
-        });
-    }
-
-    // 创建标注
-    var marker = new T.Marker(new T.LngLat(RowData[3], RowData[4]), { icon: icon });
-    DiseaseMarkerArray.push(marker);
-    //arrayObj.push(marker);
-    //获取标记文本
-    var content = RowData[0] + RowData[6] + "预警点";
-    // 将标注添加到地图中
-    map.addOverLay(marker);
-
-    //注册标记的鼠标触摸,移开事件           
-    addClickHandler(content, marker, RowData, true);
-}
-//绑定移除预警点信息按钮
-function BindClickRemoveWarningPointBtn() {
-    $("#RemoveWarningPointBtn").click(function () {
-        $.each(DiseaseMarkerArray, function (i, item) {
-            item.hide();
-        });
-    });
 }
 
 //将YY-MM-DD 转换为 YY/MM/DD
@@ -575,8 +579,7 @@ function convertFormat(str) {
 // content 标记的文字信息  
 //marker 标记对象 
 //dataId 标记对象对应的id
-//IsDiseasePoint 是否是预警点
-function addClickHandler(content, marker, data, IsDiseasePoint) {
+function addClickHandler(content, marker, data) {
     //鼠标触碰事件
     marker.addEventListener("mouseover", function (e) {
         //获取坐标
@@ -592,24 +595,14 @@ function addClickHandler(content, marker, data, IsDiseasePoint) {
         map.closeInfoWindow();
     }
     );
-    if (IsDiseasePoint == false) {
-        //鼠标单击事件deviceInfoPoint
-        marker.addEventListener("click",
-            function(e) {
-                clickOpenWindow(data);
-            }
-        );
-    } else {
-        //鼠标单击事件预警点
-        marker.addEventListener("click",
-            function (e) {
-                clickOpenDiseaseWindow(data);
-            }
-        );
+    //鼠标单击事件
+    marker.addEventListener("click", function (e) {
+        clickOpenWindow(data);
     }
+    );
 }
 
-//点击marker打开设备信息窗口
+//点击marker打开窗口
 function clickOpenWindow(data) {
     //将数据加载时窗口中
     var getForm = $("#DeviceInfoForm");
@@ -629,30 +622,14 @@ function clickOpenWindow(data) {
     $("#DeviceInfoModal").modal('show');
 }
 
-//点击marker打开预警点信息窗口
-function clickOpenDiseaseWindow(data) {
-    //将数据加载时窗口中
-    $("#MonitorName").val(data[0]);
-    $("#MonitorLon").val(data[1]);
-    $("#MonitorLat").val(data[2]);
-    $("#Lon").val(data[3]);
-    $("#Lat").val(data[4]);
-    $("#WarningDirection").val(data[5]);
-    $("#MonitorType").val(data[6]);
-    $("#WarningLevel").val(data[7]);
-    $("#WarningTime").val(data[8]);
-
-    $("#DiseaseInfoModal").modal('show');
-}
-
-
 //删除检测设备信息
-function DeleteDeviceInfo() {
+//getHiddenId 表单数据
+//select_option 关闭窗口的选择器 null表示是树状结构窗体中
+function DeleteDeviceInfo(getHiddenId, select_option) {
     //判断是否登录
     if (isLog == true) {
         Delete(function () {
-            //获取隐藏于id
-            var getHiddenId = $("#hiddenDeviceID").val();
+
             $.ajax({
                 url: "/Home/DeleteDevice",
                 type: "POST",
@@ -664,8 +641,23 @@ function DeleteDeviceInfo() {
                             type: "success",
                             timer: 1500
                         });
-                        //关闭窗口
-                        $("#CloseDeviceInfo").click();
+
+                        if (select_option != null) {
+                            //关闭窗口
+                            $(select_option).click();
+                        } else {
+                            //表示是树状结构中的保存操作，需要刷新树状结构中的数据
+                            $.ajax({
+                                url: "/Home/GetTreeJson",
+                                type: "POST",
+                                success: function (backData) {
+                                    //像树状结构中添加数据
+                                    AddDataToTree(backData);
+                                }
+                            });
+                        }
+                        //清空窗体数据
+                        $("input[type=reset]").trigger("click");
                     }
                     else {
                         swal({
@@ -686,6 +678,7 @@ function DeleteDeviceInfo() {
         openLoginModal();
     }
 }
+
 
 //显示设备标记
 function ShowDevice() {
@@ -726,7 +719,7 @@ function ShowDevice() {
                     //创建图片对象
                     icon = new T.Icon({
                         iconUrl: "../../Resource/Img/mud/0.png",
-                        iconSize: new T.Point(25, 41),
+                        iconSize: new T.Point(19, 27),
                         iconAnchor: new T.Point(10, 25)
                     });
                 } else {
@@ -746,7 +739,7 @@ function ShowDevice() {
                 // 将标注添加到地图中
                 // map.addOverLay(marker);
                 //注册标记的鼠标触摸,移开事件           
-                addClickHandler(content, marker, data_info[j], false);
+                addClickHandler(content, marker, data_info[j]);
             }
             //聚合marker
             markers = new T.MarkerClusterer(map, { markers: arrayObj });
@@ -808,12 +801,12 @@ function DrawLineForGroup() {
 }
 
 //保存设备信息
-function SavaDevideInfo() {
+//getData 表单数据
+//select_option 关闭窗口的选择器
+function SavaDevideInfo(getData, select_option) {
     //判断是否登录
     if (isLog == true) {
         save(function () {
-            //获取表单数据
-            var getData = $("#DeviceInfoForm");
 
             var objectData = {
                 Id: getData[0]["Id"].value,
@@ -841,8 +834,24 @@ function SavaDevideInfo() {
                             type: "success",
                             timer: 1500
                         });
-                        //关闭窗口
-                        $("#CloseDeviceInfo").click();
+                        if (select_option != null) {
+                            //关闭窗口
+                            $(select_option).click();
+                        } else {
+                            //表示是树状结构中的保存操作，需要刷新树状结构中的数据
+                            $.ajax({
+                                url: "/Home/GetTreeJson",
+                                type: "POST",
+                                success: function (backData) {
+                                    //像树状结构中添加数据
+                                    AddDataToTree(backData);
+                                }
+                            });
+                        }
+
+                        //清空窗体数据
+                        $("input[type=reset]").trigger("click");
+
                         //刷新
                         $("#showDevice").click();
                         $("#showDevice").click();
@@ -965,7 +974,55 @@ function EnteringData(Func) {
 
 //打开检测阵列信息录入窗口
 function OpenEnteringMonitorInfo() {
+    //清空窗体数据
+    $("input[type=reset]").trigger("click");
+    
     $("#MonitorInfoModal").modal('show');
+}
+
+//打开检测设备信息录入窗口
+function OpenEnteringDeviceInfo() {
+    //清空窗体数据
+    $("input[type=reset]").trigger("click");
+    //将select清空，重新加载
+    $("#DeviceSelect").html("");
+    //在打开窗口之前查询出所有的检测阵列
+    $.ajax({
+        url: "/Home/GetNewMonitorInfos",
+        type: "POSt",
+        success: function (getData) {
+            //将string转换成json
+            var newData = JSON.parse(getData);
+            //给隐藏域添加MonitorPointInfoId
+            $("#MonitorPointInfoId").val(newData[0].MonitorId);
+            //获取检测类型
+            $("#MonitorType").html(newData[0].Type);
+
+
+            $.each(newData, function (index, element) {
+                $("#DeviceSelect").append("<option value='" + element.MonitorId + "'>" + element.Name + "</option>");
+            });
+        }
+    });
+    $("#EnteringDeviceInfoModal").modal('show');
+}
+
+//打开tree详情管理检测设备
+function OpenTreeDeviceWindow() {
+
+    //清空窗体数据
+    $("input[type=reset]").trigger("click");
+
+    $.ajax({
+        url: "/Home/GetTreeJson",
+        type: "POST",
+        success: function (backData) {
+            $("#TreeDeviceInfoModal").modal('show');
+            //像树状结构中添加数据
+            AddDataToTree(backData);
+        }
+    });
+
 }
 
 //录入检测阵列信息
@@ -994,6 +1051,7 @@ function EnteringMonitorInfo() {
                         });
                         //关闭窗口
                         $("#CloseMonitorInfo").click();
+                       
                     }
                     else {
                         swal({
@@ -1015,85 +1073,111 @@ function EnteringMonitorInfo() {
     }
 }
 
-//每隔一分钟刷新一次加载在地图上面
-function UpdateOneMinute() {
-    var urlString = "/Home/GetDiseaseInfo";
-    
+//录入检测设备信息
+function EnteringDeviceInfo() {
+    //判断是否登录
+    if (isLog == true) {
+        EnteringData(function () {
+            //获取表单数据
+            var getData = $("#EnteringDeviceInfoForm");
 
-    setInterval(function () {
-        //获取当前时间戳
-        var timestamp = Math.round(new Date() / 1000);
-        var NowTime = getFormatDate(timestamp);
-        timestamp = timestamp - 60;
-        var BeforeTime = getFormatDate(timestamp);
-
-        var array = $("#searchSelect option:not(:selected)");
-        array.push($("#searchSelect option:selected")[0]);
-        for (var i = 0; i < array.length; i++) {
+            var objectData = {
+                DeviceName: getData[0]["DeviceName"].value,
+                ShuCaiNum: getData[0]["ShuCaiNum"].value,
+                SensorNum: getData[0]["SensorNum"].value,
+                PhoneNum: getData[0]["PhoneNum"].value,
+                YaoshiNum: getData[0]["YaoshiNum"].value,
+                DeviceLon: getData[0]["DeviceLon"].value,
+                DeviceLat: getData[0]["DeviceLat"].value,
+                MonitorType: $("#MonitorType")[0].innerText,
+                MonitorName: getData[0]["MonitorName"].value,
+                MonitorPointInfoId: $("#DeviceSelect")[0].options[$("#DeviceSelect")[0].selectedIndex].value,
+                Beizhu: getData[0]["Beizhu"].value
+            };
             $.ajax({
-                url: urlString,
-                type: "Get",
-                dataType: "Json",
-                data: {
-                    arrayId: array[i].value,
-                    beforeTime: BeforeTime,
-                    endTime: NowTime
-                },
-                success: function (result) {
-                    var tmpjsonOb = eval("(" + result + ")");
-                    var DataArray = [];
-
-                    $.each(tmpjsonOb, function (i, tmpItem) {
-                        var item = tmpjsonOb[i];
-                        for (j in tmpjsonOb[i]) {
-                            if (j == "ArrayID") {
-                                //ArrayID  要换成对应的中文， 用到一个全局的                      
-                                for (tmpj in OptionsDict) {
-                                    if (OptionsDict[tmpj].value == tmpjsonOb[i][j]) {
-                                        DataArray.push(tmpjsonOb[i][j]);
-                                    }
-                                }
-                            } else {
-                                DataArray.push(tmpjsonOb[i][j]);
-                            }
-                        }
-                        //添加此预警点到地图上面
-                        AddWarningPointToMap(DataArray);
-                    });
-                },
-                error: function (xhr, status, error) {
-                    alert(status + "," + error);
+                url: "/Home/EnteringDeviceInfo",
+                type: "POST",
+                data: objectData,
+                success: function (Backdata) {
+                    if (Backdata["state"] == true) {
+                        swal({
+                            title: "录入成功！",
+                            type: "success",
+                            timer: 1500
+                        });
+                        //关闭窗口
+                        $("#CloseEnteringDeviceInfo").click();
+                    }
+                    else {
+                        swal({
+                            title: "录入失败！",
+                            type: "error",
+                            timer: 1500
+                        });
+                    }
                 }
             });
-        }
-    }, 60000);
-
+        });
+    } else {
+        swal({
+            title: "请先登录！",
+            type: "error",
+            timer: 1500
+        });
+        openLoginModal();
+    }
 }
 
-//根据时间戳获取格式化日期
-function getFormatDate(timestamp) {
-    timestamp = parseInt(timestamp + '000');
-    var newDate = new Date(timestamp);
-    Date.prototype.format = function (format) {
-        var date = {
-            'M+': this.getMonth() + 1,
-            'd+': this.getDate(),
-            'h+': this.getHours(),
-            'm+': this.getMinutes(),
-            's+': this.getSeconds(),
-            'q+': Math.floor((this.getMonth() + 3) / 3),
-            'S+': this.getMilliseconds()
-        };
-        if (/(y+)/i.test(format)) {
-            format = format.replace(RegExp.$1, (this.getFullYear() + '').substr(4 - RegExp.$1.length));
-        }
-        for (var k in date) {
-            if (new RegExp('(' + k + ')').test(format)) {
-                format = format.replace(RegExp.$1, RegExp.$1.length == 1
-                    ? date[k] : ('00' + date[k]).substr(('' + date[k]).length));
+//向树状结构中添加数据
+function AddDataToTree(backData) {
+    $('#tree').treeview({
+        data: backData,   // data is not optional
+        levels: 1,
+        //点击节点
+        onNodeSelected: function (event, data) {
+            //data["tags"]  选中的ID
+            if (data["tags"] >= 0) {
+                var data_info = [];
+                $.ajax({
+                    url: "/Home/GetOneDevice",
+                    data: { id: data["tags"][0] },
+                    type: "post",
+                    datatype: "Json",
+                    success: function (BackData) {
+                        //将string转换成json
+                        var newData = JSON.parse(BackData);
+                        $.each(newData, function (index, element) {
+                            //js中二维数组必须进行重复的声明，否则会undefind  
+                            data_info["MonitorType"] = element.MonitorType;
+                            data_info["DeviceName"] = element.DeviceName;
+                            data_info["ShuCaiNum"] = element.ShuCaiNum;
+                            data_info["SensorNum"] = element.SensorNum;
+                            data_info["PhoneNum"] = element.PhoneNum;
+                            data_info["YaoshiNum"] = element.YaoshiNum;
+                            data_info["DeviceLon"] = element.DeviceLon;
+                            data_info["DeviceLat"] = element.DeviceLat;
+                            data_info["Beizhu"] = element.Beizhu;
+                            data_info["Id"] = element.Id;
+                            data_info["MonitorName"] = element.MonitorName;
+                            data_info["MonitorPointInfoId"] = element.MonitorPointInfoId;
+                            data_info["PointPicture"] = element.PointPicture;
+                        });
+
+                        //将数据加载时窗口中
+                        var getForm = $("#TreeDeviceInfoForm");
+
+                        var num = 0;
+                        for (var item in data_info) {
+                            if (num < getForm[0].length - 1) {
+                                getForm[0][num].value = data_info[item];
+                                num++;
+                            }
+                        }
+                        //给隐藏域赋值
+                        $("#TreehiddenDeviceID").val(data_info["Id"]);
+                    }
+                });
             }
         }
-        return format;
-    }
-    return newDate.format('yyyy/MM/dd hh:mm:ss');
+    });
 }

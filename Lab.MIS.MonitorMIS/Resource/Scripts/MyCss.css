@@ -429,3 +429,11 @@ a {
     line-height:40px;
     font-weight:bold;
 }
+#tree-modal-body {
+    padding: 0px;
+}
+.menu-open:checked ~ .menu-item:nth-child(8) {
+    transition-duration: 490ms;
+    -webkit-transform: translate3d(-360px, 0, 0);
+    transform: translate3d(-360px, 0, 0);
+}

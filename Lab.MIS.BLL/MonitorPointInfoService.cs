@@ -7,11 +7,13 @@ using Lab.MIS.Model;
 
 namespace Lab.MIS.BLL
 {
-    public class MonitorPointInfoService:BaseService<MonitorPointInfo>
+    public class MonitorPointInfoService : BaseService<MonitorPointInfo>
     {
         public override void setCurrentDal()
         {
             CurrentDal = dbSession.GetMonitorPointInfoDal;
         }
+     
+
     }
 }

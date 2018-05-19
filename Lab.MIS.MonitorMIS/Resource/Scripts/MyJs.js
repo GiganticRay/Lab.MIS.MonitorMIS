@@ -531,23 +531,30 @@ function loadDataToTable(arrayId) {
             var appendStr = "";
 
             $.each(tmpjsonOb, function (i, tmpItem) {
-                var item = tmpjsonOb[i];
+                //alert(tmpItem["Type"]);
+                var SelectedType = $("#searchSelectType option:selected").html();
+                if (SelectedType == "全选" || tmpItem["Type"] == SelectedType) {
+                    //0是类型全选，1是滑坡，2是
+                    var item = tmpjsonOb[i];
 
-                appendStr += "<tr><td>";
-                for (j in tmpjsonOb[i]) {
-                    if (j == "ArrayID") {
-                        //ArrayID  要换成对应的中文， 用到一个全局的                      
-                        for (tmpj in OptionsDict) {
-                            if (OptionsDict[tmpj].value == tmpjsonOb[i][j]) {
-                                appendStr += OptionsDict[tmpj].Key + "</td><td>";
+                    appendStr += "<tr><td>";
+                    for (j in tmpjsonOb[i]) {
+                        if (j == "ArrayID") {
+                            //ArrayID  要换成对应的中文， 用到一个全局的                      
+                            for (tmpj in OptionsDict) {
+                                if (OptionsDict[tmpj].value == tmpjsonOb[i][j]) {
+                                    appendStr += OptionsDict[tmpj].Key + "</td><td>";
+                                }
                             }
+                        } else {
+                            appendStr += tmpjsonOb[i][j] + "</td><td>";
                         }
-                    } else {
-                        appendStr += tmpjsonOb[i][j] + "</td><td>";
                     }
+                    appendStr = appendStr.slice(0, appendStr.length - 4);
+                    appendStr += "</tr>";
                 }
-                appendStr = appendStr.slice(0, appendStr.length - 4);
-                appendStr += "</tr>";
+
+                
             });
             $("#SearchDiseaseInfoTable").append(appendStr);
             BindClickRow();

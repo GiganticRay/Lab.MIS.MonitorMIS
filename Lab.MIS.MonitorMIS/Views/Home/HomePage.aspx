@@ -109,7 +109,8 @@
         <div id="side_bar">
             <div id="handlerDiv"></div>
             <span id="side_barController"></span>
-            <table id="SearchMainTable" class="table table-striped">
+            <p id="ChangeSearchParameters">修改查询参数</p>
+            <table id="SearchMainTable" class="table">
                 <caption>查询</caption>
                 <tbody>
                     <tr>
@@ -139,11 +140,9 @@
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="2">
+                        <td>
                             <h4>请选择监测阵列：</h4>
                         </td>
-                    </tr>
-                    <tr>
                         <td>
                             <select class="btn btn-lg btn-default" id="searchSelect">
                                 <option>全选</option>
@@ -152,12 +151,22 @@
                     </tr>
                     <tr>
                         <td>
-                            <button class="btn btn-lg btn-default" id="selectConfirmBtn">确定</button>
-                            <button class="btn btn-lg btn-default" id="selectResetBtn">重置</button>
+                            <h4>请选择监测类型：</h4>
                         </td>
                         <td>
-                            <button class="btn btn-lg btn-default" id="RemoveWarningPointBtn">在地图上隐藏预警点</button></td>
-
+                            <select class="btn btn-lg btn-default" id="searchSelectType">
+                                <option value=0>全选</option>
+                                <option value=1>滑坡</option>
+                                <option value=2>泥石流</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align:center;">
+                            <button class="btn btn-lg btn-default" id="selectConfirmBtn">确定</button>
+                            <button class="btn btn-lg btn-default" id="selectResetBtn">重置</button>  
+                            <button class="btn btn-lg btn-default" id="RemoveWarningPointBtn">隐藏预警点</button>
+                        </td>
                     </tr>
 
                 </tbody>

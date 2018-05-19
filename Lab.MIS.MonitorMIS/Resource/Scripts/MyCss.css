@@ -2,7 +2,7 @@
     width: 100%;
     height: 100%;
     margin: 0;
-    font-family: "Microsoft YaHei";
+    font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
     cursor: pointer;
 }
 
@@ -26,8 +26,8 @@ input, b, p {
     position: absolute;
     width: 100%;
     height: 60px;
-    border-bottom: 1px solid #ccc;
-    box-shadow: 0 1px 3px rgba(0,0,0,.25);
+    /*border-bottom: 1px solid #ccc;
+    box-shadow: 0 1px 3px rgba(0,0,0,.25);*/
     z-index: 100;
     opacity: 1;
 }
@@ -81,7 +81,7 @@ input, b, p {
     z-index: 1000;
     background: aqua;
     position: absolute;
-    width: 670px;
+    width: 450px;
     height: 100%;
     top: 61px;
     left: 0px;
@@ -103,7 +103,7 @@ input, b, p {
 #SearchDiseaseInfoDiv {
     position: absolute;
     width:99%;
-    height: 47.5%;
+    height: 100%;
     margin: 0px;
     overflow-x:auto;
     white-space: nowrap; 
@@ -176,6 +176,8 @@ input, b, p {
 
 
 tr {
+    padding:0px;
+    margin:0;
     height: 40px;
 }
 
@@ -191,7 +193,7 @@ table
 {
     text-align:left;    
     font-size: 19px;
-    font-family: "Slim-Joe";
+    font-family: inherit;
 }
 
 #H1{
@@ -211,13 +213,67 @@ li:hover {
     color: gray;
 }
 
+#ChangeSearchParameters {
+    margin:0px;
+    padding:0px;
+    width: 100%;
+    height: 50px;
+    background-color:#3199d6;
+    color:white;
+    line-height:50px;
+    display:none;
+    text-align:center;
+    font-family:inherit;
+    font-size:19px;
+    text-shadow:0px 2px 3px #ADADAD;
+    -moz-border-radius:1px; -webkit-border-radius:1px; border-radius:1px;
+    -moz-box-shadow:0px 2px 5px #878787; -webkit-box-shadow:0px 2px 5px #878787; box-shadow:0px 2px 5px #878787;
+}
 
 
+#SearchMainTable caption {
+    font-family:inherit;
+    background-color: #3199d6;
+    color: white;
+    line-height: 50px;
+    height: 50px;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
 
+#SearchMainTable h4{
+    margin: 0;
+    padding: 0;
+}
 
-
-
-
+#SearchMainTable td {
+    height:40px;
+}
+#SearchMainTable input {
+    height:30px;
+}
+#selectConfirmBtn {
+    color:white;
+    background-color:#8cc269;
+    width:135px;
+}
+#selectResetBtn {
+    color: white;
+    background-color: #ef82a0;
+    width: 135px;
+}
+#searchSelect {
+    color: white;
+    background-color: #8fb2c9;
+}
+#searchSelectType {
+    color: white;
+    background-color: #8fb2c9;
+}
+#RemoveWarningPointBtn {
+    float:right;
+}
 
 
 
@@ -425,7 +481,7 @@ a {
     width:100%;
     height:40px;
     float:left;
-    font-family:"Microsoft YaHei";
+    font-family:inherit;
     font-size:15px;
     line-height:40px;
     font-weight:bold;

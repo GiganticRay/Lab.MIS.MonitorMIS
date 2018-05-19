@@ -68,7 +68,7 @@ $(document).ready(function () {
             lt = e.clientX;
             doc.mousemove(function (e) {
                 lt = e.clientX;
-                lt = lt < 670 ? 670 : lt;
+                lt = lt < 450 ? 450 : lt;
                 me.css("left", lt + "px");
                 dl.width(lt);
             });
@@ -152,7 +152,50 @@ $(document).ready(function () {
         }
     })
 
+
+
+
+    //主按钮下拉框选项居中
     $(".dropdown-menu").animate({ left: '-65px' }, 100);
+
+
+    //窗口大小改变时适应页面
+
+    //获取滚动条高度
+    var scroll_height = $("#SearchDiseaseInfoDiv")[0].offsetHeight - $("#SearchDiseaseInfoDiv")[0].scrollHeight;
+
+    //使side_bar高度等于窗口高度-headDiv高度
+    var n = document.getElementById("side_bar");
+    n.style.height = document.documentElement.offsetHeight - document.getElementById("headDiv").clientHeight - 4 + "px";
+
+    //使SearchDiseaseInfoDiv高度等于side_bar高度-SearchMainTable高度
+    var m = document.getElementById("SearchDiseaseInfoDiv");
+    m.style.height = document.getElementById("side_bar").clientHeight - document.getElementById("SearchMainTable").clientHeight - scroll_height + "px";
+
+
+    $(window).resize(function () {
+        n.style.height = document.documentElement.offsetHeight - document.getElementById("headDiv").clientHeight - 4 + "px";
+        m.style.height = document.getElementById("side_bar").clientHeight - document.getElementById("ChangeSearchParameters").clientHeight - document.getElementById("SearchMainTable").clientHeight - scroll_height + "px";
+    });
+
+
+    //鼠标滚动
+
+    $("#SearchDiseaseInfoDiv").scroll(function () {
+        $("#SearchMainTable").slideUp("1000", function () {
+            $("#ChangeSearchParameters").css("display", "block");
+        });
+
+        m.style.height = document.getElementById("side_bar").clientHeight - document.getElementById("ChangeSearchParameters").clientHeight + "px";
+    });
+
+    //
+    $("#ChangeSearchParameters").click(function () {
+        $("#ChangeSearchParameters").css("display", "none");
+        $("#SearchMainTable").slideToggle("slow");
+
+        m.style.height = document.getElementById("side_bar").clientHeight - document.getElementById("SearchMainTable").clientHeight - scroll_height + "px";
+    });
 
     //点击登录按钮 
     $("#mine").click(function () {
@@ -598,6 +641,7 @@ function AddWarningPointToMap(RowData) {
     //注册标记的鼠标触摸,移开事件           
     addClickHandler(content, marker, RowData, true);
 }
+
 //绑定移除预警点信息按钮
 function BindClickRemoveWarningPointBtn() {
     $("#RemoveWarningPointBtn").click(function () {
@@ -621,18 +665,18 @@ function convertFormat(str) {
 function addClickHandler(content, marker, data, IsDiseasePoint) {
     //鼠标触碰事件
     marker.addEventListener("mouseover", function (e) {
-            //获取坐标
-            var point = e.lnglat;
-            //创建一个信息窗实例
-            var markerInfoWin = new T.InfoWindow(content, { offset: new T.Point(0, -30) }); // 创建信息窗口对象
-            map.openInfoWindow(markerInfoWin, point); //开启信息窗口
-        }
+        //获取坐标
+        var point = e.lnglat;
+        //创建一个信息窗实例
+        var markerInfoWin = new T.InfoWindow(content, { offset: new T.Point(0, -30) }); // 创建信息窗口对象
+        map.openInfoWindow(markerInfoWin, point); //开启信息窗口
+    }
     );
     //鼠标移开事件
     marker.addEventListener("mouseout", function (e) {
-            //关闭信息窗
-            map.closeInfoWindow();
-        }
+        //关闭信息窗
+        map.closeInfoWindow();
+    }
     );
     if (IsDiseasePoint == false) {
         //鼠标单击事件deviceInfoPoint
@@ -889,7 +933,7 @@ function ShowDevice() {
                 // 将标注添加到地图中
                 // map.addOverLay(marker);
                 //注册标记的鼠标触摸,移开事件           
-                addClickHandler(content, marker, data_info[j],false);
+                addClickHandler(content, marker, data_info[j], false);
             }
             //聚合marker
             markers = new T.MarkerClusterer(map, { markers: arrayObj });

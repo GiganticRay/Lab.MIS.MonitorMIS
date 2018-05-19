@@ -95,7 +95,8 @@
         <div id="side_bar">
             <div id="handlerDiv"></div>
             <span id="side_barController"></span>
-            <table id="SearchMainTable" class="table table-striped">
+            <p id="ChangeSearchParameters">修改查询参数</p>
+            <table id="SearchMainTable" class="table">
                 <caption>查询</caption>
                 <tbody>
                     <tr>
@@ -130,19 +131,19 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>
+                        <td colspan="2">
                             <select class="btn btn-lg btn-default" id="searchSelect">
                                 <option>全选</option>
                             </select>
+                            <button class="btn btn-lg btn-default" id="selectConfirmBtn">确定</button>
+                            <button class="btn btn-lg btn-default" id="selectResetBtn">重置</button>   
                         </td>
                     </tr>
                     <tr>
-                        <td>
-                            <button class="btn btn-lg btn-default" id="selectConfirmBtn">确定</button>
-                            <button class="btn btn-lg btn-default" id="selectResetBtn">重置</button>
+
+                        <td colspan="2" style="text-align:center;">
+                            <button class="btn btn-lg btn-default" id="RemoveWarningPointBtn">隐藏预警点</button>
                         </td>
-                        <td>
-                            <button class="btn btn-lg btn-default" id="RemoveWarningPointBtn">在地图上隐藏预警点</button></td>
 
                     </tr>
 

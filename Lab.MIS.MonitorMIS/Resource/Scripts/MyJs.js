@@ -188,6 +188,9 @@ $(document).ready(function () {
                 if (item.getType() == 2) {
                     map.removeOverLay(item);
                 }
+                if (item.getType() == 4) {
+                    map.removeOverLay(item);
+                }
             });
             //如果存在聚合的标记，则删除
             if (arrayObj != null) {
@@ -278,6 +281,11 @@ $(document).ready(function () {
         var getData = $("#TreeDeviceInfoForm");
         SavaDevideInfo(getData, null);
     });
+
+    //绑定搜索栏改变事件
+    BindVagueSelectInputChange();
+    //绑定清空查询
+    BindClearVagueSelect();
 });
 
 //获取缩放级别
@@ -1322,5 +1330,66 @@ function AddDataToTree(backData) {
                 });
             }
         }
+    });
+}
+
+//绑定搜索栏改变事件
+function BindVagueSelectInputChange() {
+
+    $("#SearchText").on('input', function (e) {
+        $("#TableBody").html("");
+        var contentString = $("#SearchText").val();
+        var StrTmp = "";
+        if (contentString == "") {
+            return;
+        }
+        //TableBody
+        $.ajax({
+            url: "/Home/GetVagueSearch",
+            type: "POST",
+            data: { SearchContent: contentString },
+            success: function (backData) {
+                var tmpObj = $.parseJSON(backData);
+                $.each(tmpObj,
+                    function (i, item) {
+                        var signContent = contentString;
+                        var signContentPosition = item.DeviceName.indexOf(signContent);
+                        var beforeContent = item.DeviceName.slice(0, signContentPosition);
+                        var backContent = item.DeviceName.slice(signContentPosition + signContent.length, item.DeviceName.length);
+                        $("#TableBody").html("");
+                        StrTmp += "<tr><td>" +
+                            beforeContent + "<span class='biaozhu'>" + signContent + "</span>" + backContent +
+                            "</td><td>" +
+                            item.DeviceLon +
+                            "</td><td>" +
+                            item.DeviceLat +
+                            "</td></tr>";
+                    });
+                $("#TableBody").append(StrTmp);
+                BindVagueClickRow();
+            }
+
+        });
+    });
+}
+//绑定清空查询
+function BindClearVagueSelect() {
+    $("#search_btn").click(function () {
+        $("#SearchText").val("");
+        $("#TableBody").html("");
+    });
+}
+//点击模糊查询出来的表格行
+function BindVagueClickRow() {
+    $("#VagueTable tr").click(function () { //给每行绑定了一个点击事件：var td = $( this ).find( "td" );
+        var td = $(this).find("td");
+        //var RowData = [
+        //    td.eq(0).html(), td.eq(1).html(), td.eq(2).html(), td.eq(3).html(), td.eq(4).html(), td.eq(5).html(),
+        //    td.eq(6).html(), td.eq(7).html(), td.eq(8).html()
+        //];
+        //AddWarningPointToMap(RowData);
+        var Lon = td.eq(1).html();
+        var Lat = td.eq(2).html();
+        map.centerAndZoom(new T.LngLat(Lon, Lat), 20);
     });
 }

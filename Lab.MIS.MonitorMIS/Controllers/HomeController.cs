@@ -286,5 +286,18 @@ namespace Lab.MIS.MonitorMIS.Controllers
             res.Data = JsonConvert.SerializeObject(tmp, setting);
             return res;
         }
+
+        /// <summary>
+        /// 获取模糊查询的结果
+        /// </summary>
+        /// <param name="SearchContent"></param>
+        /// <returns></returns>
+        public ActionResult GetVagueSearch(string SearchContent)
+        {
+            List<DeviceInfo> tmp = deviceInfoService.Get(a => a.DeviceName.IndexOf(SearchContent) >= 0).ToList();
+            var res = new JsonResult();
+            res.Data = JsonConvert.SerializeObject(tmp, setting);
+            return res;
+        }
     }
 }

@@ -253,9 +253,10 @@ a {
 }
 
 .menu {
-    position: absolute;
+    /*position: absolute;*/
+    float: right;
     right:20px;
-    width: 350px;
+    width: 400px;
     height: 60px;
     box-sizing: border-box;
     font-size: 20px;
@@ -436,4 +437,42 @@ a {
     transition-duration: 490ms;
     -webkit-transform: translate3d(-360px, 0, 0);
     transform: translate3d(-360px, 0, 0);
+}
+#SearchDiv {
+    float: right;
+    width: 400px;
+    height: 100%;
+    line-height: 34px;
+    margin-top: 13px;
+    margin-left: 20px;
+}
+#SearchContent {
+    float: left;
+}
+#SearchText {
+    font-size: 20px;
+    width: 350px;
+}
+#search_btn {
+    border: 1px solid #b8b8b8;
+    border-left: 0;
+    height: 40px;
+    width: 40px;
+    cursor: pointer;
+    float: left;
+
+    background-image: url("../../Resource/Img/Clear.png");
+    background-repeat: no-repeat;
+    background-position-x: 5px;
+    background-position-y: 5px;
+}
+#SearchResultContent {
+    height: 400px;
+    width: 400px;
+    overflow-y:auto; 
+    overflow-x:auto;
+}
+
+.biaozhu {
+    color: red;
 }

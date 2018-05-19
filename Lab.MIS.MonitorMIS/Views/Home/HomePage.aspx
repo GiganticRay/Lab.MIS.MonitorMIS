@@ -42,7 +42,7 @@
     <div id="MainDiv">
 
         <div id="headDiv">
-            <img src="../../Resource/Img/Logo.png" id="LogoImg" />
+            <img src="../../Resource/Img/Logo.png" id="LogoImg" />         
             <nav class="menu">
                 <!-- 创建主按钮 -->
                 <input type="checkbox" href="#" class="menu-open" name="menu-open" id="menu-open" />
@@ -89,6 +89,20 @@
                 <div class="menu-item" id="showDevice"><span>显示</span></div>
                 <div class="menu-item" id="showAllDevice"><span>详细</span></div>
             </nav>
+            <%--模糊查询content--%>
+            <div id="SearchDiv">
+                <div id="SearchContent">
+                    <input type="text" id="SearchText"/>
+                </div>
+                <div id="search_btn"></div>
+                <div id="SearchResultContent">
+                    <table class="table" id="VagueTable">
+                        <tbody id="TableBody">
+                        
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
 
         <div id="mapDiv"></div>

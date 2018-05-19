@@ -188,6 +188,9 @@ $(document).ready(function () {
                 if (item.getType() == 2) {
                     map.removeOverLay(item);
                 }
+                if (item.getType() == 4) {
+                    map.removeOverLay(item);
+                }
             });
             //如果存在聚合的标记，则删除
             if (arrayObj != null) {
@@ -300,13 +303,13 @@ function MoveControl() {
 }
 //左窗口的移动
 function MoveLeftWindow() {
-    if (open == false) {
+    if (open == true) {
         $("#side_bar").animate({ left: '-' + $("#side_bar").width() + 'px' }, 100);
-        open = true;
+        open = false;
     }
     else {
         $("#side_bar").animate({ left: '0px' }, 100);
-        open = false;
+        open = true;
     }
 }
 //标记点函数

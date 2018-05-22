@@ -531,30 +531,30 @@ function loadDataToTable(arrayId) {
             var appendStr = "";
 
             $.each(tmpjsonOb, function (i, tmpItem) {
-                //alert(tmpItem["Type"]);
-                var SelectedType = $("#searchSelectType option:selected").html();
-                if (SelectedType == "全选" || tmpItem["Type"] == SelectedType) {
-                    //0是类型全选，1是滑坡，2是
-                    var item = tmpjsonOb[i];
-
-                    appendStr += "<tr><td>";
-                    for (j in tmpjsonOb[i]) {
-                        if (j == "ArrayID") {
-                            //ArrayID  要换成对应的中文， 用到一个全局的                      
-                            for (tmpj in OptionsDict) {
-                                if (OptionsDict[tmpj].value == tmpjsonOb[i][j]) {
-                                    appendStr += OptionsDict[tmpj].Key + "</td><td>";
+                //不加载等级为0的预警点
+                if (tmpjsonOb[i]["Grade"] != 0) {
+                    //alert(tmpItem["Type"]);
+                    var SelectedType = $("#searchSelectType option:selected").html();
+                    if (SelectedType == "全选" || tmpItem["Type"] == SelectedType) {
+                        //0是类型全选，1是滑坡，2是泥石流
+                        var item = tmpjsonOb[i];
+                        appendStr += "<tr><td>";
+                        for (j in tmpjsonOb[i]) {
+                            if (j == "ArrayID") {
+                                //ArrayID  要换成对应的中文， 用到一个全局的                      
+                                for (tmpj in OptionsDict) {
+                                    if (OptionsDict[tmpj].value == tmpjsonOb[i][j]) {
+                                        appendStr += OptionsDict[tmpj].Key + "</td><td>";
+                                    }
                                 }
+                            } else {
+                                appendStr += tmpjsonOb[i][j] + "</td><td>";
                             }
-                        } else {
-                            appendStr += tmpjsonOb[i][j] + "</td><td>";
                         }
+                        appendStr = appendStr.slice(0, appendStr.length - 4);
+                        appendStr += "</tr>";
                     }
-                    appendStr = appendStr.slice(0, appendStr.length - 4);
-                    appendStr += "</tr>";
                 }
-
-                
             });
             $("#SearchDiseaseInfoTable").append(appendStr);
             BindClickRow();
@@ -604,9 +604,12 @@ function AddWarningPointToMap(RowData) {
     //arrayObj.push(marker);
     //获取标记文本
     var content = RowData[0] + RowData[6] + "预警点";
-    // 将标注添加到地图中
+    //将标注添加到地图中
     map.addOverLay(marker);
-
+    //将地图的中心移动至此标记点
+    var Lon = RowData[3];
+    var Lat = RowData[4];
+    map.centerAndZoom(new T.LngLat(Lon, Lat), 10);
     //注册标记的鼠标触摸,移开事件           
     addClickHandler(content, marker, RowData, true);
 }
@@ -686,6 +689,7 @@ function clickOpenWindow(data) {
 
 //点击marker打开预警点信息窗口
 function clickOpenDiseaseWindow(data) {
+
     //将数据加载时窗口中
     $("#MonitorName").val(data[0]);
     $("#MonitorLon").val(data[1]);
@@ -703,8 +707,8 @@ function clickOpenDiseaseWindow(data) {
 
 //每隔一分钟刷新一次加载在地图上面
 function UpdateOneMinute() {
-    var urlString = "/Home/GetDiseaseInfo";
-
+    //var urlString = "/Home/GetDiseaseInfo";
+    var urlString = "/Home/TestGetDiseaseInfo";
 
     setInterval(function () {
         //获取当前时间戳
@@ -730,21 +734,24 @@ function UpdateOneMinute() {
                     var DataArray = [];
 
                     $.each(tmpjsonOb, function (i, tmpItem) {
-                        var item = tmpjsonOb[i];
-                        for (j in tmpjsonOb[i]) {
-                            if (j == "ArrayID") {
-                                //ArrayID  要换成对应的中文， 用到一个全局的                      
-                                for (tmpj in OptionsDict) {
-                                    if (OptionsDict[tmpj].value == tmpjsonOb[i][j]) {
-                                        DataArray.push(tmpjsonOb[i][j]);
+                        //不加载等级为0的预警点
+                        if (tmpjsonOb[i]["Grade"] != 0) {
+                            var item = tmpjsonOb[i];
+                            for (j in tmpjsonOb[i]) {
+                                if (j == "ArrayID") {
+                                    //ArrayID  要换成对应的中文， 用到一个全局的                      
+                                    for (tmpj in OptionsDict) {
+                                        if (OptionsDict[tmpj].value == tmpjsonOb[i][j]) {
+                                            DataArray.push(tmpjsonOb[i][j]);
+                                        }
                                     }
+                                } else {
+                                    DataArray.push(tmpjsonOb[i][j]);
                                 }
-                            } else {
-                                DataArray.push(tmpjsonOb[i][j]);
                             }
+                            //添加此预警点到地图上面
+                            AddWarningPointToMap(DataArray);
                         }
-                        //添加此预警点到地图上面
-                        AddWarningPointToMap(DataArray);
                     });
                 },
                 error: function (xhr, status, error) {
@@ -1390,11 +1397,6 @@ function BindClearVagueSelect() {
 function BindVagueClickRow() {
     $("#VagueTable tr").click(function () { //给每行绑定了一个点击事件：var td = $( this ).find( "td" );
         var td = $(this).find("td");
-        //var RowData = [
-        //    td.eq(0).html(), td.eq(1).html(), td.eq(2).html(), td.eq(3).html(), td.eq(4).html(), td.eq(5).html(),
-        //    td.eq(6).html(), td.eq(7).html(), td.eq(8).html()
-        //];
-        //AddWarningPointToMap(RowData);
         var Lon = td.eq(1).html();
         var Lat = td.eq(2).html();
         map.centerAndZoom(new T.LngLat(Lon, Lat), 20);

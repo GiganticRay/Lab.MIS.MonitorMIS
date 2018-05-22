@@ -180,13 +180,40 @@ namespace Lab.MIS.MonitorMIS.Controllers
         /// <returns></returns>
         public ActionResult DeleteDevice(int id = 0)
         {
+            try
+            {
+                //获取图片集合
+                List<PointPicture> picList = pointPictureService.Get(b => b.DeviceInfoId == id).ToList();
+                //删除图片
+                foreach (var item in picList)
+                {
 
-            //DeviceInfo deviceinfo = deviceInfoService.Get(a => a.Id > 0).First();
-
-
+                    //相对路径
+                    string filePath = item.PicPath;
+                    //图片绝对路径
+                    string absolutePath = Server.MapPath(filePath);
+                    //判断文件是否存在
+                    if (System.IO.File.Exists(absolutePath))
+                    {
+                        //如果文件存在，则删除
+                        System.IO.File.Delete(absolutePath);
+                    }
+                    //从数据库中山粗话
+                    pointPictureService.Delete(g => g.Id == item.Id);
+                }
+            }
+            catch (Exception)
+            {
+                return Content("-1");
+            }
+            //删除监测设备点
             return Content(deviceInfoService.Delete(a => a.Id == id).ToString());
         }
-
+        /// <summary>
+        /// 保存检测设备
+        /// </summary>
+        /// <param name="deviceinfo"></param>
+        /// <returns></returns>
         public ActionResult SaveDevice(DeviceInfo deviceinfo)
         {
             bool getResult = deviceInfoService.Update(deviceinfo);
@@ -315,6 +342,7 @@ namespace Lab.MIS.MonitorMIS.Controllers
             res.Data = JsonConvert.SerializeObject(tmp, setting);
             return res;
         }
+
         /// <summary>
         /// 录入图片路径信息
         /// </summary>
@@ -428,5 +456,17 @@ namespace Lab.MIS.MonitorMIS.Controllers
             }
             return res;
         }
+
+
+
+
+        #region 测试方法
+        public ActionResult TestGetDiseaseInfo(string arrayId, string beforeTime, string endTime)
+        {
+            string Jsonstr =
+                "\"[{ArrayID:'14', CenterLon:'109.3604',CenterLat:'30.9627',Lon:'109.3694',Lat:'30.9672',AverageAngle:'60.0',Type:'滑坡',Grade:'0',RecTime:'2017-12-01'}]\"";
+            return Content(Jsonstr);
+        }
+        #endregion
     }
 }

@@ -539,3 +539,46 @@ a {
       width: 600px;
     height:250px;
 }
+
+#layertoimg{
+    background-position: -521px -210px;
+    width:30px;
+    height:30px;
+    background-color:white;
+    background-image:url('../Img/TiandituIcon.png');
+    background-repeat: no-repeat;
+    position:absolute;
+    right:6px;
+    top:87%;
+    z-index:1000;
+    box-shadow: 0 1px 3px rgba(0,0,0,.25);
+}
+
+#layertoter{
+    background-position: -521px -210px;
+    width:30px;
+    height:26px;
+    background-color:white;
+    background-image:url('../Img/TiandituIcon.png');
+    background-repeat: no-repeat;
+    position:absolute;
+    top:81%;
+    z-index:1000;
+    box-shadow: 0 1px 3px rgba(0,0,0,.25);
+    right:6px;
+    bottom: 93px;
+}
+#layertoori{
+    background-position: -521px -210px;
+    width:30px;
+    height:30px;
+    background-color:white;
+    background-image:url('../Img/TiandituIcon.png');
+    background-repeat: no-repeat;
+    position:absolute;
+    right:6px;
+    top:74%;
+    z-index:1000;
+    box-shadow: 0 1px 3px rgba(0,0,0,.25);
+}
+

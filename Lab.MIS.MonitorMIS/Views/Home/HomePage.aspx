@@ -1,22 +1,12 @@
 ﻿<%@ Page Language="C#" Inherits="System.Web.Mvc.ViewPage<dynamic>" %>
 
 <%@ Import Namespace="System.Data" %>
-
 <!DOCTYPE html>
-<script runat="server">
-
-    protected void Page_Load(object sender, EventArgs e)
-    {
-
-    }
-</script>
-
-
 <html>
-<head runat="server">
+<head >
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="keywords" content="天地图" />
-    <title>天地图－地图API－范例－经纬度直投地图</title>
+    <title>重庆市奉节县地质灾害监测预警系统</title>
     <script type="text/javascript" src="http://api.tianditu.com/api?v=4.0"></script>
     <%--css--%>
     <link href="../../Resource/Scripts/bootstrap-3.3.7-dist/css/bootstrap.css" rel="stylesheet" />
@@ -195,8 +185,18 @@
                 </table>
             </div>
         </div>
-        <div id="Layer">
-            <div id="layer">
+        <div id="LayerToImg">
+            <div id="layertoimg">
+                <%--   <span>图层</span>--%>
+            </div>
+        </div>
+         <div id="LayerToTer">
+            <div id="layertoter">
+                <%--   <span>图层</span>--%>
+            </div>
+        </div>
+        <div id="LayerToOri">
+            <div id="layertoori">
                 <%--   <span>图层</span>--%>
             </div>
         </div>

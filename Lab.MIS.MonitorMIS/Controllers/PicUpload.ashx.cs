@@ -15,7 +15,6 @@ namespace Lab.MIS.MonitorMIS.Controllers
         public void ProcessRequest(HttpContext context)
         {
             context.Response.ContentType = "text/plain";
-            context.Response.ContentType = "text/plain";
             HttpPostedFile file = context.Request.Files["file_data"];
             //files[j].name.substring(files[j].name.lastIndexOf(".")).toLowerCase();
             string path = "/Resource/UpImages/" + Guid.NewGuid().ToString() + file.FileName.Substring(file.FileName.LastIndexOf("."));

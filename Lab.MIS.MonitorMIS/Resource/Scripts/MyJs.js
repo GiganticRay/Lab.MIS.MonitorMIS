@@ -18,8 +18,10 @@ var arrayObj = null;
 var isLog = false;
 //表示是否显示设备信息
 var isShowDevice = false;
-//判断目前所属图层
-var layer = false;
+//判断目前所属是否为卫星图
+var Imglayer = false;
+//判断目前所属是否为地形图
+var Terlayer = false;
 //用于判断工具是否添加
 var bool1 = false, bool2 = false, bool3 = false, bool4 = false, bool5 = false;
 //图层url
@@ -27,7 +29,11 @@ var imageURL = "http://t0.tianditu.cn/img_w/wmts?" +
                 "SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=img&STYLE=default&TILEMATRIXSET=w&FORMAT=tiles" +
                 "&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}";
 //创建自定义图层对象
+var imageURL2 = "http://t0.tianditu.cn/ter_w/wmts?" +
+                "SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=ter&STYLE=default&TILEMATRIXSET=w&FORMAT=tiles" +
+                "&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}";
 var lay = new T.TileLayer(imageURL, { minZoom: 1, maxZoom: 18 });
+var lay2 = new T.TileLayer(imageURL2, { minZoom: 1, maxZoom: 18 });
 
 //所有通过table查询出来的点击的marker
 var DiseaseMarkerArray = [];
@@ -218,11 +224,18 @@ $(document).ready(function () {
     $("#SaveDeviceInfo").click(function () {
         SavaDevideInfo();
     });
-
-    $("#layer").click(function () {
-        changelayer();
+    //改变图层到卫星图层
+    $("#layertoimg").click(function () {
+        layerToImg();
     })
-
+    //改变图层到地形图层
+    $("#layertoter").click(function () {
+        layerToTer();
+    })
+    //原始图层
+    $("#layertoori").click(function () {
+        layerToOri();
+    })
     //打开录入检测阵数据窗口
     $("#EnteringMonitorInfo").click(function () {
         OpenEnteringMonitorInfo();
@@ -308,13 +321,13 @@ function MoveControl() {
 }
 //左窗口的移动
 function MoveLeftWindow() {
-    if (open == false) {
+    if (open == true) {
         $("#side_bar").animate({ left: '-' + $("#side_bar").width() + 'px' }, 100);
-        open = true;
+        open = false;
     }
     else {
         $("#side_bar").animate({ left: '0px' }, 100);
-        open = false;
+        open = true;
     }
 }
 //标记点函数
@@ -377,7 +390,7 @@ function area(obj) {
                 color: "#191970", weight: 3, opacity: 0.5, fillColor: "#8B7B8B", fillOpacity: 0.5
             });
             //向地图上添加面
-            map.addOverLay(polygon1);
+            //map.addOverLay(polygon1);
         }
 
         //显示最佳比例尺
@@ -1040,18 +1053,42 @@ function SavaDevideInfo(getData, select_option) {
         openLoginModal();
     }
 }
-
-function changelayer() {
-    if (layer == false) {
-        //将图层增加到地图上
+//卫星图
+function layerToImg() {
+    if(Terlayer==true){
+        map.removeLayer(lay2);
+        map.removeLayer(textlay);
+        Terlayer = false;
+    }
+    if (Imglayer == false) {
         map.addLayer(lay);
         map.addLayer(textlay);
-        layer = true;
+        Imglayer = true;
     }
-    else {
+}
+//地形图
+function layerToTer() {
+    if (Imglayer == true) {
         map.removeLayer(lay);
         map.removeLayer(textlay);
-
+        Imglayer = false;
+    }
+    if (Terlayer == false) {
+        map.addLayer(lay2);
+        map.addLayer(textlay);
+        Terlayer = true;
+    }
+}
+//原始图
+function layerToOri() {
+    if (Terlayer == true) {
+        map.removeLayer(lay2);
+        map.removeLayer(textlay);
+        Terlayer = false;
+    }
+    if (Imglayer == true) {
+        map.removeLayer(lay);
+        map.removeLayer(textlay);
         layer = false;
     }
 }

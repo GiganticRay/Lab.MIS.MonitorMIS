@@ -195,8 +195,18 @@
                 </table>
             </div>
         </div>
-        <div id="Layer">
-            <div id="layer">
+        <div id="LayerToImg">
+            <div id="layertoimg">
+                <%--   <span>图层</span>--%>
+            </div>
+        </div>
+         <div id="LayerToTer">
+            <div id="layertoter">
+                <%--   <span>图层</span>--%>
+            </div>
+        </div>
+        <div id="LayerToOri">
+            <div id="layertoori">
                 <%--   <span>图层</span>--%>
             </div>
         </div>

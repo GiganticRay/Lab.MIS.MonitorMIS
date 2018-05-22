@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web;
+using System.IO;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using Lab.MIS.BLL;
@@ -47,6 +48,7 @@ namespace Lab.MIS.MonitorMIS.Controllers
             var res = new JsonResult();
             if (userInfos.Count(a => a.Id > 0) == 0)
             {
+
                 res.Data = new { state = false };
             }
             else
@@ -57,6 +59,19 @@ namespace Lab.MIS.MonitorMIS.Controllers
                     UserName = userInfos.First().UserName,
                     UserAuthority = userInfos.First().UserAuthority
                 };
+
+                HttpCookie UserName = new HttpCookie("UserName", userInfos.First().UserName);
+                UserName.Expires = DateTime.Now.AddDays(7);
+
+                HttpCookie UserPwd = new HttpCookie("UserPwd", userInfos.First().UserPwd);
+                UserPwd.Expires = DateTime.Now.AddDays(7);
+
+                HttpCookie IsLog = new HttpCookie("IsLog", "true");
+                IsLog.Expires = DateTime.Now.AddDays(7);
+
+                Response.Cookies.Add(UserName);
+                Response.Cookies.Add(UserPwd);
+                Response.Cookies.Add(IsLog);
             }
 
             return res;
@@ -93,8 +108,8 @@ namespace Lab.MIS.MonitorMIS.Controllers
             var res = new JsonResult();
             try
             {
-                deviceInfoService.Add(deviceInfo);
-                res.Data = new { state = true };
+                DeviceInfo getAddDeviceInfo = deviceInfoService.Add(deviceInfo);
+                res.Data = new { state = getAddDeviceInfo.Id };
             }
             catch (Exception e)
             {
@@ -274,6 +289,144 @@ namespace Lab.MIS.MonitorMIS.Controllers
             res.Data = JsonConvert.SerializeObject(getaAllDeviceInfo, setting);
             return res;
 
+        }
+        /// <summary>
+        /// 根据id查询监测阵列的三个监测设备信息
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ActionResult GetDeviceInfoByMonitorId(int id)
+        {
+            List<DeviceInfo> tmp = deviceInfoService.Get(a => a.MonitorPointInfoId == id).ToList();
+            var res = new JsonResult();
+            res.Data = JsonConvert.SerializeObject(tmp, setting);
+            return res;
+        }
+
+        /// <summary>
+        /// 获取模糊查询的结果
+        /// </summary>
+        /// <param name="SearchContent"></param>
+        /// <returns></returns>
+        public ActionResult GetVagueSearch(string SearchContent)
+        {
+            List<DeviceInfo> tmp = deviceInfoService.Get(a => a.DeviceName.IndexOf(SearchContent) >= 0).ToList();
+            var res = new JsonResult();
+            res.Data = JsonConvert.SerializeObject(tmp, setting);
+            return res;
+        }
+        /// <summary>
+        /// 录入图片路径信息
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="imgPaths"></param>
+        /// <returns></returns>
+        public ActionResult EnteringPics(int id, string imgPaths)
+        {
+            var res = new JsonResult();
+            try
+            {
+
+                string[] getImgPathArry = imgPaths.Split(';');
+                foreach (var item in getImgPathArry)
+                {
+                    PointPicture newPic = new PointPicture();
+                    newPic.DeviceInfoId = id;
+                    newPic.PicPath = item;
+                    pointPictureService.Add(newPic);
+                }
+                res.Data = new { state = true };
+            }
+            catch (Exception)
+            {
+
+                res.Data = new { state = false };
+            }
+
+            return res;
+        }
+        /// <summary>
+        /// 通过设备点的id获取其图片
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ActionResult GetPicPathById(int id)
+        {
+            var res = new JsonResult();
+            List<PointPicture> getPictureList = pointPictureService.Get(a => a.DeviceInfoId == id).ToList();
+            res.Data = JsonConvert.SerializeObject(getPictureList, setting);
+
+
+            return res;
+        }
+        /// <summary>
+        /// 更新图片
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+         [HttpPost] 
+        public ActionResult editUploadImgs(int DevieceID,string path)
+        {
+          
+            //将新增的图片目录录入数据库
+            PointPicture newPic = new PointPicture();
+            newPic.DeviceInfoId = DevieceID;
+            newPic.PicPath = path;
+            PointPicture addPic = pointPictureService.Add(newPic);
+
+            var res = new JsonResult();
+            if (addPic.Id > 0)
+            {
+                res.Data = new { msg = true };
+            }
+            else
+            {
+                res.Data = new { msg = false };
+            }
+            return res;
+        }
+        /// <summary>
+        /// 通过id删除已经存在的图片
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        public ActionResult DeleteExistImgs(int key)
+        {
+            //string getId = context.Request["key"];
+
+            //int idNum = Convert.ToInt32(getId);
+            int idNum = key;
+            var res = new JsonResult();
+            try
+            {
+                //从数据库中删除成功
+                if (pointPictureService.Delete(a => a.Id == idNum) > 0)
+                {
+
+                    PointPicture deletePic = pointPictureService.Get(a => a.Id == idNum).First();
+                    //相对路径
+                    string filePath = deletePic.PicPath;
+                    //图片绝对路径
+                    string absolutePath = Server.MapPath(filePath);
+                    //判断文件是否存在
+                    if (System.IO.File.Exists(absolutePath))
+                    {
+                        //如果文件存在，则删除
+                        System.IO.File.Delete(absolutePath);
+                    }
+                    res.Data = new { msg = true };
+                }
+                else
+                {
+                    res.Data = new { msg = false };
+                }
+            }
+            catch (Exception)
+            {
+                
+                res.Data = new { msg = false };
+            }
+            return res;
         }
     }
 }

@@ -13,7 +13,5 @@ namespace Lab.MIS.BLL
         {
             CurrentDal = dbSession.GetDeviceInfoDal;
         }
-
-        
     }
 }

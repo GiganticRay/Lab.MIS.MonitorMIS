@@ -109,6 +109,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PicUpload.ashx.cs">
+      <DependentUpon>PicUpload.ashx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -219,6 +222,7 @@
     <Content Include="Resource\bootstrap-datetimepicker-master\tests\tests.html" />
     <Content Include="Resource\bootstrap-datetimepicker-master\tests\tests.min.html" />
     <Content Include="Resource\bootstrap-datetimepicker-master\tests\_coverage.html" />
+    <Content Include="Resource\Img\alert.png" />
     <Content Include="Resource\Img\Clear.png" />
     <Content Include="Resource\Img\coast\0.bmp" />
     <Content Include="Resource\Img\coast\0.png" />
@@ -232,6 +236,8 @@
     <Content Include="Resource\Img\coast\4.png" />
     <Content Include="Resource\Img\coast\5.bmp" />
     <Content Include="Resource\Img\coast\5.png" />
+    <Content Include="Resource\Img\DefaultImg.jpg" />
+    <Content Include="Resource\Img\loading.gif" />
     <Content Include="Resource\Img\Logo.png" />
     <Content Include="Resource\Img\mud\0.bmp" />
     <Content Include="Resource\Img\mud\0.png" />
@@ -256,6 +262,11 @@
     <Content Include="Resource\Scripts\bootstrap-3.3.7-dist\js\bootstrap.min.js" />
     <Content Include="Resource\Scripts\bootstrap-3.3.7-dist\js\npm.js" />
     <Content Include="Resource\Scripts\bootstrap-treeview.js" />
+    <Content Include="Resource\Scripts\fileinput\fileinput.css" />
+    <Content Include="Resource\Scripts\fileinput\fileinput.js" />
+    <Content Include="Resource\Scripts\fileinput\fileinput_locale_zh.js" />
+    <Content Include="Resource\Scripts\img\loading-sm.gif" />
+    <Content Include="Resource\Scripts\img\loading.gif" />
     <Content Include="Resource\Scripts\jquery-3.2.1.js" />
     <Content Include="Resource\Scripts\jquery-3.2.1.min.js" />
     <Content Include="Resource\Scripts\jquery-ui.js" />
@@ -279,6 +290,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Resource\UpImages\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
@@ -320,6 +332,9 @@
     <Content Include="Resource\bootstrap-datetimepicker-master\sample in bootstrap v3\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Resource\bootstrap-datetimepicker-master\sample in bootstrap v3\bootstrap\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Resource\bootstrap-datetimepicker-master\tests\README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Controllers\PicUpload.ashx" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

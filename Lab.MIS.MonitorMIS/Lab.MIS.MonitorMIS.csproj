@@ -122,6 +122,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="Global.asax" />
+    <Content Include="Home.html" />
     <Content Include="Resource\bootstrap-datetimepicker-master\.gitattributes" />
     <Content Include="Resource\bootstrap-datetimepicker-master\.gitignore" />
     <Content Include="Resource\bootstrap-datetimepicker-master\css\bootstrap-datetimepicker.css" />

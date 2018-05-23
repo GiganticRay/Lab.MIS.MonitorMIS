@@ -93,3 +93,9 @@ G:\GitHub\Lab.MIS.UnitTest\bin\Debug\zh-Hans\EntityFramework.resources.dll
 G:\GitHub\Lab.MIS.UnitTest\obj\Debug\Lab.MIS.UnitTest.csprojResolveAssemblyReference.cache
 G:\GitHub\Lab.MIS.UnitTest\obj\Debug\Lab.MIS.UnitTest.dll
 G:\GitHub\Lab.MIS.UnitTest\obj\Debug\Lab.MIS.UnitTest.pdb
+G:\GitHub\Lab.MIS.UnitTest\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+G:\GitHub\Lab.MIS.UnitTest\bin\Debug\Lab.MIS.Model.dll.config
+G:\GitHub\Lab.MIS.UnitTest\bin\Debug\Lab.MIS.DalFactory.dll.config
+G:\GitHub\Lab.MIS.UnitTest\bin\Debug\Lab.MIS.EFDAL.dll.config
+G:\GitHub\Lab.MIS.UnitTest\bin\Debug\zh-Hans\Microsoft.VisualStudio.QualityTools.UnitTestFramework.resources.dll
+G:\GitHub\Lab.MIS.UnitTest\obj\Debug\Lab.MIS.UnitTest.csproj.CoreCompileInputs.cache

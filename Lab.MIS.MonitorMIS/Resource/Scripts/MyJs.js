@@ -82,7 +82,7 @@ $(document).ready(function () {
             lt = e.clientX;
             doc.mousemove(function (e) {
                 lt = e.clientX;
-                lt = lt < 670 ? 670 : lt;
+                lt = lt < 450 ? 450 : lt;
                 me.css("left", lt + "px");
                 dl.width(lt);
             });
@@ -164,9 +164,76 @@ $(document).ready(function () {
         if (bool5) {
             handler1.clear();
         }
+        $("#SearchText").val("");
+        $("#TableBody").html("");
     })
 
+
+
+    //窗口大小改变时适应页面
     $(".dropdown-menu").animate({ left: '-65px' }, 100);
+
+
+    //获取滚动条高度
+    var scroll_height = $("#SearchDiseaseInfoDiv")[0].offsetHeight - $("#SearchDiseaseInfoDiv")[0].scrollHeight;
+
+    //使side_bar高度等于窗口高度-headDiv高度
+    var n = document.getElementById("side_bar");
+    n.style.height = document.documentElement.offsetHeight - document.getElementById("headDiv").clientHeight - 4 + "px";
+
+    //使SearchDiseaseInfoDiv高度等于side_bar高度-SearchMainTable高度
+    var m = document.getElementById("SearchDiseaseInfoDiv");
+    m.style.height = document.getElementById("side_bar").clientHeight - document.getElementById("SearchMainTable").clientHeight - scroll_height + "px";
+
+
+    $(window).resize(function () {
+        n.style.height = document.documentElement.offsetHeight - document.getElementById("headDiv").clientHeight - 4 + "px";
+        m.style.height = document.getElementById("side_bar").clientHeight - document.getElementById("ChangeSearchParameters").clientHeight - document.getElementById("SearchMainTable").clientHeight - scroll_height + "px";
+    });
+
+
+    //鼠标滚动
+    $("#SearchDiseaseInfoDiv").scroll(function () {
+        $("#SearchMainTable").slideUp("1000", function () {
+            $("#ChangeSearchParameters").css("display", "block");
+        });
+
+        m.style.height = document.getElementById("side_bar").clientHeight - document.getElementById("ChangeSearchParameters").clientHeight + "px";
+    });
+
+    //
+    $("#ChangeSearchParameters").click(function () {
+        $("#ChangeSearchParameters").css("display", "none");
+        $("#SearchMainTable").slideToggle("slow");
+
+        m.style.height = document.getElementById("side_bar").clientHeight - document.getElementById("SearchMainTable").clientHeight - scroll_height + "px";
+    });
+
+
+
+    //动态搜索框
+    $(".search-button").click(function () {
+        $(this).parent().toggleClass("open");
+        if ($(".search-button").parent().hasClass("open")) {
+            $("#SearchText")[0].focus();
+        };
+    });
+    $(".menu-open-button").click(function () {
+        $(".search-button").parent().removeClass("open");
+        $("#SearchText").val("");
+        $("#TableBody").html("");
+    });
+
+    $("[data-toggle='tooltip']").tooltip();
+
+    //图层框收缩
+    $("#LayerContent").click(function () {
+        $(".row ").animate({ width: 'toggle' }, 350);
+    });
+
+
+
+
 
     //点击登录按钮 
     $("#mine").click(function () {
@@ -191,7 +258,10 @@ $(document).ready(function () {
     //显示隐藏监测设备按钮
     $("#showDevice").click(function () {
         if (!isShowDevice) {
-            $("#showDevice").find("span").html("隐藏");
+            $("#showDevice").find("span").attr({
+                "class": "menu-item-spanf glyphicon glyphicon-eye-close",
+                "title": "隐藏地图上的监测点",
+            }).tooltip("fixTitle").tooltip("show");
             ShowDevice(null);
             isShowDevice = true;
         } else {
@@ -231,7 +301,10 @@ $(document).ready(function () {
                 });
             }
             arrayObj = [];
-            $("#showDevice").find("span").html("显示");
+            $("#showDevice").find("span").attr({
+                "class": "menu-item-spanf glyphicon glyphicon-eye-open",
+                "title": "显示地图上的监测点",
+            }).tooltip("fixTitle").tooltip("show");
             isShowDevice = false;
         }
 
@@ -1962,7 +2035,10 @@ function HidenShowImgModel(getid) {
 function isShowOrHide() {
     setInterval(function () {
         if (SelectDevice.length > 0 || arrayObj.length>0) {
-            $("#showDevice").find("span").html("隐藏");
+            $("#showDevice").find("span").attr({
+                "class": "menu-item-spanf glyphicon glyphicon-eye-close",
+                "title": "隐藏地图上的监测点",
+            }).tooltip("fixTitle");
             isShowDevice = true;
         }
     }, 1000);

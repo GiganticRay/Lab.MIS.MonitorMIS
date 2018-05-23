@@ -20,6 +20,8 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <Use64BitIISExpress />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -238,6 +240,9 @@
     <Content Include="Resource\Img\coast\5.bmp" />
     <Content Include="Resource\Img\coast\5.png" />
     <Content Include="Resource\Img\DefaultImg.jpg" />
+    <Content Include="Resource\Img\Layer_map.jpg" />
+    <Content Include="Resource\Img\Layer_satellite.jpg" />
+    <Content Include="Resource\Img\Layer_terrain.jpg" />
     <Content Include="Resource\Img\loading.gif" />
     <Content Include="Resource\Img\Logo.png" />
     <Content Include="Resource\Img\mud\0.bmp" />

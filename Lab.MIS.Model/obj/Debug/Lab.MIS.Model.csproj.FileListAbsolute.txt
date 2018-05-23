@@ -50,3 +50,4 @@ E:\工程实践\Lab.MIS.MonitorMIS\Lab.MIS.Model\bin\Debug\zh-Hans\EntityFramewo
 E:\工程实践\Lab.MIS.MonitorMIS\Lab.MIS.Model\obj\Debug\Lab.MIS.Model.csprojResolveAssemblyReference.cache
 E:\工程实践\Lab.MIS.MonitorMIS\Lab.MIS.Model\obj\Debug\Lab.MIS.Model.dll
 E:\工程实践\Lab.MIS.MonitorMIS\Lab.MIS.Model\obj\Debug\Lab.MIS.Model.pdb
+G:\GitHub\Lab.MIS.Model\obj\Debug\Lab.MIS.Model.csproj.CoreCompileInputs.cache

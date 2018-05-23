@@ -42,52 +42,59 @@
                 </label>
 
 
-                <div class="menu-item" id="clearOverLays">
-                    <span aria-hidden="true">清空</span>
+                <div class="menu-item " id="clearOverLays">
+                    <span class="menu-item-spanf glyphicon glyphicon-remove" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="清空"></span>
                 </div>
 
-
-                <div class="menu-item dropdown">
-                    <span class=" dropdown-toggle" data-toggle="dropdown" aria-hidden="true">录入</span>
+                <div class="menu-item dropdown" title="录入">
+                    <span class="menu-item-spanf glyphicon glyphicon-plus dropdown-toggle" data-toggle="dropdown" aria-hidden="true"></span>
                     <ul class="dropdown-menu">
-                        <li class="ToolBox" id="EnteringDeviceInfo"><span>录入监测设备信息</span></li>                        
+                        <li class="ToolBox" id="EnteringDeviceInfo"><span class="menu-item-span">录入监测设备信息</span></li>
                         <li role="separator" class="divider"></li>
-                        <li class="ToolBox" id="EnteringMonitorInfo"><span>录入监测阵信息</span></li>
+                        <li class="ToolBox" id="EnteringMonitorInfo"><span class="menu-item-span">录入检测阵信息</span></li>
                     </ul>
                 </div>
 
 
-                <div class="menu-item dropdown">
-                    <span class=" dropdown-toggle" data-toggle="dropdown" aria-hidden="true">工具</span>
+                <div class="menu-item dropdown" title="工具">
+                    <span class="menu-item-spanf dropdown-toggle glyphicon glyphicon-wrench" data-toggle="dropdown" aria-hidden="true"></span>
                     <ul class="dropdown-menu pull-right">
-                        <li class="ToolBox" id="MeasureLength"><span>测量</span></li>
+                        <li class="ToolBox" id="MeasureLength"><span class="menu-item-span">测量</span></li>
                         <li role="separator" class="divider"></li>
-                        <li class="ToolBox" id="MeasureArea"><span>测面</span></li>
+                        <li class="ToolBox" id="MeasureArea"><span class="menu-item-span">测面</span></li>
                         <li role="separator" class="divider"></li>
-                        <li class="ToolBox" id="MeasurearkPoint"><span>标点</span></li>
+                        <li class="ToolBox" id="MeasurearkPoint"><span class="menu-item-span">标点</span></li>
                         <li role="separator" class="divider"></li>
-                        <li class="ToolBox" id="MarkLine"><span>标线</span></li>
+                        <li class="ToolBox" id="MarkLine"><span class="menu-item-span">标线</span></li>
                         <li role="separator" class="divider"></li>
-                        <li class="ToolBox" id="MarkArea"><span>标面</span></li>
+                        <li class="ToolBox" id="MarkArea"><span class="menu-item-span">标面</span></li>
                     </ul>
                 </div>
 
-                <div class="menu-item" id="mine"><span aria-hidden="true">登录</span> </div>
+                <div class="menu-item" id="mine">
+                    <span class="menu-item-spanf glyphicon glyphicon-user" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="登录"></span>
+                </div>
 
-                <div class="menu-item" id="showDevice"><span>显示</span></div>
-                <div class="menu-item" id="showAllDevice"><span>详细</span></div>
+                <div class="menu-item" id="showDevice">
+                    <span class="menu-item-spanf glyphicon glyphicon-eye-open" data-toggle="tooltip" data-placement="bottom" title="显示地图上所有监测点"></span>
+                </div>
+
+                <div class="menu-item" id="showAllDevice">
+                    <span class="menu-item-spanf glyphicon glyphicon-blackboard" data-toggle="tooltip" data-placement="bottom" title="浏览所有监测点信息"></span>
+                </div>
+
+                <div class="search menu-item" id="SearchContent">
+                    <input type="search" class="search-box" id="SearchText" />
+                    <span class="search-button" id="search_btn">
+                        <span class="search-icon"></span>
+                    </span>
+                </div>
             </nav>
             <!--<%--模糊查询content--%>-->
-            <div id="SearchDiv">
-                <div id="SearchContent">
-                    <input type="text" id="SearchText" />
-                </div>
-                <div id="search_btn"></div>
-                <div id="SearchResultContent">
-                    <table class="table table-striped table-bordered table-hover" id="VagueTable" style="background-color:white">
-                        <tbody id="TableBody"></tbody>
-                    </table>
-                </div>
+            <div id="SearchResultContent">
+                <table class="table table-bordered table-hover" id="VagueTable" style="background-color:white">
+                    <tbody id="TableBody"></tbody>
+                </table>
             </div>
         </div>
 
@@ -180,19 +187,28 @@
                 </table>
             </div>
         </div>
-        <div id="LayerToImg">
-            <div id="layertoimg">
-                <!--<%--   <span>图层</span>--%>-->
-            </div>
+        <div id="LayerContent" data-toggle="tooltip" title="图层">
+
         </div>
-        <div id="LayerToTer">
-            <div id="layertoter">
-                <!--<%--   <span>图层</span>--%>-->
+
+        <div class="row" >
+            <div class="col-xs-4 col-md-4" id="layertoimg">
+                <a href="#" class="thumbnail">
+                    <img src="Resource/Img/Layer_satellite.jpg" alt="..." />
+                    <p class="layer-tip">影像</p>
+                </a>
             </div>
-        </div>
-        <div id="LayerToOri">
-            <div id="layertoori">
-                <!--<%--   <span>图层</span>--%>-->
+            <div class="col-xs-4 col-md-4" id="layertoter">
+                <a href="#" class="thumbnail">
+                    <img src="Resource/Img/Layer_terrain.jpg" alt="..." />
+                    <p class="layer-tip">地形</p>
+                </a>
+            </div>
+            <div class="col-xs-4 col-md-4" id="layertoori">
+                <a href="#" class="thumbnail">
+                    <img src="Resource/Img/Layer_map.jpg" alt="..." />
+                    <p class="layer-tip">地图</p>
+                </a>
             </div>
         </div>
     </div>

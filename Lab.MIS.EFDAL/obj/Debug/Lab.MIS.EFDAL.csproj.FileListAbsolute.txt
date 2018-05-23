@@ -76,3 +76,5 @@ E:\工程实践\Lab.MIS.MonitorMIS\Lab.MIS.EFDAL\bin\Debug\zh-Hans\EntityFramewo
 E:\工程实践\Lab.MIS.MonitorMIS\Lab.MIS.EFDAL\obj\Debug\Lab.MIS.EFDAL.csprojResolveAssemblyReference.cache
 E:\工程实践\Lab.MIS.MonitorMIS\Lab.MIS.EFDAL\obj\Debug\Lab.MIS.EFDAL.dll
 E:\工程实践\Lab.MIS.MonitorMIS\Lab.MIS.EFDAL\obj\Debug\Lab.MIS.EFDAL.pdb
+G:\GitHub\Lab.MIS.EFDAL\bin\Debug\Lab.MIS.Model.dll.config
+G:\GitHub\Lab.MIS.EFDAL\obj\Debug\Lab.MIS.EFDAL.csproj.CoreCompileInputs.cache

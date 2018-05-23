@@ -523,7 +523,7 @@ a {
     background-position-y: 5px;
 }
 #SearchResultContent {
-    height: 400px;
+    height: auto;
     width: 400px;
     overflow-y:auto; 
     overflow-x:auto;

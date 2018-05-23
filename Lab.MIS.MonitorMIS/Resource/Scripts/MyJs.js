@@ -13,7 +13,10 @@ var isLog = false;
 //聚合标记
 var markers = null;
 //标记数组
-var arrayObj = null;
+var arrayObj = [];
+var newArray = [];
+//用来存放通过搜索显示的设备点
+var SelectDevice = [];
 //判断用户是否登录
 var isLog = false;
 //表示是否显示设备信息
@@ -187,27 +190,37 @@ $(document).ready(function () {
     $("#showDevice").click(function () {
         if (!isShowDevice) {
             $("#showDevice").find("span").html("隐藏");
-            ShowDevice();
+            ShowDevice(null);
             isShowDevice = true;
         } else {
-            //表示当前已经显示设备标记
-            //删除标记
+            //表示当前地图中的所有标记
             var AllOverlays = map.getOverlays();
             $.each(AllOverlays, function (AllOverlays_Index, item) {
-                if (item.getType() == 2) {
-                    map.removeOverLay(item);
-                }
+                //if (item.getType() == 2) {
+                //    map.removeOverLay(item);
+                //}
+                //删除线条
                 if (item.getType() == 4) {
                     map.removeOverLay(item);
                 }
             });
-            //如果存在聚合的标记，则删除
-            if (arrayObj != null) {
-                //删除聚合标记
-                if (markers.removeMarkers(arrayObj)) {
-                    arrayObj == null;
-                }
+            //如果通过搜索显示的设备不为空
+            if (SelectDevice.length>0) {
+                $.each(SelectDevice, function (i, item) {
+                    item.hide();
+                });
             }
+            SelectDevice=[];
+            //如果显示检测设备点，则删除
+            if (arrayObj.length>0) {
+                //删除聚合标记
+               // markers.removeMarkers(newArray);
+                
+                $.each(arrayObj, function (i, item) {
+                    item.hide();
+                });
+            }
+            arrayObj = [];
             $("#showDevice").find("span").html("显示");
             isShowDevice = false;
         }
@@ -356,6 +369,9 @@ $(document).ready(function () {
 
     //将右边的框隐藏
     $("#side_barController").click();
+
+    //判断是隐藏还是显示
+    isShowOrHide();
 });
 
 //获取缩放级别
@@ -932,7 +948,7 @@ function DeleteDeviceInfo(getHiddenId, select_option) {
 
 
 //显示设备标记
-function ShowDevice() {
+function ShowDevice(getID) {
     //当地图加载时将设备信息已标记的形式在地图上显示
     //存取数据的数组
     var data_info = [];
@@ -962,7 +978,7 @@ function ShowDevice() {
                 data_info[index]["content"] = "监测点:" + element.DeviceName + "<br>" + "联系电话：" + element.PhoneNum + "<br>" + "监测类型:" + element.MonitorType;
             });
 
-            arrayObj = new Array();
+            arrayObj = [];
             //添加标记
             for (var j = 0; j < data_info.length; j++) {
                 var icon = null;
@@ -982,20 +998,48 @@ function ShowDevice() {
                     });
                 }
 
-                // 创建标注
-                var marker = new T.Marker(new T.LngLat(data_info[j]["DeviceLon"], data_info[j]["DeviceLat"]), { icon: icon });
-                arrayObj.push(marker);
-                //获取标记文本
-                var content = data_info[j]["content"];
-                // 将标注添加到地图中
-                // map.addOverLay(marker);
-                //注册标记的鼠标触摸,移开事件           
-                addClickHandler(content, marker, data_info[j], false);
+               
+                
+
+                //不为空时，是经过搜索查出来的
+                if (getID != null) {
+
+                    if (data_info[j]["Id"] == getID) {
+                        // 创建标注
+                        var marker = new T.Marker(new T.LngLat(data_info[j]["DeviceLon"], data_info[j]["DeviceLat"]), { icon: icon });
+
+                        //获取标记文本
+                        var content = data_info[j]["content"];
+                         // 将标注添加到地图中
+                        map.addOverLay(marker);
+                        //注册标记的鼠标触摸,移开事件           
+                        addClickHandler(content, marker, data_info[j], false);
+                        SelectDevice.push(marker);
+                        return;
+                    }
+                } else {
+                    // 创建标注
+                    var marker = new T.Marker(new T.LngLat(data_info[j]["DeviceLon"], data_info[j]["DeviceLat"]), { icon: icon });
+                    //获取标记文本
+                    var content = data_info[j]["content"];
+                    //将标注添加至数组
+                    arrayObj.push(marker);
+                    // 将标注添加到地图中
+                    map.addOverLay(marker);
+                    //注册标记的鼠标触摸,移开事件           
+                    addClickHandler(content, marker, data_info[j], false);
+
+                
+                   
+                }
+                
+               
             }
+            //newArray = arrayObj;
             //聚合marker
-            markers = new T.MarkerClusterer(map, { markers: arrayObj });
+            //markers = new T.MarkerClusterer(map, { markers: arrayObj });
             //设置网格大小
-            markers.setGridSize(1);
+            //markers.setGridSize(1);
             //以下代码是为了获得不重复的阵列id
             var num = [];
             num[0] = 0;
@@ -1512,11 +1556,17 @@ function BindVagueSelectInputChange() {
                         $("#TableBody").html("");
                         StrTmp += "<tr><td>" +
                             beforeContent + "<span class='biaozhu'>" + signContent + "</span>" + backContent +
-                            "</td><td>" +
+                             "</td><td >" +
+                            item.MonitorType +
+                            "</td><td style = 'display:none'>" +
                             item.DeviceLon +
-                            "</td><td>" +
+                            "</td><td style = 'display:none'>" +
                             item.DeviceLat +
-                            "</td></tr>";
+                            "</td><td style = 'display:none'>" +
+                            "监测点:" + item.DeviceName + "<br>" + "联系电话：" + item.PhoneNum + "<br>" + "监测类型:" + item.MonitorType +
+                            "</td><td style = 'display:none'>" +
+                            item.Id +
+                            "</td ></tr>";
                     });
                 $("#TableBody").append(StrTmp);
                 BindVagueClickRow();
@@ -1537,11 +1587,47 @@ function BindClearVagueSelect() {
 }
 //点击模糊查询出来的表格行
 function BindVagueClickRow() {
-    $("#VagueTable tr").click(function () { //给每行绑定了一个点击事件：var td = $( this ).find( "td" );
+    //给每行绑定了一个点击事件：var td = $( this ).find( "td" );
+    $("#VagueTable tr").click(function () { 
         var td = $(this).find("td");
-        var Lon = td.eq(1).html();
-        var Lat = td.eq(2).html();
+        var Lon = td.eq(2).html();
+        var Lat = td.eq(3).html();
+        var type = td.eq(1).html();
+        var content = td.eq(4).html();
+        var  DeviceID= td.eq(5).html();
+
+
         map.centerAndZoom(new T.LngLat(Lon, Lat), 20);
+        var getLngLat = map.getCenter();
+        //判断当前是否显示设备标记
+        if (arrayObj.length <= 0) {
+
+            ShowDevice(DeviceID);
+            ////如果没有显示,自己添加
+            //if (type == "泥石流") {
+            //    //创建图片对象
+            //    icon = new T.Icon({
+            //        iconUrl: "../../Resource/Img/mud/0.png",
+            //        iconSize: new T.Point(25, 41),
+            //        iconAnchor: new T.Point(10, 25)
+            //    });
+            //} else {
+            //    //创建图片对象
+            //    icon = new T.Icon({
+            //        iconUrl: "../../Resource/Img/coast/0.png",
+            //        iconSize: new T.Point(25, 41),
+            //        iconAnchor: new T.Point(10, 25)
+            //    });
+            //}
+
+            //// 创建标注
+            //var marker = new T.Marker(new T.LngLat(Lon, Lat), { icon: icon });
+            ////获取标记文本
+            //var content = content;
+            //// 将标注添加到地图中
+            //map.addOverLay(marker);
+            //addClickHandler(content, marker, DeviceID, false);
+        } 
     });
 }
 
@@ -1858,4 +1944,14 @@ function edit_image(editImgArray, keyslist, getDeviceId) {
 function HidenShowImgModel(getid) {
     //更新数据
     GetPicPathById(getid);
+}
+
+//判断是隐藏还是显示
+function isShowOrHide() {
+    setInterval(function () {
+        if (SelectDevice.length > 0 || arrayObj.length>0) {
+            $("#showDevice").find("span").html("隐藏");
+            isShowDevice = true;
+        }
+    }, 1000);
 }

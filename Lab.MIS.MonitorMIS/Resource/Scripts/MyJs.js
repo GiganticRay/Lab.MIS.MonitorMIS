@@ -17,6 +17,8 @@ var arrayObj = [];
 var newArray = [];
 //用来存放通过搜索显示的设备点
 var SelectDevice = [];
+//存放线条的数组
+var linesArray = [];
 //判断用户是否登录
 var isLog = false;
 //表示是否显示设备信息
@@ -194,16 +196,24 @@ $(document).ready(function () {
             isShowDevice = true;
         } else {
             //表示当前地图中的所有标记
-            var AllOverlays = map.getOverlays();
-            $.each(AllOverlays, function (AllOverlays_Index, item) {
-                //if (item.getType() == 2) {
-                //    map.removeOverLay(item);
-                //}
-                //删除线条
-                if (item.getType() == 4) {
-                    map.removeOverLay(item);
-                }
-            });
+            //var AllOverlays = map.getOverlays();
+            //$.each(AllOverlays, function (AllOverlays_Index, item) {
+            //    //if (item.getType() == 2) {
+            //    //    map.removeOverLay(item);
+            //    //}
+            //    //删除线条
+            //    if (item.getType() == 4) {
+            //        map.removeOverLay(item);
+            //    }
+            //});
+
+
+            //清空设备连线
+            if (linesArray.length>0) {
+                $.each(linesArray, function (i, item) {
+                    item.hide();
+                });
+            }
             //如果通过搜索显示的设备不为空
             if (SelectDevice.length>0) {
                 $.each(SelectDevice, function (i, item) {
@@ -1065,6 +1075,7 @@ function DrawLineForGroup() {
     for (var i = 0; i < group_id.length; i++) {
         var first_point = [];
         var points1 = [];
+        linesArray = [];
         $.ajax({
             url: "/Home/GetDeviceInfoByMonitorId",
             type: "post",
@@ -1085,6 +1096,7 @@ function DrawLineForGroup() {
                 map.addOverLay(line3);
                 points1 = [];
                 first_point = [];
+                linesArray.push(line3);
             }
         })
     }

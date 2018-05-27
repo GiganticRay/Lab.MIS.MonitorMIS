@@ -239,21 +239,21 @@ namespace Lab.MIS.MonitorMIS.Controllers
         public ActionResult GetNewMonitorInfos()
         {
             List<MonitorPointInfo> monitorPointInfos = monitorPointInfoService.Get(a => a.Id > 0).ToList();
-            List<MonitorPointInfo> newPointInfo = new List<MonitorPointInfo>();
-            foreach (var item in monitorPointInfos)
-            {
-                int getDeviceMonitorId = item.MonitorId;
+            //List<MonitorPointInfo> newPointInfo = new List<MonitorPointInfo>();
+            //foreach (var item in monitorPointInfos)
+            //{
+            //    int getDeviceMonitorId = item.MonitorId;
 
-                int count = deviceInfoService.Get(a => a.MonitorPointInfoId == getDeviceMonitorId).Count();
+            //    int count = deviceInfoService.Get(a => a.MonitorPointInfoId == getDeviceMonitorId).Count();
 
-                //判断是否有三个设备
-                if (count < 3)
-                {
-                    newPointInfo.Add(item);
-                }
-            }
+            //    //判断是否有三个设备
+            //    if (count < 3)
+            //    {
+            //        newPointInfo.Add(item);
+            //    }
+            //}
             var res = new JsonResult();
-            res.Data = JsonConvert.SerializeObject(newPointInfo, setting);
+            res.Data = JsonConvert.SerializeObject(monitorPointInfos, setting);
             return res;
         }
         /// <summary>

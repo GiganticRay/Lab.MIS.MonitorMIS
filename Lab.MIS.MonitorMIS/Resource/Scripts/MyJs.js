@@ -107,7 +107,7 @@ $(document).ready(function () {
     map.centerAndZoom(new T.LngLat(116.40769, 39.89945), 14);
     //添加缩放按钮
     control = new T.Control.Zoom();
-
+    control.setPosition(T_ANCHOR_BOTTOM_LEFT);
     map.addControl(control);
     //添加比例尺
     var scale = new T.Control.Scale();
@@ -455,6 +455,8 @@ $(document).ready(function () {
 
     //判断是隐藏还是显示
     isShowOrHide();
+
+   
 });
 
 //获取缩放级别

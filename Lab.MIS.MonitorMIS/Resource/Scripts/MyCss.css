@@ -809,3 +809,7 @@ a {
 #showAllDevice .tooltip.fade.bottom.in , #showDevice .tooltip.fade.bottom.in {
     width: 76px;
 }
+
+/*input {
+    border-radius:100px;
+}*/

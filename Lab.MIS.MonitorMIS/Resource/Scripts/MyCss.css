@@ -813,3 +813,11 @@ a {
 /*input {
     border-radius:100px;
 }*/
+
+h4 {
+    text-align: center;
+}
+
+#GetPointMapDiv {
+    height: 400px;
+}

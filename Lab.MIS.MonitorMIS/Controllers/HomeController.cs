@@ -298,8 +298,6 @@ namespace Lab.MIS.MonitorMIS.Controllers
             backData.Remove(backData.Length - 1, 1);
             backData.Append("]");
 
-
-
             backData.Append("}]");
 
             return Content(backData.ToString());

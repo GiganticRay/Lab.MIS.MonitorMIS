@@ -1,6 +1,7 @@
 ﻿/// <reference path="jquery-3.2.1.js" />
 
 var map;
+var map1;   //用来再录入界面显示的地图
 var zoom = 12;
 var open = true;
 var handler, handler1;
@@ -105,6 +106,11 @@ $(document).ready(function () {
 
     map = new T.Map('mapDiv');
     map.centerAndZoom(new T.LngLat(116.40769, 39.89945), 14);
+    //用来再录入页面显示的地图
+    map1 = new T.Map('GetPointMapDiv');
+    map1.centerAndZoom(new T.LngLat(109.4640600000, 31.01846), 14);
+    //给这个地图添加点击事件、将点击的点的经纬度添加到文本框中
+    map1.addEventListener("click", Map1Click);
     //添加缩放按钮
     control = new T.Control.Zoom();
     control.setPosition(T_ANCHOR_BOTTOM_LEFT);
@@ -444,10 +450,10 @@ $(document).ready(function () {
 
 
     //关闭更新图片的model隐藏时
-    $("#ShowImgModel").on('hide.bs.modal', function () {
+    $("#ShowImgModel").on('hide.bs.modal', function() {
         var getid = $("#hidShowImgId").val();
         HidenShowImgModel(getid);
-    })
+    });
 
 
     //将右边的框隐藏
@@ -456,7 +462,9 @@ $(document).ready(function () {
     //判断是隐藏还是显示
     isShowOrHide();
 
-   
+    //录入信息的时候在地图上面取点
+    BindGetPointByMap();
+
 });
 
 //获取缩放级别
@@ -2044,4 +2052,52 @@ function isShowOrHide() {
             isShowDevice = true;
         }
     }, 1000);
+}
+
+
+//录入界面div的点击事件
+function Divclick(thisDiv) {
+    $(thisDiv).find('a')[0].click();
+}
+
+//录入信息的时候在地图上面取点
+function BindGetPointByMap() {
+    $("#GetPointByMap").click(function () {
+        map1.checkResize();
+        $("#GetPointByMapCollapse").click();
+    });  
+}
+
+function Map1Click(e) {
+    swal(
+        {
+            title: "Confirm",
+            text: "取" + e.lnglat.getLng() + "," + e.lnglat.getLat(),
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#778899",
+            confirmButtonText: "Yes",
+            cancelButtonText: "No",
+            closeOnConfirm: false,
+            closeOnCancel: false
+        },
+        function(isConfirm) {
+            if (isConfirm) {
+                swal({
+                    title: "取点成功！",
+                    type: "success"
+                }, function() {
+                    $("#InputLontitude").val(e.lnglat.getLng());
+                    $("#InputLatitude").val(e.lnglat.getLat());
+                    $("#BasicInfoDiv").click();
+                });
+            } else {
+                swal({
+                    title: "已取消",
+                    text: "您取消了删除操作！",
+                    type: "error"
+                });
+            }
+        }
+    );
 }

@@ -115,7 +115,7 @@ $(document).ready(function () {
     map1 =new T.Map('GetPointMapDiv');
     map1.centerAndZoom(new T.LngLat(109.34692, 30.96348), 9);
     //给这个地图添加点击事件、将点击的点的经纬度添加到文本框中
-    //map1.addEventListener("click", Map1Click);
+    map1.addEventListener("click", Map1Click);
     //添加缩放按钮
     control = new T.Control.Zoom();
     control.setPosition(T_ANCHOR_BOTTOM_LEFT);

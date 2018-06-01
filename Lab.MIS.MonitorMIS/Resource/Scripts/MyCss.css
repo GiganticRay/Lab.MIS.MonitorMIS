@@ -335,6 +335,9 @@ li:hover {
 #layertoimg, #layertoter, #layertoori {
     padding:0 4px;
 }
+#layertoimg1, #layertoter1, #layertoori1 {
+    padding:0 4px;
+}
 .thumbnail {
     padding: 0px;
     margin: 0px;
@@ -355,7 +358,30 @@ li:hover {
     z-index: 60;
     display:none;
 }
+.row1 {
+    border: none;
+    position: absolute;
+    right: 55px;
+    top: 74%;
+    width: 250px;
+    height: 90px;
+    z-index: 1000;
+    display:none;
+}
 #LayerContent {
+    background-position: -521px -210px;
+    width: 30px;
+    height: 30px;
+    background-color: white;
+    background-image: url('../Img/TiandituIcon.png');
+    background-repeat: no-repeat;
+    position: absolute;
+    right: 10px;
+    top: 74%;
+    z-index: 1000;
+    box-shadow: 0 1px 3px rgba(0,0,0,.25);
+}
+#LayerContent1 {
     background-position: -521px -210px;
     width: 30px;
     height: 30px;

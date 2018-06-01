@@ -28,6 +28,11 @@ var isShowDevice = false;
 var Imglayer = false;
 //判断目前所属是否为地形图
 var Terlayer = false;
+//用于小地图
+//判断目前所属是否为卫星图
+var Imglayer1 = false;
+//判断目前所属是否为地形图
+var Terlayer1 = false;
 //用于判断工具是否添加
 var bool1 = false, bool2 = false, bool3 = false, bool4 = false, bool5 = false;
 //图层url
@@ -107,17 +112,20 @@ $(document).ready(function () {
     map = new T.Map('mapDiv');
     map.centerAndZoom(new T.LngLat(116.40769, 39.89945), 14);
     //用来再录入页面显示的地图
-    map1 = new T.Map('GetPointMapDiv');
-    map1.centerAndZoom(new T.LngLat(109.4640600000, 31.01846), 14);
+    map1 =new T.Map('GetPointMapDiv');
+    map1.centerAndZoom(new T.LngLat(109.34692, 30.96348), 9);
     //给这个地图添加点击事件、将点击的点的经纬度添加到文本框中
-    map1.addEventListener("click", Map1Click);
+    //map1.addEventListener("click", Map1Click);
     //添加缩放按钮
     control = new T.Control.Zoom();
     control.setPosition(T_ANCHOR_BOTTOM_LEFT);
+    //map1.addControl(control);
     map.addControl(control);
     //添加比例尺
     var scale = new T.Control.Scale();
     map.addControl(scale);
+    var scale1 = new T.Control.Scale();
+    map1.addControl(scale1);
     MoveControl();
     $("#side_barController").click(function () {
         MoveLeftWindow();
@@ -236,7 +244,10 @@ $(document).ready(function () {
     $("#LayerContent").click(function () {
         $(".row ").animate({ width: 'toggle' }, 350);
     });
-
+    //小地图图层框收缩
+    $("#LayerContent1").click(function () {
+        $(".row1 ").animate({ width: 'toggle' }, 350);
+    });
 
 
 
@@ -345,7 +356,19 @@ $(document).ready(function () {
     $("#layertoori").click(function () {
         layerToOri();
     })
-
+    //小地图的图层变换
+    //改变图层到卫星图层
+    $("#layertoimg1").click(function () {
+        layerToImg1();
+    })
+    //改变图层到地形图层
+    $("#layertoter1").click(function () {
+        layerToTer1();
+    })
+    //原始图层
+    $("#layertoori1").click(function () {
+        layerToOri1();
+    })
 
     //打开录入检测阵数据窗口
     $("#EnteringMonitorInfo").click(function () {
@@ -552,8 +575,15 @@ function area(obj) {
                 opacity: 1,
                 lineStyle: "dashed"
             });
+            var line2 = new T.Polyline(regionLngLats, {
+                color: "#191970",
+                weight: 3,
+                opacity: 1,
+                lineStyle: "dashed"
+            });
             //向地图上添加线
             map.addOverLay(line1);
+            map1.addOverLay(line2);
             //创建面对象
             var polygon1 = new T.Polygon(regionLngLats, {
                 color: "#191970", weight: 3, opacity: 0.5, fillColor: "#8B7B8B", fillOpacity: 0.5
@@ -1279,6 +1309,19 @@ function layerToImg() {
         Imglayer = true;
     }
 }
+//小地图卫星图
+function layerToImg1() {
+    if (Terlayer1 == true) {
+        map1.removeLayer(lay2);
+        map1.removeLayer(textlay);
+        Terlayer1 = false;
+    }
+    if (Imglayer1 == false) {
+        map1.addLayer(lay);
+        map1.addLayer(textlay);
+        Imglayer1 = true;
+    }
+}
 //地形图
 function layerToTer() {
     if (Imglayer == true) {
@@ -1292,6 +1335,19 @@ function layerToTer() {
         Terlayer = true;
     }
 }
+//小地图地形图
+function layerToTer1() {
+    if (Imglayer1 == true) {
+        map1.removeLayer(lay);
+        map1.removeLayer(textlay);
+        Imglayer1 = false;
+    }
+    if (Terlayer1 == false) {
+        map1.addLayer(lay2);
+        map1.addLayer(textlay);
+        Terlayer1 = true;
+    }
+}
 //原始图
 function layerToOri() {
     if (Terlayer == true) {
@@ -1302,10 +1358,22 @@ function layerToOri() {
     if (Imglayer == true) {
         map.removeLayer(lay);
         map.removeLayer(textlay);
-        layer = false;
+        Imglayer = false;
     }
 }
-
+//小地图原始图
+function layerToOri1() {
+    if (Terlayer1 == true) {
+        map1.removeLayer(lay2);
+        map1.removeLayer(textlay);
+        Terlayer1 = false;
+    }
+    if (Imglayer1 == true) {
+        map1.removeLayer(lay);
+        map1.removeLayer(textlay);
+        Imglayer1 = false;
+    }
+}
 //删除提示框
 function Delete(Func) {
     swal({

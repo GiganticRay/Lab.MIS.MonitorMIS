@@ -245,8 +245,14 @@ $(document).ready(function () {
         $(".row ").animate({ width: 'toggle' }, 350);
     });
     //小地图图层框收缩
-    $("#LayerContent1").click(function () {
+    $("#LayerContent1").click(function (ev) {
         $(".row1 ").animate({ width: 'toggle' }, 350);
+
+        var oEvent = ev || event;
+
+        //js阻止事件冒泡
+        oEvent.cancelBubble = true;
+        oEvent.stopPropagation();
     });
 
 
@@ -345,30 +351,45 @@ $(document).ready(function () {
         SavaDevideInfo(getData, "#CloseDeviceInfo");
     });
     //改变图层到卫星图层
-    $("#layertoimg").click(function () {
+    $("#layertoimg").click(function() {
         layerToImg();
-    })
+    });
     //改变图层到地形图层
-    $("#layertoter").click(function () {
+    $("#layertoter").click(function() {
         layerToTer();
-    })
+    });
     //原始图层
-    $("#layertoori").click(function () {
+    $("#layertoori").click(function() {
         layerToOri();
-    })
+    });
     //小地图的图层变换
     //改变图层到卫星图层
-    $("#layertoimg1").click(function () {
+    $("#layertoimg1").click(function(ev) {
         layerToImg1();
-    })
+        var oEvent = ev || event;
+
+        //js阻止事件冒泡
+        oEvent.cancelBubble = true;
+        oEvent.stopPropagation();
+    });
     //改变图层到地形图层
-    $("#layertoter1").click(function () {
+    $("#layertoter1").click(function(ev) {
         layerToTer1();
-    })
+        var oEvent = ev || event;
+
+        //js阻止事件冒泡
+        oEvent.cancelBubble = true;
+        oEvent.stopPropagation();
+    });
     //原始图层
-    $("#layertoori1").click(function () {
+    $("#layertoori1").click(function(ev) {
         layerToOri1();
-    })
+        var oEvent = ev || event;
+
+        //js阻止事件冒泡
+        oEvent.cancelBubble = true;
+        oEvent.stopPropagation();
+    });
 
     //打开录入检测阵数据窗口
     $("#EnteringMonitorInfo").click(function () {
@@ -2131,7 +2152,7 @@ function Divclick(thisDiv) {
 //录入信息的时候在地图上面取点
 function BindGetPointByMap() {
     $("#GetPointByMap").click(function () {
-        map1.checkResize();
+        //map1.checkResize();
         $("#GetPointByMapCollapse").click();
     });  
 }

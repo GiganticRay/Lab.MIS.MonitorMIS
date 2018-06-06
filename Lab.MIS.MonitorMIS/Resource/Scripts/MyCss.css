@@ -33,7 +33,6 @@ input, b, p {
 }
 
 #LogoImg {
-    width: 161px;
     height: 55px;
     float: left;
     cursor: pointer;
@@ -407,26 +406,6 @@ li:hover {
     position: absolute;
     bottom: 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /*动态按钮*/
 a {
@@ -845,5 +824,12 @@ h4 {
 }
 
 #GetPointMapDiv {
-    height: 400px;
+    height: 100%;
+    width: 500px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    border: 10px;
+    z-index: 10000;
+    box-shadow: 0px 0px 20px #000;
 }

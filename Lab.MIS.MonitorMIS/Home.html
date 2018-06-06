@@ -27,10 +27,11 @@
 </head>
 
 <body>
+
     <div id="MainDiv">
 
         <div id="headDiv">
-            <img src="../../Resource/Img/Logo.png" id="LogoImg" />
+            <img src="../../Resource/Img/Logo1.png" id="LogoImg" />
             <nav class="menu">
                 <!-- 创建主按钮 -->
                 <input type="checkbox" href="#" class="menu-open" name="menu-open" id="menu-open" />
@@ -601,7 +602,7 @@
                                                     <tr>
                                                         <td>位置(纬度):</td>
                                                         <td>
-                                                            <input type="text" name="DeviceLat" value="" id="InputLatitude"/>
+                                                            <input type="text" name="DeviceLat" value="" id="InputLatitude" />
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -640,42 +641,6 @@
                                             </div>
                                         </div>
                                     </form>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading" onclick="Divclick(this)" id="GetPointByMapCollapse">
-                                <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion"
-                                       href="#collapseTwo">
-                                        map选择地址
-                                    </a>
-                                </h4>
-                            </div>
-                            <div id="collapseTwo" class="panel-collapse collapse">
-                                <div class="panel-body" id="GetPointMapDiv">
-                                    <div id="LayerContent1" data-toggle="tooltip" title="图层">
-                                    </div>
-                                    <div class="row1">
-                                        <div class="col-xs-4 col-md-4" id="layertoimg1">
-                                            <a href="#" class="thumbnail">
-                                                <img src="Resource/Img/Layer_satellite.jpg" alt="..." />
-                                                <p class="layer-tip">影像</p>
-                                            </a>
-                                        </div>
-                                        <div class="col-xs-4 col-md-4" id="layertoter1">
-                                            <a href="#" class="thumbnail">
-                                                <img src="Resource/Img/Layer_terrain.jpg" alt="..." />
-                                                <p class="layer-tip">地形</p>
-                                            </a>
-                                        </div>
-                                        <div class="col-xs-4 col-md-4" id="layertoori1">
-                                            <a href="#" class="thumbnail">
-                                                <img src="Resource/Img/Layer_map.jpg" alt="..." />
-                                                <p class="layer-tip">地图</p>
-                                            </a>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -773,7 +738,7 @@
                                         <tr>
                                             <td>位置(纬度):</td>
                                             <td>
-                                                <input type="text" name="DeviceLat" value=""/>
+                                                <input type="text" name="DeviceLat" value="" />
                                             </td>
                                         </tr>
                                         <tr>
@@ -899,5 +864,32 @@
             <!-- /.modal -->
         </div>
     </div>
+
+    <!-- 选择地点的map-->
+    <div class="panel-body" id="GetPointMapDiv">
+        <div id="LayerContent1" data-toggle="tooltip" title="图层">
+        </div>
+        <div class="row1">
+            <div class="col-xs-4 col-md-4" id="layertoimg1">
+                <a href="#" class="thumbnail">
+                    <img src="Resource/Img/Layer_satellite.jpg" alt="..." />
+                    <p class="layer-tip">影像</p>
+                </a>
+            </div>
+            <div class="col-xs-4 col-md-4" id="layertoter1">
+                <a href="#" class="thumbnail">
+                    <img src="Resource/Img/Layer_terrain.jpg" alt="..." />
+                    <p class="layer-tip">地形</p>
+                </a>
+            </div>
+            <div class="col-xs-4 col-md-4" id="layertoori1">
+                <a href="#" class="thumbnail">
+                    <img src="Resource/Img/Layer_map.jpg" alt="..." />
+                    <p class="layer-tip">地图</p>
+                </a>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>

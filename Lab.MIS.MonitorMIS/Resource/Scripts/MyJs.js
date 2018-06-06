@@ -509,6 +509,14 @@ $(document).ready(function () {
     //录入信息的时候在地图上面取点
     BindGetPointByMap();
 
+    //先把副地图给隐藏了、 注意不能之前就设置为null、必须等加载地图之后
+    HideViceMap();
+
+    //在录入的界面关闭后也关闭副地图
+    $('#EnteringDeviceInfoModal').on('hide.bs.modal', function () {
+        HideViceMap();
+    });
+
 });
 
 //获取缩放级别
@@ -2152,9 +2160,17 @@ function Divclick(thisDiv) {
 //录入信息的时候在地图上面取点
 function BindGetPointByMap() {
     $("#GetPointByMap").click(function () {
-        //map1.checkResize();
-        $("#GetPointByMapCollapse").click();
+        ShowViceMap();
     });  
+}
+
+//出现副地图
+function ShowViceMap() {
+    $("#GetPointMapDiv").css('display', "block");
+}
+//隐藏副地图
+function HideViceMap() {
+    $("#GetPointMapDiv").css('display', "none");
 }
 
 function Map1Click(e) {
@@ -2178,7 +2194,7 @@ function Map1Click(e) {
                 }, function() {
                     $("#InputLontitude").val(e.lnglat.getLng());
                     $("#InputLatitude").val(e.lnglat.getLat());
-                    $("#BasicInfoDiv").click();
+                    HideViceMap();
                 });
             } else {
                 swal({

@@ -465,6 +465,7 @@ $(document).ready(function () {
     var boolLog = getCookie("IsLog");
     if (boolLog == "true") {
         isLog = true;
+        logstate();
         $("#btnLogin").val("已登录,点击退出登录");
     }
 
@@ -632,6 +633,7 @@ function loginAjax() {
     if (isLog == true) {
         logoff(function () {
             isLog = false;
+            logstate();
             swal({
                 title: "退出登录成功！",
                 type: "success",
@@ -644,10 +646,12 @@ function loginAjax() {
         var postData = $("#loginForm").serializeArray();
         $.post("/Home/Login", postData, function (data) {
             if (data["state"] != false) {
+                isLog = true;
+                logstate();
                 $('#loginModal').modal('hide');
                 //禁用登录按钮
                 $("#btnLogin").val("已登录,点击退出登录");
-                isLog = true;
+                
                 swal({
                     title: "登录成功！",
                     type: "success",
@@ -658,6 +662,25 @@ function loginAjax() {
             }
         });
     }
+}
+
+function logstate() {
+    if (isLog) {
+        $("#mine").find("span")[0].innerHTML = "";
+        $("#mine").find("span").css("font-size","20px");
+        $("#mine").find("span").attr({
+            "class": "menu-item-spanf glyphicon glyphicon-user",
+            "title": "点击退出登录",
+        }).tooltip("fixTitle");
+    } else {
+        $("#mine").find("span")[0].innerHTML = "登录";
+        $("#mine").find("span").css("font-size", "15px");
+        $("#mine").find("span").attr({
+            "class": "menu-item-spanf",
+            "title": "点击登录",
+        }).tooltip("fixTitle");
+    }
+
 }
 
 //登录窗口震动

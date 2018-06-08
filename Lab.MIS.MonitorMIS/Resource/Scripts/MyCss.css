@@ -32,8 +32,23 @@ input, b, p {
     opacity: 1;
 }
 
+#mine {
+    position: relative;
+    float: left;
+    left: 8px;
+    top: 12px;
+    border: 1px solid #d4d4d4;
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+}
+
+    #mine span {
+        color:#3199d6;
+    }
+
 #LogoImg {
-    width:400px;
+    width: 400px;
     height: 55px;
     float: left;
     cursor: pointer;
@@ -55,12 +70,11 @@ input, b, p {
 }
 
 .seperator {
-    float: right;
+    float: left;
     width: 1px;
-    height: 20px;
+    height: 30px;
     background-color: #d4d4d4;
-    float: right;
-    margin-top: 8px;
+    margin-top: 18px;
     margin-left: 5px;
     margin-right: 5px;
 }
@@ -256,13 +270,11 @@ li:hover {
 .greenbtn {
     color: white;
     background-color: #8cc269;
-    width: 135px;
 }
 
 .redbtn {
     color: white;
     background-color: #ef82a0;
-    width: 135px;
 }
 #searchSelect {
     color: white;
@@ -278,6 +290,15 @@ li:hover {
     #searchSelectType.btn-default {
         min-width: 182px;
     }
+#selectConfirmBtn {
+    float: right;
+    margin:0 6px 0;
+    width:135px;
+}
+#selectResetBtn {
+    float: right;
+    width: 135px;
+}
 #RemoveWarningPointBtn {
     float: right;
     position: relative;
@@ -293,12 +314,18 @@ li:hover {
     border-style: solid;
     border-width: 1px;
     text-size-adjust: 100%;
-    color:white;
+    color: white;
+    display: none;
 }
 
 #tree-modal-body {
     padding: 0px;
 }
+
+
+
+
+
 
 
 
@@ -507,9 +534,9 @@ a {
 .menu-item:nth-child(8) {
     transition-duration: 180ms;
 }
-.menu-item:nth-child(9) {
+/*.menu-item:nth-child(9) {
     transition-duration: 180ms;
-}
+}*/
 
 .menu-open-button {
     z-index: 2;
@@ -781,15 +808,14 @@ a {
 /*END动态搜索框*/
 
 
-#showAllDevice .tooltip.fade.bottom.in , #showDevice .tooltip.fade.bottom.in {
+#showAllDevice .tooltip.fade.bottom.in, #showDevice .tooltip.fade.bottom.in, #mine .tooltip.fade.bottom.in{
     width: 76px;
 }
 
 
-h4 {
-    text-align: center;
+#SearchMainTable h4{
+    padding: 0 6px;
 }
-
 #GetPointMapDiv {
     height: 100%;
     width: 500px;

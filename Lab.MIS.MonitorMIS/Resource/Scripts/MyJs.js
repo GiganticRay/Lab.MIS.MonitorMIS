@@ -59,6 +59,8 @@ var group_id = [];
 var textURL = "http://t3.tianditu.com/DataServer?T=cva_w&x={x}&y={y}&l={z}";
 var textlay = new T.TileLayer(textURL, { minZoom: 1, maxZoom: 18 });
 
+var map1Marker; //副地图上面的一个用来回去经纬度的marker;
+
 $(document).ready(function () {
     
     //每隔一分钟刷新一次预警点信息
@@ -114,8 +116,6 @@ $(document).ready(function () {
     //用来再录入页面显示的地图
     map1 =new T.Map('GetPointMapDiv');
     map1.centerAndZoom(new T.LngLat(109.34692, 30.96348), 9);
-    //给这个地图添加点击事件、将点击的点的经纬度添加到文本框中
-    map1.addEventListener("click", Map1Click);
     //添加缩放按钮
     control = new T.Control.Zoom();
     control.setPosition(T_ANCHOR_BOTTOM_LEFT);
@@ -126,6 +126,15 @@ $(document).ready(function () {
     map.addControl(scale);
     var scale1 = new T.Control.Scale();
     map1.addControl(scale1);
+    //在map1上设置可拖动的一个点来确定用户选择经纬度
+    var point = new T.LngLat(109.34692, 30.96348);
+    map1Marker = new T.Marker(point);       // 创建标注
+    map1.addOverLay(map1Marker);                // 将标注添加到地图中
+    map1Marker.enableDragging();                // 不可拖拽
+    map1.addEventListener("click", Map1Click);   // 给map1添加点击功能、用户一点就让marker定位到那个位置
+    map1Marker.addEventListener("drag", SetLnLatByDrag);//给这个标记添加移动事件
+    BindLngLatTextChange();               //给录入的经纬度两个inputtext框注册失去焦点事件
+
     MoveControl();
     $("#side_barController").click(function () {
         MoveLeftWindow();
@@ -469,14 +478,14 @@ $(document).ready(function () {
     }
 
     //当上传图片的model隐藏时
-    $("#editImgModel").on('hide.bs.modal', function () {
+    $("#editImgModel").on('hide.bs.modal', function() {
         HidenLoadingImgModel();
-    })
+    });
 
     //关闭录入监测设备的model隐藏时
-    $("#EnteringDeviceInfoModal").on('hide.bs.modal', function () {
+    $("#EnteringDeviceInfoModal").on('hide.bs.modal', function() {
         HidenEnteringDeviceModel();
-    })
+    });
 
   
     //当树状model关闭时，将更新图片的隐藏域清空
@@ -2180,36 +2189,29 @@ function HideViceMap() {
     $("#GetPointMapDiv").css('display', "none");
 }
 
+//通过移动marker来设置经纬度
+function SetLnLatByDrag(e) {
+    var point = e.target;
+    $("#InputLontitude").val(point.getLngLat().lng);
+    $("#InputLatitude").val(point.getLngLat().lat);
+    //HideViceMap();
+}
+//副地图的点击事件
 function Map1Click(e) {
-    swal(
-        {
-            title: "Confirm",
-            text: "取" + e.lnglat.getLng() + "," + e.lnglat.getLat(),
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#778899",
-            confirmButtonText: "Yes",
-            cancelButtonText: "No",
-            closeOnConfirm: false,
-            closeOnCancel: false
-        },
-        function(isConfirm) {
-            if (isConfirm) {
-                swal({
-                    title: "取点成功！",
-                    type: "success"
-                }, function() {
-                    $("#InputLontitude").val(e.lnglat.getLng());
-                    $("#InputLatitude").val(e.lnglat.getLat());
-                    HideViceMap();
-                });
-            } else {
-                swal({
-                    title: "已取消",
-                    text: "您取消了删除操作！",
-                    type: "error"
-                });
-            }
-        }
-    );
+    var Lng = e.lnglat.getLng();
+    var Lat = e.lnglat.getLat();
+    map1Marker.setLngLat(T.LngLat(Lng, Lat));
+    $("#InputLontitude").val(Lng);
+    $("#InputLatitude").val(Lat);
+}
+//绑定经纬度两输入框的改变事件
+function BindLngLatTextChange() {
+    $("#InputLontitude").on('input', LngLatTextChange);
+    $("#InputLatitude").on('input', LngLatTextChange);
+}
+//经纬度两输入框的改变事件
+function LngLatTextChange() {
+    var Lng = $("#InputLontitude").val();
+    var Lat = $("#InputLatitude").val();
+    map1Marker.setLngLat(T.LngLat(Lng, Lat));
 }

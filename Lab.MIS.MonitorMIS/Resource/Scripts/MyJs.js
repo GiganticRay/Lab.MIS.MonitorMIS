@@ -185,6 +185,7 @@ $(document).ready(function () {
 
 
     //窗口大小改变时适应页面
+
     $(".dropdown-menu").animate({ left: '-65px' }, 100);
 
 
@@ -207,22 +208,21 @@ $(document).ready(function () {
 
 
     //鼠标滚动
-    $("#SearchDiseaseInfoDiv").scroll(function () {
-        $("#SearchMainTable").slideUp("1000", function () {
-            $("#ChangeSearchParameters").css("display", "block");
-        });
+    //$("#SearchDiseaseInfoDiv").scroll(function () {
+    //    $("#SearchMainTable").slideUp("1000", function () {
+    //        $("#ChangeSearchParameters").css("display", "block");
+    //    });
 
-        m.style.height = document.getElementById("side_bar").clientHeight - document.getElementById("ChangeSearchParameters").clientHeight + "px";
-    });
+    //    m.style.height = document.getElementById("side_bar").clientHeight - document.getElementById("ChangeSearchParameters").clientHeight + "px";
+    //});
 
-    //
-    $("#ChangeSearchParameters").click(function () {
-        $("#ChangeSearchParameters").css("display", "none");
-        $("#SearchMainTable").slideToggle("slow");
+    ////
+    //$("#ChangeSearchParameters").click(function () {
+    //    $("#ChangeSearchParameters").css("display", "none");
+    //    $("#SearchMainTable").slideToggle("slow");
 
-        m.style.height = document.getElementById("side_bar").clientHeight - document.getElementById("SearchMainTable").clientHeight - scroll_height + "px";
-    });
-
+    //    m.style.height = document.getElementById("side_bar").clientHeight - document.getElementById("SearchMainTable").clientHeight - scroll_height + "px";
+    //});
 
 
     //动态搜索框
@@ -747,6 +747,10 @@ function BindSelectConfirmBtn() {
 function BindSelectResetBtn() {
     $("#selectResetBtn").click(function () {
         $("#SearchDiseaseInfoTable").empty();
+        $("#SearchDiseaseInfoTable").append("<caption>监测预警查询结果</caption>");
+        $("#SearchDiseaseInfoTable").append("<thead></thead>");
+        $("#SearchDiseaseInfoTable thead").append("<tr></tr>");
+        $("#SearchDiseaseInfoTable thead tr").append("<th>监测阵列</th><th>阵经度</th><th>阵纬度</th><th>经度</th><th>纬度</th><th>预警方位</th><th>监测类型</th><th>预警等级</th><th>预警时间</th><th>预留</th>");
     });
 }
 //获取对应arrayId的数据加载到table里面
@@ -851,6 +855,8 @@ function AddWarningPointToMap(RowData) {
     map.centerAndZoom(new T.LngLat(Lon, Lat), 10);
     //注册标记的鼠标触摸,移开事件           
     addClickHandler(content, marker, RowData, true);
+
+    $("#RemoveWarningPointBtn").animate({ width: 'show', }, 100);
 }
 
 //绑定移除预警点信息按钮
@@ -859,6 +865,7 @@ function BindClickRemoveWarningPointBtn() {
         $.each(DiseaseMarkerArray, function (i, item) {
             item.hide();
         });
+        $(this).animate({ width: 'hide',}, 100);
     });
 }
 

@@ -16,7 +16,6 @@
     width: 100%;
     height: 100%;
 }
-
 input, b, p {
     margin-left: 5px;
     font-size: 14px;
@@ -26,13 +25,15 @@ input, b, p {
     position: absolute;
     width: 100%;
     height: 60px;
-    /*border-bottom: 1px solid #ccc;
-    box-shadow: 0 1px 3px rgba(0,0,0,.25);*/
+    background-color:white;
+    border-bottom: 1px solid #ccc;
+    box-shadow: 0 1px 3px rgba(0,0,0,.25);
     z-index: 100;
     opacity: 1;
 }
 
 #LogoImg {
+    width:400px;
     height: 55px;
     float: left;
     cursor: pointer;
@@ -252,12 +253,13 @@ li:hover {
 #SearchMainTable input {
     height:30px;
 }
-#selectConfirmBtn {
-    color:white;
-    background-color:#8cc269;
-    width:135px;
+.greenbtn {
+    color: white;
+    background-color: #8cc269;
+    width: 135px;
 }
-#selectResetBtn {
+
+.redbtn {
     color: white;
     background-color: #ef82a0;
     width: 135px;
@@ -266,59 +268,40 @@ li:hover {
     color: white;
     background-color: #8fb2c9;
 }
+    #searchSelect.btn-default {
+        min-width: 182px;
+    }
 #searchSelectType {
     color: white;
     background-color: #8fb2c9;
 }
+    #searchSelectType.btn-default {
+        min-width: 182px;
+    }
 #RemoveWarningPointBtn {
-    float:right;
+    float: right;
+    position: relative;
+    width: 135px;
+    height: 46px;
+    line-height: 24px;
+    font-size: 18px;
+    padding: 10px 16px;
+    background-color: gray;
+    text-align: center;
+    border-color: rgb(204, 204, 204);
+    border-radius: 6px;
+    border-style: solid;
+    border-width: 1px;
+    text-size-adjust: 100%;
+    color:white;
 }
 
 #tree-modal-body {
     padding: 0px;
 }
 
-/*#layertoimg{
-    background-position: -521px -210px;
-    width:30px;
-    height:30px;
-    background-color:white;
-    background-image:url('../Img/TiandituIcon.png');
-    background-repeat: no-repeat;
-    position:absolute;
-    right:6px;
-    top:87%;
-    z-index:1000;
-    box-shadow: 0 1px 3px rgba(0,0,0,.25);
-}
 
-#layertoter{
-    background-position: -521px -210px;
-    width:30px;
-    height:26px;
-    background-color:white;
-    background-image:url('../Img/TiandituIcon.png');
-    background-repeat: no-repeat;
-    position:absolute;
-    top:81%;
-    z-index:1000;
-    box-shadow: 0 1px 3px rgba(0,0,0,.25);
-    right:6px;
-    bottom: 93px;
-}
-#layertoori{
-    background-position: -521px -210px;
-    width:30px;
-    height:30px;
-    background-color:white;
-    background-image:url('../Img/TiandituIcon.png');
-    background-repeat: no-repeat;
-    position:absolute;
-    right:6px;
-    top:74%;
-    z-index:1000;
-    box-shadow: 0 1px 3px rgba(0,0,0,.25);
-}*/
+
 
 /*隐藏天地图自带logo*/
 .tdt-touch .tdt-bar, .tdt-touch .tdt-control-copyright, .tdt-touch .tdt-control-layers {
@@ -782,19 +765,6 @@ a {
 }
 
 
-/*#search_btn {
-    border: 1px solid #b8b8b8;
-    border-left: 0;
-    height: 40px;
-    width: 40px;
-    cursor: pointer;
-    float: left;
-
-    background-image: url("../../Resource/Img/Clear.png");
-    background-repeat: no-repeat;
-    background-position-x: 5px;
-    background-position-y: 5px;
-}*/
 
 .biaozhu {
     color: red;
@@ -815,9 +785,6 @@ a {
     width: 76px;
 }
 
-/*input {
-    border-radius:100px;
-}*/
 
 h4 {
     text-align: center;

@@ -58,5 +58,3 @@ E:\工程实践\Lab.MIS.MonitorMIS\Lab.MIS.IDAL\bin\Debug\zh-Hans\EntityFramewor
 E:\工程实践\Lab.MIS.MonitorMIS\Lab.MIS.IDAL\obj\Debug\Lab.MIS.IDAL.csprojResolveAssemblyReference.cache
 E:\工程实践\Lab.MIS.MonitorMIS\Lab.MIS.IDAL\obj\Debug\Lab.MIS.IDAL.dll
 E:\工程实践\Lab.MIS.MonitorMIS\Lab.MIS.IDAL\obj\Debug\Lab.MIS.IDAL.pdb
-G:\GitHub\Lab.MIS.IDAL\bin\Debug\Lab.MIS.Model.dll.config
-G:\GitHub\Lab.MIS.IDAL\obj\Debug\Lab.MIS.IDAL.csproj.CoreCompileInputs.cache

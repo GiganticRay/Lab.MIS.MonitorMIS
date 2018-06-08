@@ -232,3 +232,5 @@ E:\工程实践\Lab.MIS.MonitorMIS\Lab.MIS.MonitorMIS\obj\Debug\Lab.MIS.MonitorM
 E:\工程实践\Lab.MIS.MonitorMIS\Lab.MIS.MonitorMIS\obj\Debug\Lab.MIS.MonitorMIS.pdb
 G:\GitHub\Lab.MIS.MonitorMIS\bin\Lab.MIS.Model.dll.config
 G:\GitHub\Lab.MIS.MonitorMIS\obj\Debug\Lab.MIS.MonitorMIS.csproj.CoreCompileInputs.cache
+G:\GitHub\Lab.MIS.MonitorMIS\bin\Lab.MIS.DalFactory.dll.config
+G:\GitHub\Lab.MIS.MonitorMIS\bin\Lab.MIS.EFDAL.dll.config

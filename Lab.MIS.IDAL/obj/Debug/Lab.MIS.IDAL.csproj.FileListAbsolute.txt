@@ -58,3 +58,13 @@ E:\工程实践\Lab.MIS.MonitorMIS\Lab.MIS.IDAL\bin\Debug\zh-Hans\EntityFramewor
 E:\工程实践\Lab.MIS.MonitorMIS\Lab.MIS.IDAL\obj\Debug\Lab.MIS.IDAL.csprojResolveAssemblyReference.cache
 E:\工程实践\Lab.MIS.MonitorMIS\Lab.MIS.IDAL\obj\Debug\Lab.MIS.IDAL.dll
 E:\工程实践\Lab.MIS.MonitorMIS\Lab.MIS.IDAL\obj\Debug\Lab.MIS.IDAL.pdb
+E:\大学\泥石流滑坡预警系统\Lab.MIS.IDAL\bin\Debug\Lab.MIS.IDAL.dll
+E:\大学\泥石流滑坡预警系统\Lab.MIS.IDAL\bin\Debug\Lab.MIS.IDAL.pdb
+E:\大学\泥石流滑坡预警系统\Lab.MIS.IDAL\bin\Debug\Lab.MIS.Model.dll
+E:\大学\泥石流滑坡预警系统\Lab.MIS.IDAL\bin\Debug\EntityFramework.dll
+E:\大学\泥石流滑坡预警系统\Lab.MIS.IDAL\bin\Debug\Lab.MIS.Model.pdb
+E:\大学\泥石流滑坡预警系统\Lab.MIS.IDAL\bin\Debug\EntityFramework.xml
+E:\大学\泥石流滑坡预警系统\Lab.MIS.IDAL\bin\Debug\zh-Hans\EntityFramework.resources.dll
+E:\大学\泥石流滑坡预警系统\Lab.MIS.IDAL\obj\Debug\Lab.MIS.IDAL.csprojResolveAssemblyReference.cache
+E:\大学\泥石流滑坡预警系统\Lab.MIS.IDAL\obj\Debug\Lab.MIS.IDAL.dll
+E:\大学\泥石流滑坡预警系统\Lab.MIS.IDAL\obj\Debug\Lab.MIS.IDAL.pdb

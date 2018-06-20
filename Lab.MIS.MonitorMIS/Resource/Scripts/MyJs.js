@@ -16,6 +16,8 @@ var markers = null;
 //标记数组
 var arrayObj = [];
 var newArray = [];
+//用户名
+var loginName = null;
 //用来存放通过搜索显示的设备点
 var SelectDevice = [];
 //存放线条的数组
@@ -47,7 +49,8 @@ var imageURL2 = "http://t0.tianditu.cn/ter_w/wmts?" +
                 "&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}";
 var lay = new T.TileLayer(imageURL, { minZoom: 1, maxZoom: 18 });
 var lay2 = new T.TileLayer(imageURL2, { minZoom: 1, maxZoom: 18 });
-
+var slay = new T.TileLayer(imageURL, { minZoom: 1, maxZoom: 18 });
+var slay2 = new T.TileLayer(imageURL2, { minZoom: 1, maxZoom: 18 });
 //所有通过table查询出来的点击的marker
 var DiseaseMarkerArray = [];
 //阵列id
@@ -58,6 +61,7 @@ var group_id = [];
 
 var textURL = "http://t3.tianditu.com/DataServer?T=cva_w&x={x}&y={y}&l={z}";
 var textlay = new T.TileLayer(textURL, { minZoom: 1, maxZoom: 18 });
+var stextlay = new T.TileLayer(textURL, { minZoom: 1, maxZoom: 18 });
 
 var map1Marker; //副地图上面的一个用来回去经纬度的marker;
 
@@ -470,6 +474,7 @@ $(document).ready(function () {
     //读取cookie
     //读取coockie写入text
     document.getElementById("UserIdText").value = getCookie("UserName");
+    loginName = getCookie("UserName");
     document.getElementById("UserPwdText").value = getCookie("UserPwd");
     var boolLog = getCookie("IsLog");
     if (boolLog == "true") {
@@ -527,6 +532,10 @@ $(document).ready(function () {
         HideViceMap();
     });
 
+    //点击图标关闭副地图
+    $("#closeMap").click(function () {
+        HideViceMap();
+    });
 });
 
 //获取缩放级别
@@ -653,6 +662,7 @@ function loginAjax() {
     } else {
         //将表单整体序列化成一个数组提交到后台
         var postData = $("#loginForm").serializeArray();
+        loginName = postData[0].value;
         $.post("/Home/Login", postData, function (data) {
             if (data["state"] != false) {
                 isLog = true;
@@ -681,6 +691,7 @@ function logstate() {
             "class": "menu-item-spanf glyphicon glyphicon-user",
             "title": "点击退出登录",
         }).tooltip("fixTitle");
+        $("#logonState")[0].innerText = "已登录" + ",用户名:" + loginName;
     } else {
         $("#mine").find("span")[0].innerHTML = "登录";
         $("#mine").find("span").css("font-size", "15px");
@@ -688,6 +699,9 @@ function logstate() {
             "class": "menu-item-spanf",
             "title": "点击登录",
         }).tooltip("fixTitle");
+        $("#logonState")[0].innerText = "未登录";
+
+
     }
 
 }
@@ -835,7 +849,12 @@ function loadDataToTable(arrayId) {
             BindClickRow();
         },
         error: function (xhr, status, error) {
-            alert(status + "," + error);
+           // alert(status + "," + error);
+            swal({
+                title: status + "," + error,
+                type: "error",
+                timer: 1500
+            });
         }
     });
 
@@ -1040,7 +1059,12 @@ function UpdateOneMinute() {
                     });
                 },
                 error: function (xhr, status, error) {
-                    alert(status + "," + error);
+                    //alert(status + "," + error);
+                    swal({
+                        title: status + "," + error,
+                        type: "error",
+                        timer: 1500
+                    });
                 }
             });
         }
@@ -1380,13 +1404,13 @@ function layerToImg() {
 //小地图卫星图
 function layerToImg1() {
     if (Terlayer1 == true) {
-        map1.removeLayer(lay2);
-        map1.removeLayer(textlay);
+        map1.removeLayer(slay2);
+        map1.removeLayer(stextlay);
         Terlayer1 = false;
     }
     if (Imglayer1 == false) {
-        map1.addLayer(lay);
-        map1.addLayer(textlay);
+        map1.addLayer(slay);
+        map1.addLayer(stextlay);
         Imglayer1 = true;
     }
 }
@@ -1406,13 +1430,13 @@ function layerToTer() {
 //小地图地形图
 function layerToTer1() {
     if (Imglayer1 == true) {
-        map1.removeLayer(lay);
-        map1.removeLayer(textlay);
+        map1.removeLayer(slay);
+        map1.removeLayer(stextlay);
         Imglayer1 = false;
     }
     if (Terlayer1 == false) {
-        map1.addLayer(lay2);
-        map1.addLayer(textlay);
+        map1.addLayer(slay2);
+        map1.addLayer(stextlay);
         Terlayer1 = true;
     }
 }
@@ -1432,13 +1456,13 @@ function layerToOri() {
 //小地图原始图
 function layerToOri1() {
     if (Terlayer1 == true) {
-        map1.removeLayer(lay2);
-        map1.removeLayer(textlay);
+        map1.removeLayer(slay2);
+        map1.removeLayer(stextlay);
         Terlayer1 = false;
     }
     if (Imglayer1 == true) {
-        map1.removeLayer(lay);
-        map1.removeLayer(textlay);
+        map1.removeLayer(slay);
+        map1.removeLayer(stextlay);
         Imglayer1 = false;
     }
 }
@@ -1644,7 +1668,7 @@ function EnteringDeviceInfo() {
                 DeviceLon: getData[0]["DeviceLon"].value,
                 DeviceLat: getData[0]["DeviceLat"].value,
                 MonitorType: $("#MonitorType")[0].innerText,
-                MonitorName: getData[0]["MonitorName"].value,
+                MonitorName: getData[0]["MonitorName"].selectedOptions[0].innerText,
                 MonitorPointInfoId: $("#DeviceSelect")[0].options[$("#DeviceSelect")[0].selectedIndex].value,
                 Beizhu: getData[0]["Beizhu"].value
             };

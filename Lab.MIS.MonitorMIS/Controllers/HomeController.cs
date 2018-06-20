@@ -354,12 +354,17 @@ namespace Lab.MIS.MonitorMIS.Controllers
             {
 
                 string[] getImgPathArry = imgPaths.Split(';');
+
                 foreach (var item in getImgPathArry)
                 {
-                    PointPicture newPic = new PointPicture();
-                    newPic.DeviceInfoId = id;
-                    newPic.PicPath = item;
-                    pointPictureService.Add(newPic);
+                    if (item.Length>0)
+                    {
+                        PointPicture newPic = new PointPicture();
+                        newPic.DeviceInfoId = id;
+                        newPic.PicPath = item;
+                        pointPictureService.Add(newPic);
+                    }
+                    
                 }
                 res.Data = new { state = true };
             }

@@ -16,6 +16,7 @@
     width: 100%;
     height: 100%;
 }
+
 input, b, p {
     margin-left: 5px;
     font-size: 14px;
@@ -25,7 +26,7 @@ input, b, p {
     position: absolute;
     width: 100%;
     height: 60px;
-    background-color:white;
+    background-color: white;
     border-bottom: 1px solid #ccc;
     box-shadow: 0 1px 3px rgba(0,0,0,.25);
     z-index: 100;
@@ -43,9 +44,18 @@ input, b, p {
     border-radius: 100%;
 }
 
-    #mine span {
-        color:#3199d6;
-    }
+#logonState {
+    position: relative;
+    float: left;
+    left: 18px;
+    top: 20px;
+    /*font-family:'Century Schoolbook';*/
+    font-size:20px;
+}
+
+#mine span {
+    color: #3199d6;
+}
 
 #LogoImg {
     width: 400px;
@@ -107,6 +117,7 @@ input, b, p {
     box-shadow: 1px 0 5px rgba(0,0,0,.5);
     border-collapse: separate;
 }
+
 #SearchMainTable {
     /*position: absolute;*/
     left: 5px;
@@ -114,14 +125,16 @@ input, b, p {
     border: 1px;
     width: 99%;
 }
+
 #SearchDiseaseInfoDiv {
     position: absolute;
-    width:99%;
+    width: 99%;
     height: 100%;
     margin: 0px;
-    overflow-x:auto;
-    white-space: nowrap; 
+    overflow-x: auto;
+    white-space: nowrap;
 }
+
 #SearchDiseaseInfoTable {
     position: absolute;
     min-width: 900px;
@@ -158,7 +171,7 @@ input, b, p {
 
 .ToolBox {
     text-align: center;
-    color:#3199d6;
+    color: #3199d6;
 }
 
 /*登录模态框的位置*/
@@ -172,26 +185,26 @@ input, b, p {
 }
 
 
-#layer{
-    width:30px;
-    height:30px;
-    background-color:white;
-    background-image:url("../../Resource/Img/TiandituIcon.png");
+#layer {
+    width: 30px;
+    height: 30px;
+    background-color: white;
+    background-image: url("../../Resource/Img/TiandituIcon.png");
     background-repeat: no-repeat;
     background-position-x: -521px;
     background-position-y: -210px;
-    position:absolute;
-    right:10px;
-    top:80%;
-    z-index:1000;
+    position: absolute;
+    right: 10px;
+    top: 80%;
+    z-index: 1000;
     box-shadow: 0 1px 3px rgba(0,0,0,.25);
 }
 
 
 
 tr {
-    padding:0px;
-    margin:0;
+    padding: 0px;
+    margin: 0;
     height: 40px;
 }
 
@@ -203,22 +216,21 @@ tr {
 }
 
 
-table
-{
-    text-align:left;    
+table {
+    text-align: left;
     font-size: 19px;
     font-family: inherit;
 }
 
-.H1{
-    text-align:center;
+.H1 {
+    text-align: center;
 }
 
-#Layer{
-    position:absolute;
-    right:10px;
-    top:80%;
-    z-index:1000;
+#Layer {
+    position: absolute;
+    right: 10px;
+    top: 80%;
+    z-index: 1000;
     box-shadow: 0 1px 3px rgba(0,0,0,.25);
 }
 
@@ -228,25 +240,29 @@ li:hover {
 }
 
 #ChangeSearchParameters {
-    margin:0px;
-    padding:0px;
+    margin: 0px;
+    padding: 0px;
     width: 100%;
     height: 50px;
-    background-color:#3199d6;
-    color:white;
-    line-height:50px;
-    display:none;
-    text-align:center;
-    font-family:inherit;
-    font-size:19px;
-    text-shadow:0px 2px 3px #ADADAD;
-    -moz-border-radius:1px; -webkit-border-radius:1px; border-radius:1px;
-    -moz-box-shadow:0px 2px 5px #878787; -webkit-box-shadow:0px 2px 5px #878787; box-shadow:0px 2px 5px #878787;
+    background-color: #3199d6;
+    color: white;
+    line-height: 50px;
+    display: none;
+    text-align: center;
+    font-family: inherit;
+    font-size: 19px;
+    text-shadow: 0px 2px 3px #ADADAD;
+    -moz-border-radius: 1px;
+    -webkit-border-radius: 1px;
+    border-radius: 1px;
+    -moz-box-shadow: 0px 2px 5px #878787;
+    -webkit-box-shadow: 0px 2px 5px #878787;
+    box-shadow: 0px 2px 5px #878787;
 }
 
 
 #SearchMainTable caption {
-    font-family:inherit;
+    font-family: inherit;
     background-color: #3199d6;
     color: white;
     line-height: 50px;
@@ -256,17 +272,19 @@ li:hover {
     text-align: center;
 }
 
-#SearchMainTable h4{
+#SearchMainTable h4 {
     margin: 0;
     padding: 0;
 }
 
 #SearchMainTable td {
-    height:40px;
+    height: 40px;
 }
+
 #SearchMainTable input {
-    height:30px;
+    height: 30px;
 }
+
 .greenbtn {
     color: white;
     background-color: #8cc269;
@@ -276,29 +294,36 @@ li:hover {
     color: white;
     background-color: #ef82a0;
 }
+
 #searchSelect {
     color: white;
     background-color: #8fb2c9;
 }
+
     #searchSelect.btn-default {
         min-width: 182px;
     }
+
 #searchSelectType {
     color: white;
     background-color: #8fb2c9;
 }
+
     #searchSelectType.btn-default {
         min-width: 182px;
     }
+
 #selectConfirmBtn {
     float: right;
-    margin:0 6px 0;
-    width:135px;
+    margin: 0 6px 0;
+    width: 135px;
 }
+
 #selectResetBtn {
     float: right;
     width: 135px;
 }
+
 #RemoveWarningPointBtn {
     float: right;
     position: relative;
@@ -337,16 +362,18 @@ li:hover {
 
 /*展示图片*/
 .carousel-inner > .item > img, .carousel-inner > .item > a > img {
-      width: 600px;
-    height:250px;
+    width: 600px;
+    height: 250px;
 }
 
 #layertoimg, #layertoter, #layertoori {
-    padding:0 4px;
+    padding: 0 4px;
 }
+
 #layertoimg1, #layertoter1, #layertoori1 {
-    padding:0 4px;
+    padding: 0 4px;
 }
+
 .thumbnail {
     padding: 0px;
     margin: 0px;
@@ -354,7 +381,6 @@ li:hover {
 }
 
     .thumbnail p {
-        
     }
 
 .row {
@@ -365,8 +391,9 @@ li:hover {
     width: 250px;
     height: 90px;
     z-index: 60;
-    display:none;
+    display: none;
 }
+
 .row1 {
     border: none;
     position: absolute;
@@ -375,8 +402,9 @@ li:hover {
     width: 250px;
     height: 90px;
     z-index: 1000;
-    display:none;
+    display: none;
 }
+
 #LayerContent {
     background-position: -521px -210px;
     width: 30px;
@@ -390,6 +418,7 @@ li:hover {
     z-index: 1000;
     box-shadow: 0 1px 3px rgba(0,0,0,.25);
 }
+
 #LayerContent1 {
     background-position: -521px -210px;
     width: 30px;
@@ -403,6 +432,7 @@ li:hover {
     z-index: 1000;
     box-shadow: 0 1px 3px rgba(0,0,0,.25);
 }
+
 .layer-tip {
     text-align: center;
     font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
@@ -425,7 +455,7 @@ a {
 .menu {
     /*position: absolute;*/
     float: right;
-    right:20px;
+    right: 20px;
     width: 400px;
     height: 60px;
     box-sizing: border-box;
@@ -443,8 +473,8 @@ a {
     box-shadow: 0 1px 3px rgba(0,0,0,.25);
     margin-left: -20px;
     position: absolute;
-    top:10px;
-    right:10px;
+    top: 10px;
+    right: 10px;
     color: white;
     text-align: center;
     line-height: 50px;
@@ -531,6 +561,7 @@ a {
 .menu-item:nth-child(7) {
     transition-duration: 180ms;
 }
+
 .menu-item:nth-child(8) {
     transition-duration: 180ms;
 }
@@ -617,8 +648,9 @@ a {
     line-height: 40px;
     font-weight: bold;
 }
+
 .menu-item-spanf {
-    text-align:center;
+    text-align: center;
     float: left;
     line-height: 40px;
     width: 100%;
@@ -630,16 +662,16 @@ a {
     box-sizing: border-box;
 }
 
-.search{
+.search {
     width: 40px;
     height: 40px;
     border-radius: 40px;
-    background-color:#3199d6;
+    background-color: #3199d6;
     position: absolute;
     overflow: hidden;
     transition: all 0.5s ease;
 }
- 
+
     /*蓝色框*/
     .search:before {
         content: '';
@@ -647,7 +679,7 @@ a {
         width: 3px;
         height: 100%;
         position: absolute;
-        left:-3px;
+        left: -3px;
         background-color: white;
         transition: all 0.5s ease;
     }
@@ -660,7 +692,7 @@ a {
             height: 24px;
             margin: 8px 0 8px 12px;
             position: absolute;
-            left:2px;
+            left: 2px;
         }
 
 .search-box {
@@ -672,8 +704,8 @@ a {
     color: #fff;
     padding: 8px 60px 8px 18px;
     font-size: 20px;
-    position:relative;
-    bottom:4px;
+    position: relative;
+    bottom: 4px;
 }
 
     .search-box:focus {
@@ -690,6 +722,7 @@ a {
     padding: 8px;
     cursor: pointer;
 }
+
 .search-icon {
     width: 20px;
     height: 20px;
@@ -728,9 +761,9 @@ a {
     }
 
 .open .search-icon {
-    position:absolute;
-    top:4.5px;
-    margin:0;
+    position: absolute;
+    top: 4.5px;
+    margin: 0;
     width: 30px;
     height: 30px;
     border-radius: 30px;
@@ -763,9 +796,11 @@ a {
 #SearchContent {
     float: left;
 }
-#SearchContent:hover {
-    background-color:#3199d6;
-}
+
+    #SearchContent:hover {
+        background-color: #3199d6;
+    }
+
 #SearchText {
     font-size: 20px;
     width: 350px;
@@ -774,18 +809,19 @@ a {
 #SearchResultContent {
     height: auto;
     width: 350px;
-    overflow-y:auto; 
-    overflow-x:auto;
-    display:none;
-    position:absolute;
-    right:430px;
-    top:60px;
+    overflow-y: auto;
+    overflow-x: auto;
+    display: none;
+    position: absolute;
+    right: 430px;
+    top: 60px;
 }
-#VagueTable {
-    background-color:white;
-    color:gray;
 
+#VagueTable {
+    background-color: white;
+    color: gray;
 }
+
 #SearchResultContent .table-hover > tbody > tr:hover {
     color: white;
     background-color: #5dbe8a;
@@ -808,14 +844,15 @@ a {
 /*END动态搜索框*/
 
 
-#showAllDevice .tooltip.fade.bottom.in, #showDevice .tooltip.fade.bottom.in, #mine .tooltip.fade.bottom.in{
+#showAllDevice .tooltip.fade.bottom.in, #showDevice .tooltip.fade.bottom.in, #mine .tooltip.fade.bottom.in {
     width: 76px;
 }
 
 
-#SearchMainTable h4{
+#SearchMainTable h4 {
     padding: 0 6px;
 }
+
 #GetPointMapDiv {
     height: 100%;
     width: 500px;
@@ -828,14 +865,15 @@ a {
 }
 
 .address {
-    width:400px;
-    height:30px;
-    position:relative;
-    bottom:30px;
-    z-index:2;
-    margin:0 auto;
-    text-align:center;
+    /*width:400px;*/
+    height: 30px;
+    position: relative;
+    bottom: 30px;
+    z-index: 2;
+    margin: 0 auto;
+    text-align: center;
 }
+
     .address span {
-        color:gray;
+        color: gray;
     }

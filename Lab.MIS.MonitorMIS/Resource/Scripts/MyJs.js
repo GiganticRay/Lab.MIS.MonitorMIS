@@ -65,6 +65,8 @@ var stextlay = new T.TileLayer(textURL, { minZoom: 1, maxZoom: 18 });
 
 var map1Marker; //副地图上面的一个用来回去经纬度的marker;
 
+var SecondaryMapDescribtion;    //用来判断是哪一个模块调用的副地图
+
 $(document).ready(function () {
     
     //每隔一分钟刷新一次预警点信息
@@ -360,7 +362,7 @@ $(document).ready(function () {
     //保存监测设备信息
     $("#SaveDeviceInfo").click(function () {
         //获取表单数据
-        var getData = $("#DeviceInfoForm");
+        var getData = $("#DeviceInfoForm input, #DeviceInfoForm select");
         SavaDevideInfo(getData, "#CloseDeviceInfo");
     });
     //改变图层到卫星图层
@@ -459,7 +461,7 @@ $(document).ready(function () {
     //tree详情管理中保存监测设备
     $("#TreeSaveDeviceInfo").click(function () {
         //获取表单数据
-        var getData = $("#TreeDeviceInfoForm");
+        var getData = $("#TreeDeviceInfoForm input, #TreeDeviceInfoForm select");
         SavaDevideInfo(getData, null);
     });
 
@@ -531,11 +533,35 @@ $(document).ready(function () {
     $('#EnteringDeviceInfoModal').on('hide.bs.modal', function () {
         HideViceMap();
     });
-
-    //点击图标关闭副地图
-    $("#closeMap").click(function () {
+    $('#TreeDeviceInfoModal').on('hide.bs.modal', function () {
         HideViceMap();
     });
+    $('#DeviceInfoModal').on('hide.bs.modal', function () {
+        HideViceMap();
+    });
+
+    //点击图标关闭副地图
+    $("#closeMap").click(function (ev) {
+        var oEvent = ev || event;
+        oEvent.cancelBubble = true;
+        oEvent.stopPropagation();
+        HideViceMap();
+    });
+
+    //设置搜索栏的时间值
+    var timestamp = Math.round(new Date() / 1000);
+    var NowTime = getFormatDate(timestamp).substr(0, 10).replace(/\//g, '-');
+    var NowSecond = getFormatDate(timestamp).substr(11, 8);
+
+    timestamp = timestamp - 60;
+    var BeforeTime = getFormatDate(timestamp).substr(0, 10).replace(/\//g, '-');
+    var BeforeSecond = getFormatDate(timestamp).substr(11, 8);
+
+    
+    $("#beforeTimeDate").val(BeforeTime);
+    $("#beforeTimeHMS").val(BeforeSecond);
+    $("#endTimeDate").val(NowTime);
+    $("#endTimeHMS").val(NowSecond);
 });
 
 //获取缩放级别
@@ -968,13 +994,13 @@ function addClickHandler(content, marker, data, IsDiseasePoint) {
 //点击marker打开设备信息窗口
 function clickOpenWindow(data) {
     //将数据加载时窗口中
-    var getForm = $("#DeviceInfoForm");
+    var getForm = $("#DeviceInfoForm input,#DeviceInfoForm select");
 
 
     var num = 0;
     for (var item in data) {
-        if (num < getForm[0].length - 1) {
-            getForm[0][num].value = data[item];
+        if (num < getForm.length - 1) {
+            getForm[num].value = data[item];
             num++;
         }
     }
@@ -1317,19 +1343,19 @@ function SavaDevideInfo(getData, select_option) {
         save(function () {
 
             var objectData = {
-                Id: getData[0]["Id"].value,
-                DeviceName: getData[0]["DeviceName"].value,
-                ShuCaiNum: getData[0]["ShuCaiNum"].value,
-                SensorNum: getData[0]["SensorNum"].value,
-                PhoneNum: getData[0]["PhoneNum"].value,
-                YaoshiNum: getData[0]["YaoshiNum"].value,
-                DeviceLon: getData[0]["DeviceLon"].value,
-                DeviceLat: getData[0]["DeviceLat"].value,
-                Beizhu: getData[0]["Beizhu"].value,
-                MonitorType: getData[0]["MonitorType"].value,
-                MonitorName: getData[0]["MonitorName"].value,
-                MonitorPointInfoId: getData[0]["MonitorPointInfoId"].value,
-                PointPicture: getData[0]["PointPicture"].value,
+                Id: getData[9].value,
+                DeviceName: getData[1].value,
+                ShuCaiNum: getData[2].value,
+                SensorNum: getData[3].value,
+                PhoneNum: getData[4].value,
+                YaoshiNum: getData[5].value,
+                DeviceLon: getData[6].value,
+                DeviceLat: getData[7].value,
+                Beizhu: getData[8].value,
+                MonitorType: getData[0].value,
+                MonitorName: getData[10].value,
+                MonitorPointInfoId: getData[11].value,
+                PointPicture: getData[12].value,
             };
             $.ajax({
                 url: "/Home/SaveDevice",
@@ -1762,12 +1788,12 @@ function AddDataToTree(backData) {
                         });
 
                         //将数据加载时窗口中
-                        var getForm = $("#TreeDeviceInfoForm");
+                        var getForm = $("#TreeDeviceInfoForm input, #TreeDeviceInfoForm select");
 
                         var num = 0;
                         for (var item in data_info) {
-                            if (num < getForm[0].length - 1) {
-                                getForm[0][num].value = data_info[item];
+                            if (num < getForm.length - 1) {
+                                getForm[num].value = data_info[item];
                                 num++;
                             }
                         }
@@ -2153,31 +2179,31 @@ function edit_image(editImgArray, keyslist, getDeviceId) {
             title: "删除成功",
             type: "success",
             timer: 1000
-        })
+        });
     });
 
 
     //异步上传成功结果处理
-    $("#ShowImgFile").on("fileuploaded", function (event, data, previewId, index) {
+    $("#ShowImgFile").on("fileuploaded", function(event, data, previewId, index) {
         if (data.response.msg.length > 0) {
             //到此只是文件上传本地成功,还未更新至数据库
             $.ajax({
                 url: "/Home/editUploadImgs",
                 type: "POST",
                 data: { DevieceID: getDeviceId.DevieceID, path: data.response.msg },
-                success: function (backData) {
+                success: function(backData) {
                     if (backData.msg == true) {
                         swal({
                             title: "上传成功",
                             type: "success",
                             timer: 1000
-                        })
+                        });
                     } else {
                         swal({
                             title: "上传失败",
                             type: "error",
                             timer: 1000
-                        })
+                        });
                     }
 
                 }
@@ -2189,9 +2215,9 @@ function edit_image(editImgArray, keyslist, getDeviceId) {
                 title: "上传失败",
                 type: "error",
                 timer: 1000
-            })
+            });
         }
-    })
+    });
 }
 
 
@@ -2223,13 +2249,33 @@ function Divclick(thisDiv) {
 //录入信息的时候在地图上面取点
 function BindGetPointByMap() {
     $("#GetPointByMap").click(function () {
+        SecondaryMapDescribtion = "EnteringDataForm";       //录入Form
         ShowViceMap();
-    });  
+    });
+    $("#GetPointByMap1").click(function () {
+        SecondaryMapDescribtion = "ClickPointDataForm";     //clickPointForm
+        ShowViceMap();
+    });
+    $("#GetPointByMap2").click(function () {
+        SecondaryMapDescribtion = "AllInfoDataForm";        //所有信息Form
+        ShowViceMap();
+    });
 }
 
 //出现副地图
 function ShowViceMap() {
     $("#GetPointMapDiv").css('display', "block");
+    var Lng;
+    var Lat;
+    if (SecondaryMapDescribtion == "ClickPointDataForm") {
+        Lng = $("#ClickInputLontitude").val();
+        Lat = $("#ClickInputLatitude").val();
+        map1Marker.setLngLat(T.LngLat(Lng, Lat));
+    }else if (SecondaryMapDescribtion == "AllInfoDataForm") {
+        Lng = $("#AllInfoInputLontitude").val();
+        Lat = $("#AllInfoInputLatitude").val();
+        map1Marker.setLngLat(T.LngLat(Lng, Lat));
+    }
 }
 //隐藏副地图
 function HideViceMap() {
@@ -2239,26 +2285,60 @@ function HideViceMap() {
 //通过移动marker来设置经纬度
 function SetLnLatByDrag(e) {
     var point = e.target;
-    $("#InputLontitude").val(point.getLngLat().lng);
-    $("#InputLatitude").val(point.getLngLat().lat);
-    //HideViceMap();
+    if (SecondaryMapDescribtion == "EnteringDataForm") {
+        $("#InputLontitude").val(point.getLngLat().lng);
+        $("#InputLatitude").val(point.getLngLat().lat);
+    }else if (SecondaryMapDescribtion == "ClickPointDataForm") {    //点击设备弹出的框框
+        $("#ClickInputLontitude").val(point.getLngLat().lng);
+        $("#ClickInputLatitude").val(point.getLngLat().lat);
+    }
+    else if (SecondaryMapDescribtion == "AllInfoDataForm") {
+        $("#AllInfoInputLontitude").val(point.getLngLat().lng);
+        $("#AllInfoInputLatitude").val(point.getLngLat().lat);
+    }
 }
-//副地图的点击事件
+//副地图点击事件
 function Map1Click(e) {
     var Lng = e.lnglat.getLng();
     var Lat = e.lnglat.getLat();
     map1Marker.setLngLat(T.LngLat(Lng, Lat));
-    $("#InputLontitude").val(Lng);
-    $("#InputLatitude").val(Lat);
+    if (SecondaryMapDescribtion == "EnteringDataForm") {
+        $("#InputLontitude").val(Lng);
+        $("#InputLatitude").val(Lat);
+    }
+    else if (SecondaryMapDescribtion == "ClickPointDataForm") {    //点击设备弹出的框框
+        $("#ClickInputLontitude").val(Lng);
+        $("#ClickInputLatitude").val(Lat);
+    }
+    else if (SecondaryMapDescribtion == "AllInfoDataForm") {
+        $("#AllInfoInputLontitude").val(Lng);
+        $("#AllInfoInputLatitude").val(Lat);
+    }
 }
 //绑定经纬度两输入框的改变事件
 function BindLngLatTextChange() {
     $("#InputLontitude").on('input', LngLatTextChange);
     $("#InputLatitude").on('input', LngLatTextChange);
+    $("#ClickInputLontitude").on('input', LngLatTextChange);
+    $("#ClickInputLatitude").on('input', LngLatTextChange);
+    $("#AllInfoInputLontitude").on('input', LngLatTextChange);
+    $("#AllInfoInputLatitude").on('input', LngLatTextChange);
 }
 //经纬度两输入框的改变事件
 function LngLatTextChange() {
-    var Lng = $("#InputLontitude").val();
-    var Lat = $("#InputLatitude").val();
+    var Lng;
+    var Lat;
+    if (SecondaryMapDescribtion == "EnteringDataForm") {
+        Lng = $("#InputLontitude").val();
+        Lat = $("#InputLatitude").val();
+    } else if (SecondaryMapDescribtion == "ClickPointDataForm") {    //点击设备弹出的框框
+        Lng = $("#ClickInputLontitude").val();
+        Lat = $("#ClickInputLatitude").val();
+    }
+    else if (SecondaryMapDescribtion == "AllInfoDataForm") {
+        Lng = $("#AllInfoInputLontitude").val();
+        Lat = $("#AllInfoInputLatitude").val();
+    }
+
     map1Marker.setLngLat(T.LngLat(Lng, Lat));
 }

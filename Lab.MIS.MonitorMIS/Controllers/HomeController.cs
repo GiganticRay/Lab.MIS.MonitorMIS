@@ -460,7 +460,11 @@ namespace Lab.MIS.MonitorMIS.Controllers
             return res;
         }
 
-
+        public ActionResult Delete_Entering_Exist_imgs(string key) {
+            var res = new JsonResult();
+            res.Data = new { res_path = key };
+            return res;
+        }
 
 
         #region 测试方法

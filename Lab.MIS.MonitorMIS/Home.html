@@ -37,10 +37,10 @@
             <div class="seperator"></div>
 
             <div id="mine">
-                <span class="menu-item-spanf"data-toggle="tooltip" data-placement="bottom" title="点击登录">登录</span>
+                <span class="menu-item-spanf" data-toggle="tooltip" data-placement="bottom" title="点击登录">登录</span>
             </div>
             <div id="logonState">
-               登录状态：
+                登录状态：
             </div>
             <nav class="menu">
                 <!-- 创建主按钮 -->
@@ -217,8 +217,9 @@
                 </a>
             </div>
         </div>
-        <div class="address"><span>©2018</span>
-            <a  target="_blank">Creative Mr.Liu、Ray、Long、Wang、Qian、Li、Chen</a>
+        <div class="address">
+            <span>©2018</span>
+            <a target="_blank">Creative Mr.Liu、Ray、Long、Wang、Qian、Li、Chen</a>
         </div>
     </div>
 
@@ -310,7 +311,7 @@
                                     <tr>
                                         <td>手机卡号:</td>
                                         <td>
-                                            <input type="text" name="PhoneNum" value="" />
+                                            <input type="text" name="PhoneNum" value="" onblur="IsDataLegal_of_PhoneNum(this)" />
                                         </td>
                                     </tr>
                                     <tr>
@@ -320,22 +321,22 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>位置(经度):</td>
+                                        <td><b class="necessary">*</b>位置(纬度):</td>
                                         <td>
-                                            <input type="text" name="DeviceLon" value="" id="ClickInputLontitude" />
-                                            <button type="button" class="btn btn-primary btn-sm" id="GetPointByMap1">在地图上取点</button>
+                                            <input type="text" name="DeviceLon" value="" id="ClickInputLontitude" onblur="IsDataLegal_of_lon_lat(this)" />
+                                            <button type="button" class="btn btn-primary btn-sm GetPointByMap_class" id="GetPointByMap1">在地图上取点</button>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>位置(纬度):</td>
+                                        <td><b class="necessary">*</b>位置(纬度):</td>
                                         <td>
-                                            <input type="text" name="DeviceLat" value="" id="ClickInputLatitude" />
+                                            <input type="text" name="DeviceLat" value="" id="ClickInputLatitude" onblur="IsDataLegal_of_lon_lat(this)" />
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>备注:</td>
                                         <td>
-                                            <input type="text" name="Beizhu" value="" />
+                                            <input type="text" name="Beizhu" value="" /><b class="necessary">*表示必填项</b>
                                         </td>
                                     </tr>
                                 </table>
@@ -354,7 +355,7 @@
                                     </ol>
                                     <div class="carousel-inner" role="listbox" id="MarkerImgDivPic">
                                         <div id="MarkerImgNearDivPic" class="item active">
-                                            <img id="MarkerDefaultImgPic" class="d-block w-100" width="600px" height="200px" src="../../Resource/Img/DefaultImg.jpg"
+                                            <img id="MarkerDefaultImgPic" class="d-block w-100" width="600px" height="200px" src="../../Resource/Img/uploadpic.png"
                                                  alt="First slide" name="defaultImg" />
                                         </div>
                                     </div>
@@ -370,15 +371,17 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-success glyphicon glyphicon-ok-circle" id="SaveDeviceInfo">
-                        保存
-                    </button>
-                    <button type="button" class="btn btn-danger glyphicon glyphicon-remove-circle" id="DeleteDeviceInfo">
-                        删除
-                    </button>
-                    <button type="button" class="btn btn-primary glyphicon glyphicon-off" data-dismiss="modal" id="CloseDeviceInfo">
-                        关闭
-                    </button>
+                    <div style="position: absolute; bottom: 20px; right: 10px; ">
+                        <button type="button" class="btn btn-success glyphicon glyphicon-ok-circle" id="SaveDeviceInfo">
+                            保存
+                        </button>
+                        <button type="button" class="btn btn-danger glyphicon glyphicon-remove-circle" id="DeleteDeviceInfo">
+                            删除
+                        </button>
+                        <button type="button" class="btn btn-primary glyphicon glyphicon-off" data-dismiss="modal" id="CloseDeviceInfo">
+                            关闭
+                        </button>
+                    </div>
                 </div>
             </div>
             <!-- /.modal -->
@@ -480,24 +483,24 @@
                     <form id="MonitorInfoForm">
                         <table class="table table-striped table-bordered table-hover">
                             <tr>
-                                <td>监测阵列编号:</td>
+                                <td><b class="necessary">*</b>监测阵列编号:</td>
                                 <td>
                                     <input type="text" name="MonitorId" value="" />
                                 </td>
                             </tr>
                             <tr>
-                                <td>监测阵列名称:</td>
+                                <td><b class="necessary">*</b>监测阵列名称:</td>
                                 <td>
                                     <input type="text" name="MonitorIdName" value="" />
                                 </td>
                             </tr>
                             <tr>
-                                <td>监测类型:</td>
+                                <td><b class="necessary">*</b>监测类型:</td>
                                 <td>
                                     <select name="MonitorType">
                                         <option value="滑坡">滑坡</option>
                                         <option value="泥石流">泥石流</option>
-                                    </select>
+                                    </select><b class="necessary">*表示必填项</b>
                                 </td>
                             </tr>
                         </table>
@@ -562,13 +565,13 @@
                                             <div id="BaseInfoWin" class="tab-pane fade in active ">
                                                 <table class="table table-striped table-bordered table-hover">
                                                     <tr>
-                                                        <td>所属监测阵:</td>
+                                                        <td><b class="necessary">*</b>所属监测阵:</td>
                                                         <td>
                                                             <select name="MonitorName" id="DeviceSelect"></select>
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td>监测类型:</td>
+                                                        <td><b class="necessary">*</b>监测类型:</td>
                                                         <td id="MonitorType">暂无</td>
                                                     </tr>
                                                     <tr>
@@ -592,7 +595,7 @@
                                                     <tr>
                                                         <td>手机卡号:</td>
                                                         <td>
-                                                            <input type="text" name="PhoneNum" value="" />
+                                                            <input type="text" name="PhoneNum" value="" onblur="IsDataLegal_of_PhoneNum(this)" />
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -602,22 +605,22 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td>位置(经度):</td>
+                                                        <td><b class="necessary">*</b>位置(纬度):</td>
                                                         <td>
-                                                            <input type="text" name="DeviceLon" value="" id="InputLontitude" />
-                                                            <button type="button" class="btn btn-primary btn-sm" id="GetPointByMap">在地图上取点</button>
+                                                            <input type="text" name="DeviceLon" value="" id="InputLontitude" onblur="IsDataLegal_of_lon_lat(this)" />
+                                                            <button type="button" class="btn btn-primary btn-sm GetPointByMap_class" id="GetPointByMap">在地图上取点</button>
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td>位置(纬度):</td>
+                                                        <td><b class="necessary">*</b>位置(纬度):</td>
                                                         <td>
-                                                            <input type="text" name="DeviceLat" value="" id="InputLatitude" />
+                                                            <input type="text" name="DeviceLat" value="" id="InputLatitude" onblur="IsDataLegal_of_lon_lat(this)" />
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td>备注:</td>
                                                         <td>
-                                                            <input type="text" name="Beizhu" value="" />
+                                                            <input type="text" name="Beizhu" value="" /><b class="necessary">*表示必填项</b>
                                                         </td>
                                                     </tr>
                                                 </table>
@@ -635,7 +638,7 @@
                                                     </ol>
                                                     <div class="carousel-inner" role="listbox" id="MarkerImgDiv">
                                                         <div id="MarkerImgNearDiv" class="item active">
-                                                            <img id="MarkerDefaultImg" class="d-block w-100" width="600px" height="200px" src="../../Resource/Img/DefaultImg.jpg"
+                                                            <img id="MarkerDefaultImg" class="d-block w-100" width="600px" height="200px" src="../../Resource/Img/uploadpic.png"
                                                                  alt="First slide" name="defaultImg" />
                                                         </div>
                                                         <img src="../../Resource/Img/alert.png" style="position: absolute; height: 10%; right: 0px; z-index: 1000; top: 0px;" id="alertImg" alt="alertImg" />
@@ -699,7 +702,7 @@
                                 <div id="BaseTreeMarkerInfoWin" class="tab-pane fade in active ">
                                     <table class="table table-striped table-bordered table-hover">
                                         <tr>
-                                            <td>监测类型:</td>
+                                            <td><b class="necessary">*</b>监测类型:</td>
                                             <td>
                                                 <select name="MonitorType">
                                                     <option value="滑坡">滑坡</option>
@@ -728,7 +731,7 @@
                                         <tr>
                                             <td>手机卡号:</td>
                                             <td>
-                                                <input type="text" name="PhoneNum" value="" />
+                                                <input type="text" name="PhoneNum" value="" onblur="IsDataLegal_of_PhoneNum(this)" />
                                             </td>
                                         </tr>
                                         <tr>
@@ -738,22 +741,22 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>位置(经度):</td>
+                                            <td><b class="necessary">*</b>位置(纬度):</td>
                                             <td>
-                                                <input type="text" name="DeviceLon" value="" id="AllInfoInputLontitude" />
-                                                <button type="button" class="btn btn-primary btn-sm" id="GetPointByMap2">在地图上取点</button>
+                                                <input type="text" name="DeviceLon" value="" id="AllInfoInputLontitude" onblur="IsDataLegal_of_lon_lat(this)" />
+                                                <button type="button" class="btn btn-primary btn-sm GetPointByMap_class" id="GetPointByMap2">在地图上取点</button>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>位置(纬度):</td>
+                                            <td><b class="necessary">*</b>位置(纬度):</td>
                                             <td>
-                                                <input type="text" name="DeviceLat" value="" id="AllInfoInputLatitude" />
+                                                <input type="text" name="DeviceLat" value="" id="AllInfoInputLatitude" onblur="IsDataLegal_of_lon_lat(this)" />
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>备注:</td>
                                             <td>
-                                                <input type="text" name="Beizhu" value="" />
+                                                <input type="text" name="Beizhu" value="" /><b class="necessary">*表示必填项</b>
                                             </td>
                                         </tr>
                                     </table>
@@ -772,7 +775,7 @@
                                         </ol>
                                         <div class="carousel-inner" role="listbox" id="TreeMarkerImgDivPic">
                                             <div id="TreeMarkerImgNearDivPic" class="item active">
-                                                <img id="TreeMarkerDefaultImgPic" class="d-block w-100" width="600px" height="200px" src="../../Resource/Img/DefaultImg.jpg"
+                                                <img id="TreeMarkerDefaultImgPic" class="d-block w-100" width="600px" height="200px" src="../../Resource/Img/uploadpic.png"
                                                      alt="First slide" name="defaultImg" />
                                             </div>
                                         </div>
@@ -789,15 +792,18 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-success glyphicon glyphicon-ok-circle" id="TreeSaveDeviceInfo">
-                        保存
-                    </button>
-                    <button type="button" class="btn btn-danger glyphicon glyphicon-remove-circle" id="TreeDeleteDeviceInfo">
-                        删除
-                    </button>
-                    <button type="button" class="btn btn-primary glyphicon glyphicon-off" data-dismiss="modal" id="TreeCloseDeviceInfo">
-                        关闭
-                    </button>
+                    <div style="position: absolute; bottom: 20px; right: 10px; ">
+                        <button type="button" class="btn btn-success glyphicon glyphicon-ok-circle" id="TreeSaveDeviceInfo">
+                            保存
+                        </button>
+                        <button type="button" class="btn btn-danger glyphicon glyphicon-remove-circle" id="TreeDeleteDeviceInfo">
+                            删除
+                        </button>
+                        <button type="button" class="btn btn-primary glyphicon glyphicon-off" data-dismiss="modal" id="TreeCloseDeviceInfo">
+                            关闭
+                        </button>
+                    </div>
+
                 </div>
                 <!--<%--
                 </div>--%>-->
@@ -879,7 +885,7 @@
         <div id="LayerContent1" data-toggle="tooltip" title="图层">
         </div>
         <div>
-            <img src="../../Resource/Img/alert.png" alt="editImg" id="closeMap" style="position:absolute;height:10%;right:0px;z-index:60000;top:0px;" title="点击关闭" >
+            <img src="../../Resource/Img/alert.png" alt="editImg" id="closeMap" style="position:absolute;height:10%;right:0px;z-index:60000;top:0px;" title="点击关闭">
         </div>
         <div class="row1">
             <div class="col-xs-4 col-md-4" id="layertoimg1">

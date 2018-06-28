@@ -50,7 +50,7 @@ input, b, p {
     left: 18px;
     top: 20px;
     /*font-family:'Century Schoolbook';*/
-    font-size:20px;
+    font-size: 20px;
 }
 
 #mine span {
@@ -874,6 +874,15 @@ a {
     text-align: center;
 }
 
-    .address span {
+.address span {
         color: gray;
-    }
+}
+
+.necessary {
+    color: red;
+}
+
+.GetPointByMap_class {
+    position:absolute;
+    right:32px;
+}

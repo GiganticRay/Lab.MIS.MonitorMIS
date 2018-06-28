@@ -5,11 +5,11 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="DeviceName" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="ShuCaiNum" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="SensorNum" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="PhoneNum" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="YaoshiNum" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="DeviceName" Type="nvarchar" MaxLength="50" />
+    <Property Name="ShuCaiNum" Type="nvarchar" MaxLength="50" />
+    <Property Name="SensorNum" Type="nvarchar" MaxLength="50" />
+    <Property Name="PhoneNum" Type="nvarchar" MaxLength="50" />
+    <Property Name="YaoshiNum" Type="nvarchar" MaxLength="50" />
     <Property Name="DeviceLon" Type="decimal" Precision="10" Scale="7" Nullable="false" />
     <Property Name="DeviceLat" Type="decimal" Precision="10" Scale="7" Nullable="false" />
     <Property Name="MonitorType" Type="nvarchar" MaxLength="50" Nullable="false" />

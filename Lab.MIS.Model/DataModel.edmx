@@ -10,11 +10,11 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="DeviceName" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="ShuCaiNum" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="SensorNum" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="PhoneNum" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="YaoshiNum" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DeviceName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ShuCaiNum" Type="nvarchar" MaxLength="50" />
+          <Property Name="SensorNum" Type="nvarchar" MaxLength="50" />
+          <Property Name="PhoneNum" Type="nvarchar" MaxLength="50" />
+          <Property Name="YaoshiNum" Type="nvarchar" MaxLength="50" />
           <Property Name="DeviceLon" Type="decimal" Precision="10" Scale="7" Nullable="false" />
           <Property Name="DeviceLat" Type="decimal" Precision="10" Scale="7" Nullable="false" />
           <Property Name="MonitorType" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -95,15 +95,15 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DeviceName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="ShuCaiNum" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="SensorNum" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="PhoneNum" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="YaoshiNum" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="DeviceName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="ShuCaiNum" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="SensorNum" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="PhoneNum" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="YaoshiNum" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="DeviceLon" Type="Decimal" Nullable="false" Precision="10" Scale="7" />
           <Property Name="DeviceLat" Type="Decimal" Nullable="false" Precision="10" Scale="7" />
-          <Property Name="MonitorType" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="MonitorName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="MonitorType" Type="String" MaxLength="50" Unicode="true" FixedLength="false" Nullable="false" />
+          <Property Name="MonitorName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" Nullable="false" />
           <NavigationProperty Name="MonitorPointInfo" Relationship="DataModel.MonitorPointInfoDeviceInfo" FromRole="DeviceInfo" ToRole="MonitorPointInfo" />
           <Property Name="MonitorPointInfoId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="PointPicture" Relationship="DataModel.DeviceInfoPointPicture" FromRole="DeviceInfo" ToRole="PointPicture" />

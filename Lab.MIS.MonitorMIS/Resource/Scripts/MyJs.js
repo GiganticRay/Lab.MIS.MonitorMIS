@@ -548,6 +548,10 @@ $(document).ready(function () {
         oEvent.cancelBubble = true;
         oEvent.stopPropagation();
         HideViceMap();
+        $("#GetPointByMap")[0].innerText = '在地图上取点';
+        $("#GetPointByMap1")[0].innerText = '点击关闭';
+        $("#GetPointByMap2")[0].innerText = '在地图上取点';
+
     });
 
     //设置搜索栏的时间值
@@ -908,15 +912,15 @@ function AddWarningPointToMap(RowData) {
         //创建图片对象
         icon = new T.Icon({
             iconUrl: "../../Resource/Img/mud/" + RowData[7] + ".png",
-            iconSize: new T.Point(25, 41),
-            iconAnchor: new T.Point(10, 25)
+            iconSize: new T.Point(40, 50),
+            iconAnchor: new T.Point(20, 50)
         });
     } else {
         //创建图片对象
         icon = new T.Icon({
             iconUrl: "../../Resource/Img/coast/" + RowData[7] + ".png",
-            iconSize: new T.Point(25, 41),
-            iconAnchor: new T.Point(10, 25)
+            iconSize: new T.Point(40, 50),
+            iconAnchor: new T.Point(20, 50)
         });
     }
 
@@ -1232,15 +1236,15 @@ function ShowDevice(getID) {
                     //创建图片对象
                     icon = new T.Icon({
                         iconUrl: "../../Resource/Img/mud/0.png",
-                        iconSize: new T.Point(19, 27),
-                        iconAnchor: new T.Point(10, 25)
+                        iconSize: new T.Point(30, 37),
+                        iconAnchor: new T.Point(15, 37)
                     });
                 } else {
                     //创建图片对象
                     icon = new T.Icon({
                         iconUrl: "../../Resource/Img/coast/0.png",
-                        iconSize: new T.Point(19, 27),
-                        iconAnchor: new T.Point(10, 25)
+                        iconSize: new T.Point(30, 37),
+                        iconAnchor: new T.Point(15, 37)
                     });
                 }
 
@@ -1281,11 +1285,12 @@ function ShowDevice(getID) {
 
 
             }
+           // var markers = new T.MarkerClusterer(map, { markers: arrayObj });
             //newArray = arrayObj;
             //聚合marker
             //markers = new T.MarkerClusterer(map, { markers: arrayObj });
             //设置网格大小
-            //markers.setGridSize(1);
+            //markers.setGridSize(5);
             //以下代码是为了获得不重复的阵列id
             var num = [];
             num[0] = 0;
@@ -1791,7 +1796,13 @@ function AddDataToTree(backData) {
                             data_info["MonitorPointInfoId"] = element.MonitorPointInfoId;
                             data_info["PointPicture"] = element.PointPicture;
                         });
-
+                        //将地图的中心移动至此标记点
+                        var Lon = data_info["DeviceLon"];
+                        var Lat = data_info["DeviceLat"];
+                        if (!isShowDevice) {
+                            $("#showDevice").click();
+                        }
+                        map.centerAndZoom(new T.LngLat(Lon, Lat), 10);
                         //将数据加载时窗口中
                         var getForm = $("#TreeDeviceInfoForm input, #TreeDeviceInfoForm select");
 

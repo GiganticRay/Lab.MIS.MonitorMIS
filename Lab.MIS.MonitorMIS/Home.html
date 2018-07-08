@@ -68,7 +68,7 @@
 
 
                 <div class="menu-item dropdown" title="工具">
-                    <span class="menu-item-spanf dropdown-toggle glyphicon glyphicon-wrench" data-toggle="dropdown" aria-hidden="true"></span>
+                    <span class="menu-item-spanf dropdown-toggle glyphicon glyphicon-wrench" data-toggle="dropdown;tooltip" aria-hidden="true" data-placement="bottom" title="显示地图上所有监测点"></span>
                     <ul class="dropdown-menu pull-right">
                         <li class="ToolBox" id="MeasureLength"><span class="menu-item-span">测量</span></li>
                         <li role="separator" class="divider"></li>
@@ -109,7 +109,6 @@
         <div id="side_bar">
             <div id="handlerDiv"></div>
             <span id="side_barController"></span>
-            <p id="ChangeSearchParameters">修改查询参数</p>
             <table id="SearchMainTable" class="table">
                 <caption>查询</caption>
                 <tbody>
@@ -161,16 +160,14 @@
                             </select>
                         </td>
                     </tr>
-                    <tr>
-                        <td colspan="2" style="text-align: center;">
-                            <div id="RemoveWarningPointBtn">隐藏预警点</div>
-                            <button class="btn btn-lg btn-default greenbtn" id="selectConfirmBtn">确定</button>
-                            <button class="btn btn-lg btn-default redbtn" id="selectResetBtn">重置</button>
-                        </td>
-                    </tr>
-
                 </tbody>
             </table>
+            <p id="ChangeSearchParameters">修改查询参数</p>
+            <div id="btng">
+                <div id="RemoveWarningPointBtn">隐藏预警点</div>
+                <button class="btn btn-lg btn-default greenbtn" id="selectConfirmBtn">确定</button>
+                <button class="btn btn-lg btn-default redbtn" id="selectResetBtn">重置</button>
+            </div>
             <div id="SearchDiseaseInfoDiv">
                 <img src="../../Resource/Img/searching.gif" id="LoadingGif" />
 

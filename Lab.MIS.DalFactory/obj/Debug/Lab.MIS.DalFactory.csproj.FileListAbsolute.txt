@@ -105,3 +105,4 @@ E:\大学\泥石流滑坡预警系统\Lab.MIS.DalFactory\bin\Debug\zh-Hans\Entit
 E:\大学\泥石流滑坡预警系统\Lab.MIS.DalFactory\obj\Debug\Lab.MIS.DalFactory.csprojResolveAssemblyReference.cache
 E:\大学\泥石流滑坡预警系统\Lab.MIS.DalFactory\obj\Debug\Lab.MIS.DalFactory.dll
 E:\大学\泥石流滑坡预警系统\Lab.MIS.DalFactory\obj\Debug\Lab.MIS.DalFactory.pdb
+G:\GitHub\Lab.MIS.DalFactory\bin\Debug\Lab.MIS.Model.dll.config

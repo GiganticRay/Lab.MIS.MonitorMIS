@@ -3,7 +3,7 @@
 var map;
 var map1;   //用来再录入界面显示的地图
 var zoom = 12;
-var open = true;
+var open = false;
 var handler, handler1;
 var polygonTool;
 var lineTool, markerTool;
@@ -203,41 +203,29 @@ $(document).ready(function () {
 
     $(".dropdown-menu").animate({ left: '-65px' }, 100);
 
-
     //获取滚动条高度
     var scroll_height = $("#SearchDiseaseInfoDiv")[0].offsetHeight - $("#SearchDiseaseInfoDiv")[0].scrollHeight;
 
     //使side_bar高度等于窗口高度-headDiv高度
     var n = document.getElementById("side_bar");
-    n.style.height = document.documentElement.offsetHeight - document.getElementById("headDiv").clientHeight - 4 + "px";
+    n.style.height = document.documentElement.offsetHeight - document.getElementById("headDiv").clientHeight  -2+ "px";
 
     //使SearchDiseaseInfoDiv高度等于side_bar高度-SearchMainTable高度
     var m = document.getElementById("SearchDiseaseInfoDiv");
-    m.style.height = document.getElementById("side_bar").clientHeight - document.getElementById("SearchMainTable").clientHeight - scroll_height + "px";
-
+    m.style.height = document.getElementById("side_bar").clientHeight - document.getElementById("SearchMainTable").clientHeight - document.getElementById("btng").clientHeight- scroll_height + "px";
+    
 
     $(window).resize(function () {
-        n.style.height = document.documentElement.offsetHeight - document.getElementById("headDiv").clientHeight - 4 + "px";
-        m.style.height = document.getElementById("side_bar").clientHeight - document.getElementById("ChangeSearchParameters").clientHeight - document.getElementById("SearchMainTable").clientHeight - scroll_height + "px";
-    });
+        if ($("#ChangeSearchParameters").is(":hidden")) {
+            n.style.height = document.documentElement.offsetHeight - document.getElementById("headDiv").clientHeight - 4 + "px";
+            m.style.height = document.getElementById("side_bar").clientHeight - document.getElementById("ChangeSearchParameters").clientHeight - document.getElementById("SearchMainTable").clientHeight - document.getElementById("btng").clientHeight - scroll_height + "px";
+        }else {
+            n.style.height = document.documentElement.offsetHeight - document.getElementById("headDiv").clientHeight - 4 + "px";
+            m.style.height = document.getElementById("side_bar").clientHeight - document.getElementById("ChangeSearchParameters").clientHeight - document.getElementById("SearchMainTable").clientHeight - document.getElementById("btng").clientHeight - scroll_height +320+ "px";
+        }
+           
+        });
 
-
-    //鼠标滚动
-    //$("#SearchDiseaseInfoDiv").scroll(function () {
-    //    $("#SearchMainTable").slideUp("1000", function () {
-    //        $("#ChangeSearchParameters").css("display", "block");
-    //    });
-
-    //    m.style.height = document.getElementById("side_bar").clientHeight - document.getElementById("ChangeSearchParameters").clientHeight + "px";
-    //});
-
-    ////
-    //$("#ChangeSearchParameters").click(function () {
-    //    $("#ChangeSearchParameters").css("display", "none");
-    //    $("#SearchMainTable").slideToggle("slow");
-
-    //    m.style.height = document.getElementById("side_bar").clientHeight - document.getElementById("SearchMainTable").clientHeight - scroll_height + "px";
-    //});
 
 
     //动态搜索框
@@ -564,10 +552,10 @@ $(document).ready(function () {
     var BeforeSecond = getFormatDate(timestamp).substr(11, 8);
 
 
-    $("#beforeTimeDate").val(BeforeTime);
-    $("#beforeTimeHMS").val(BeforeSecond);
-    $("#endTimeDate").val(NowTime);
-    $("#endTimeHMS").val(NowSecond);
+    //$("#beforeTimeDate").val(BeforeTime);
+    //$("#beforeTimeHMS").val(BeforeSecond);
+    //$("#endTimeDate").val(NowTime);
+    //$("#endTimeHMS").val(NowSecond);
 });
 
 //获取缩放级别
@@ -820,6 +808,37 @@ function BindSelectConfirmBtn() {
             }
         }
     });
+
+    //鼠标滚动图框上移
+
+    var mouseon = 0;
+    $('#SearchDiseaseInfoTable').on('mousewheel', function (event) {
+        if (deltaY = -1 && mouseon==0) {
+            $('#btng').animate({ top: '-320px', }, 100);
+            $('#SearchMainTable').css("filter", "blur(5px)");
+            $('#ChangeSearchParameters').css("display", "block");
+            $('#ChangeSearchParameters').animate({ top: '-320px', }, 100);
+
+            $('#SearchDiseaseInfoDiv').animate({
+                top: '-320px',
+                height:'+=260px',
+            }, 100);
+            $('#side_bar').animate({height: '-=260px',}, 1);
+        }
+        mouseon++;
+    });
+    $("#ChangeSearchParameters").is(":hidden")
+    // 点击修改参数图框下移
+    $('#SearchMainTable,#ChangeSearchParameters').click(function () {
+        if ($("#ChangeSearchParameters").is(":visible")) {
+            $('#SearchDiseaseInfoDiv').animate({ top: '0px', height: '-=260px', }, 100);
+            $('#btng').animate({ top: '0px', }, 100);
+            $('#SearchMainTable').css("filter", "blur(0px)");
+            $('#ChangeSearchParameters').css("display", "none");
+            $('#side_bar').animate({ height: '+=260px', }, 1);
+            mouseon = 0;
+        } 
+    });
 }
 //绑定搜索栏重置按钮
 function BindSelectResetBtn() {
@@ -828,7 +847,7 @@ function BindSelectResetBtn() {
         $("#SearchDiseaseInfoTable").append("<caption>监测预警查询结果</caption>");
         $("#SearchDiseaseInfoTable").append("<thead></thead>");
         $("#SearchDiseaseInfoTable thead").append("<tr></tr>");
-        $("#SearchDiseaseInfoTable thead tr").append("<th>监测阵列</th><th>阵经度</th><th>阵纬度</th><th>经度</th><th>纬度</th><th>预警方位</th><th>监测类型</th><th>预警等级</th><th>预警时间</th><th>预留</th>");
+        $("#SearchDiseaseInfoTable thead tr").append("<th>监测阵列</th><th>阵经度</th><th>阵纬度</th><th>经度</th><th>纬度</th><th>预警方位</th><th>监测类型</th><th>预警等级</th><th>预警时间</th>");
     });
 }
 //获取对应arrayId的数据加载到table里面
@@ -889,7 +908,6 @@ function loadDataToTable(arrayId) {
             });
         }
     });
-
 }
 
 //点击表格行加载对应受灾害点
@@ -1833,6 +1851,7 @@ function BindVagueSelectInputChange() {
     $("#SearchText").on('input', function (e) {
         $("#TableBody").html("");
         $("#SearchResultContent").css("display", "block");
+        $("#SearchResultContent").find("td").css("cursor", "pointer");
         var contentString = $("#SearchText").val();
         var StrTmp = "";
         if (contentString == "") {

@@ -70,3 +70,13 @@ E:\大学\泥石流滑坡预警系统\Lab.MIS.IDAL\obj\Debug\Lab.MIS.IDAL.dll
 E:\大学\泥石流滑坡预警系统\Lab.MIS.IDAL\obj\Debug\Lab.MIS.IDAL.pdb
 G:\GitHub\Lab.MIS.IDAL\bin\Debug\Lab.MIS.Model.dll.config
 G:\GitHub\Lab.MIS.IDAL\obj\Debug\Lab.MIS.IDAL.csproj.CoreCompileInputs.cache
+E:\大学\工程实践2\Lab.MIS.IDAL\bin\Debug\Lab.MIS.IDAL.dll
+E:\大学\工程实践2\Lab.MIS.IDAL\bin\Debug\Lab.MIS.IDAL.pdb
+E:\大学\工程实践2\Lab.MIS.IDAL\bin\Debug\Lab.MIS.Model.dll
+E:\大学\工程实践2\Lab.MIS.IDAL\bin\Debug\EntityFramework.dll
+E:\大学\工程实践2\Lab.MIS.IDAL\bin\Debug\Lab.MIS.Model.pdb
+E:\大学\工程实践2\Lab.MIS.IDAL\bin\Debug\EntityFramework.xml
+E:\大学\工程实践2\Lab.MIS.IDAL\bin\Debug\zh-Hans\EntityFramework.resources.dll
+E:\大学\工程实践2\Lab.MIS.IDAL\obj\Debug\Lab.MIS.IDAL.csprojResolveAssemblyReference.cache
+E:\大学\工程实践2\Lab.MIS.IDAL\obj\Debug\Lab.MIS.IDAL.dll
+E:\大学\工程实践2\Lab.MIS.IDAL\obj\Debug\Lab.MIS.IDAL.pdb

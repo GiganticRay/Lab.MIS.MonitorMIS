@@ -3,7 +3,7 @@
 var map;
 var map1;   //用来再录入界面显示的地图
 var zoom = 12;
-var open = false;
+var open = true;
 var handler, handler1;
 var polygonTool;
 var lineTool, markerTool;
@@ -104,14 +104,17 @@ $(document).ready(function () {
     doc.mouseup(function () {
         doc.unbind("mousemove");
     });
-    doc[0].ondragstart
-        = doc[0].onselectstart
-        = function () {
-            return false;
-        };
+    //doc[0].ondragstart
+       // = doc[0].onselectstart
+     //   = function () {
+        //    return false;
+    //    };
 
     //为模态对话框添加拖拽
     $(".modal").draggable();
+    $(".modal-dialog").draggable();
+  
+
     //$(".modal").draggable({ cancel: ".title"});
     //$(".modal-content").draggable();
 
@@ -208,23 +211,23 @@ $(document).ready(function () {
 
     //使side_bar高度等于窗口高度-headDiv高度
     var n = document.getElementById("side_bar");
-    n.style.height = document.documentElement.offsetHeight - document.getElementById("headDiv").clientHeight  -2+ "px";
+    n.style.height = document.documentElement.offsetHeight - document.getElementById("headDiv").clientHeight - 2 + "px";
 
     //使SearchDiseaseInfoDiv高度等于side_bar高度-SearchMainTable高度
     var m = document.getElementById("SearchDiseaseInfoDiv");
-    m.style.height = document.getElementById("side_bar").clientHeight - document.getElementById("SearchMainTable").clientHeight - document.getElementById("btng").clientHeight- scroll_height + "px";
-    
+    m.style.height = document.getElementById("side_bar").clientHeight - document.getElementById("SearchMainTable").clientHeight - document.getElementById("btng").clientHeight - scroll_height + "px";
+
 
     $(window).resize(function () {
         if ($("#ChangeSearchParameters").is(":hidden")) {
             n.style.height = document.documentElement.offsetHeight - document.getElementById("headDiv").clientHeight - 4 + "px";
             m.style.height = document.getElementById("side_bar").clientHeight - document.getElementById("ChangeSearchParameters").clientHeight - document.getElementById("SearchMainTable").clientHeight - document.getElementById("btng").clientHeight - scroll_height + "px";
-        }else {
+        } else {
             n.style.height = document.documentElement.offsetHeight - document.getElementById("headDiv").clientHeight - 4 + "px";
-            m.style.height = document.getElementById("side_bar").clientHeight - document.getElementById("ChangeSearchParameters").clientHeight - document.getElementById("SearchMainTable").clientHeight - document.getElementById("btng").clientHeight - scroll_height +320+ "px";
+            m.style.height = document.getElementById("side_bar").clientHeight - document.getElementById("ChangeSearchParameters").clientHeight - document.getElementById("SearchMainTable").clientHeight - document.getElementById("btng").clientHeight - scroll_height + 320 + "px";
         }
-           
-        });
+
+    });
 
 
 
@@ -552,10 +555,11 @@ $(document).ready(function () {
     var BeforeSecond = getFormatDate(timestamp).substr(11, 8);
 
 
-    //$("#beforeTimeDate").val(BeforeTime);
-    //$("#beforeTimeHMS").val(BeforeSecond);
-    //$("#endTimeDate").val(NowTime);
-    //$("#endTimeHMS").val(NowSecond);
+    $("#beforeTimeDate").val(BeforeTime);
+    $("#beforeTimeHMS").val(BeforeSecond);
+    $("#endTimeDate").val(NowTime);
+    $("#endTimeHMS").val(NowSecond);
+
 });
 
 //获取缩放级别
@@ -813,21 +817,21 @@ function BindSelectConfirmBtn() {
 
     var mouseon = 0;
     $('#SearchDiseaseInfoTable').on('mousewheel', function (event) {
-        if (deltaY = -1 && mouseon==0) {
+        if (deltaY = -1 && mouseon == 0) {
             $('#btng').animate({ top: '-320px', }, 100);
-            $('#SearchMainTable').css("filter", "blur(5px)");
+            $('#SearchMainTable').css("filter", "blur(23px)");
             $('#ChangeSearchParameters').css("display", "block");
             $('#ChangeSearchParameters').animate({ top: '-320px', }, 100);
 
             $('#SearchDiseaseInfoDiv').animate({
                 top: '-320px',
-                height:'+=260px',
+                height: '+=260px',
             }, 100);
-            $('#side_bar').animate({height: '-=260px',}, 1);
+            $('#side_bar').animate({ height: '-=260px', }, 1);
         }
         mouseon++;
     });
-    $("#ChangeSearchParameters").is(":hidden")
+    //$("#ChangeSearchParameters").is(":hidden")
     // 点击修改参数图框下移
     $('#SearchMainTable,#ChangeSearchParameters').click(function () {
         if ($("#ChangeSearchParameters").is(":visible")) {
@@ -837,7 +841,7 @@ function BindSelectConfirmBtn() {
             $('#ChangeSearchParameters').css("display", "none");
             $('#side_bar').animate({ height: '+=260px', }, 1);
             mouseon = 0;
-        } 
+        }
     });
 }
 //绑定搜索栏重置按钮
@@ -1012,7 +1016,7 @@ function addClickHandler(content, marker, data, IsDiseasePoint) {
         marker.addEventListener("click",
             function (e) {
                 clickOpenDiseaseWindow(data);
-               
+
             }
         );
     }
@@ -1254,15 +1258,15 @@ function ShowDevice(getID) {
                     //创建图片对象
                     icon = new T.Icon({
                         iconUrl: "../../Resource/Img/mud/0.png",
-                        iconSize: new T.Point(30, 37),
-                        iconAnchor: new T.Point(15, 37)
+                        iconSize: new T.Point(45, 60),//30, 37)
+                        iconAnchor: new T.Point(22, 60)
                     });
                 } else {
                     //创建图片对象
                     icon = new T.Icon({
                         iconUrl: "../../Resource/Img/coast/0.png",
-                        iconSize: new T.Point(30, 37),
-                        iconAnchor: new T.Point(15, 37)
+                        iconSize: new T.Point(45, 60),
+                        iconAnchor: new T.Point(22, 60)//(15, 37)
                     });
                 }
 
@@ -1303,7 +1307,7 @@ function ShowDevice(getID) {
 
 
             }
-           // var markers = new T.MarkerClusterer(map, { markers: arrayObj });
+            // var markers = new T.MarkerClusterer(map, { markers: arrayObj });
             //newArray = arrayObj;
             //聚合marker
             //markers = new T.MarkerClusterer(map, { markers: arrayObj });
@@ -1918,33 +1922,13 @@ function BindVagueClickRow() {
         var getLngLat = map.getCenter();
         //判断当前是否显示设备标记
         if (arrayObj.length <= 0) {
-
             ShowDevice(DeviceID);
-            ////如果没有显示,自己添加
-            //if (type == "泥石流") {
-            //    //创建图片对象
-            //    icon = new T.Icon({
-            //        iconUrl: "../../Resource/Img/mud/0.png",
-            //        iconSize: new T.Point(25, 41),
-            //        iconAnchor: new T.Point(10, 25)
-            //    });
-            //} else {
-            //    //创建图片对象
-            //    icon = new T.Icon({
-            //        iconUrl: "../../Resource/Img/coast/0.png",
-            //        iconSize: new T.Point(25, 41),
-            //        iconAnchor: new T.Point(10, 25)
-            //    });
-            //}
-
-            //// 创建标注
-            //var marker = new T.Marker(new T.LngLat(Lon, Lat), { icon: icon });
-            ////获取标记文本
-            //var content = content;
-            //// 将标注添加到地图中
-            //map.addOverLay(marker);
-            //addClickHandler(content, marker, DeviceID, false);
         }
+        //当用户点击行后，鼠标移开时隐藏搜索框
+        $("#VagueTable tr").mouseout(function () {
+
+            $('#search_btn').click();
+        });
     });
 }
 
@@ -2191,11 +2175,11 @@ function edit_image_uploading(editImgArray, keyslist, getDeviceId) {
             var PicData = getHiddenVal.split(';');
             var newVal = '';
             $.each(PicData, function (index, item) {
-                if (data!=item) {
-                    newVal += item+';';
+                if (data != item) {
+                    newVal += item + ';';
                 }
             })
-            newVal = newVal.substring(0,newVal.length-1)
+            newVal = newVal.substring(0, newVal.length - 1)
             $("#loadinImgPaths").val(newVal)
         }
     });
@@ -2378,13 +2362,13 @@ function BindGetPointByMap() {
             $("#GetPointByMap")[0].innerText = '点击关闭';
         } else {
             //关闭副地图
-                var oEvent = ev || event;
-                oEvent.cancelBubble = true;
-                oEvent.stopPropagation();
-                HideViceMap();
-                $("#GetPointByMap")[0].innerText = '在地图上取点';
+            var oEvent = ev || event;
+            oEvent.cancelBubble = true;
+            oEvent.stopPropagation();
+            HideViceMap();
+            $("#GetPointByMap")[0].innerText = '在地图上取点';
         }
-       
+
     });
     $("#GetPointByMap1").click(function (ev) {
         if (this.innerText == '在地图上取点') {
@@ -2399,7 +2383,7 @@ function BindGetPointByMap() {
             HideViceMap();
             $("#GetPointByMap1")[0].innerText = '在地图上取点';
         }
-      
+
     });
     $("#GetPointByMap2").click(function () {
         if (this.innerText == '在地图上取点') {
@@ -2414,7 +2398,7 @@ function BindGetPointByMap() {
             HideViceMap();
             $("#GetPointByMap2")[0].innerText = '在地图上取点';
         }
-       
+
     });
 }
 

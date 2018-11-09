@@ -22,8 +22,6 @@ var loginName = null;
 var SelectDevice = [];
 //存放线条的数组
 var linesArray = [];
-//判断用户是否登录
-var isLog = false;
 //表示是否显示设备信息
 var isShowDevice = false;
 //判断目前所属是否为卫星图
@@ -104,16 +102,12 @@ $(document).ready(function () {
     doc.mouseup(function () {
         doc.unbind("mousemove");
     });
-    //doc[0].ondragstart
-       // = doc[0].onselectstart
-     //   = function () {
-        //    return false;
-    //    };
+
 
     //为模态对话框添加拖拽
     $(".modal").draggable();
     $(".modal-dialog").draggable();
-  
+
 
     //$(".modal").draggable({ cancel: ".title"});
     //$(".modal-content").draggable();
@@ -1234,11 +1228,11 @@ function ShowDevice(getID) {
             $.each(newData, function (index, element) {
                 //js中二维数组必须进行重复的声明，否则会undefind  
                 data_info[index] = [];
-                data_info[index]["MonitorType"] = element.MonitorType;
                 data_info[index]["DeviceName"] = element.DeviceName;
+                data_info[index]["MonitorType"] = element.MonitorType;
+                data_info[index]["PhoneNum"] = element.PhoneNum;
                 data_info[index]["ShuCaiNum"] = element.ShuCaiNum;
                 data_info[index]["SensorNum"] = element.SensorNum;
-                data_info[index]["PhoneNum"] = element.PhoneNum;
                 data_info[index]["YaoshiNum"] = element.YaoshiNum;
                 data_info[index]["DeviceLon"] = element.DeviceLon;
                 data_info[index]["DeviceLat"] = element.DeviceLat;
@@ -1247,7 +1241,7 @@ function ShowDevice(getID) {
                 data_info[index]["MonitorName"] = element.MonitorName;
                 data_info[index]["MonitorPointInfoId"] = element.MonitorPointInfoId;
                 data_info[index]["PointPicture"] = element.PointPicture;
-                data_info[index]["content"] = "监测点:" + element.DeviceName + "<br>" + "联系电话：" + element.PhoneNum + "<br>" + "监测类型:" + element.MonitorType;
+                data_info[index]["content"] = "监测点:" + element.DeviceName + "<br>" + "通信流量卡：" + element.PhoneNum + "<br>" + "监测类型:" + element.MonitorType;
             });
 
             arrayObj = [];
@@ -1270,10 +1264,7 @@ function ShowDevice(getID) {
                     });
                 }
 
-
-
-
-                //不为空时，是经过搜索查出来的
+                //不为空时，是经过搜索查出来的  
                 if (getID != null) {
 
                     if (data_info[j]["Id"] == getID) {
@@ -1289,7 +1280,7 @@ function ShowDevice(getID) {
                         SelectDevice.push(marker);
                         return;
                     }
-                } else {
+                } else {     //为空是点击“显示监测点”按钮
                     // 创建标注
                     var marker = new T.Marker(new T.LngLat(data_info[j]["DeviceLon"], data_info[j]["DeviceLat"]), { icon: icon });
                     //获取标记文本
@@ -1300,12 +1291,7 @@ function ShowDevice(getID) {
                     map.addOverLay(marker);
                     //注册标记的鼠标触摸,移开事件           
                     addClickHandler(content, marker, data_info[j], false);
-
-
-
                 }
-
-
             }
             // var markers = new T.MarkerClusterer(map, { markers: arrayObj });
             //newArray = arrayObj;
@@ -1376,15 +1362,15 @@ function SavaDevideInfo(getData, select_option) {
 
             var objectData = {
                 Id: getData[9].value,
-                DeviceName: getData[1].value,
-                ShuCaiNum: getData[2].value,
-                SensorNum: getData[3].value,
-                PhoneNum: getData[4].value,
+                DeviceName: getData[0].value,
+                ShuCaiNum: getData[3].value,
+                SensorNum: getData[4].value,
+                PhoneNum: getData[2].value,
                 YaoshiNum: getData[5].value,
                 DeviceLon: getData[6].value,
                 DeviceLat: getData[7].value,
                 Beizhu: getData[8].value,
-                MonitorType: getData[0].value,
+                MonitorType: getData[1].value,
                 MonitorName: getData[10].value,
                 MonitorPointInfoId: getData[11].value,
                 PointPicture: getData[12].value,
@@ -1804,11 +1790,11 @@ function AddDataToTree(backData) {
                         //将string转换成json
                         var newData = JSON.parse(BackData);
                         $.each(newData, function (index, element) {
-                            data_info["MonitorType"] = element.MonitorType;
                             data_info["DeviceName"] = element.DeviceName;
+                            data_info["MonitorType"] = element.MonitorType;
+                            data_info["PhoneNum"] = element.PhoneNum;
                             data_info["ShuCaiNum"] = element.ShuCaiNum;
                             data_info["SensorNum"] = element.SensorNum;
-                            data_info["PhoneNum"] = element.PhoneNum;
                             data_info["YaoshiNum"] = element.YaoshiNum;
                             data_info["DeviceLon"] = element.DeviceLon;
                             data_info["DeviceLat"] = element.DeviceLat;
@@ -1884,7 +1870,7 @@ function BindVagueSelectInputChange() {
                             "</td><td style = 'display:none'>" +
                             item.DeviceLat +
                             "</td><td style = 'display:none'>" +
-                            "监测点:" + item.DeviceName + "<br>" + "联系电话：" + item.PhoneNum + "<br>" + "监测类型:" + item.MonitorType +
+                            "监测点:" + item.DeviceName + "<br>" + "通信流量卡：" + item.PhoneNum + "<br>" + "监测类型:" + item.MonitorType +
                             "</td><td style = 'display:none'>" +
                             item.Id +
                             "</td ></tr>";
@@ -1981,42 +1967,52 @@ function RestitutionShowWind(OlId, imgDivId, imgOutDivId, liId, imgNearDivId, de
 
 
     editImg.onclick = function () {
-        //判断是否是录入检测设备的model
-        if (editImg.id == "editImg") {
-            //加载之前将图片预览窗口清空
-            RestitutionShowWind("MarkerOL", "MarkerImgDiv", "MarkerImgOutDiv", "MarkerLi", "MarkerImgNearDiv", "MarkerDefaultImg", "editImg", "#editImgModel");
-            if (showLoadingImgModel == "#editImgModel") {
-                //获取隐藏域的图片路径
-                var getHiddenVal = $("#loadinImgPaths").val();
-                var PicData = getHiddenVal.split(';');
-                if (getHiddenVal.length == 0) {
-                    PicData = new Array();
-                }
+        if (isLog) {   //判断编辑图片时是否已经登录
+            //判断是否是录入检测设备的model
+            if (editImg.id == "editImg") {
+                //加载之前将图片预览窗口清空
+                RestitutionShowWind("MarkerOL", "MarkerImgDiv", "MarkerImgOutDiv", "MarkerLi", "MarkerImgNearDiv", "MarkerDefaultImg", "editImg", "#editImgModel");
+                if (showLoadingImgModel == "#editImgModel") {
+                    //获取隐藏域的图片路径
+                    var getHiddenVal = $("#loadinImgPaths").val();
+                    var PicData = getHiddenVal.split(';');
+                    if (getHiddenVal.length == 0) {
+                        PicData = new Array();
+                    }
 
-                var array = [];
-                var keyslist = new Array();
-                $.each(PicData, function (index, item) {
-                    keyslist[index] = {
-                        key: item,
-                        url: "/Home/Delete_Entering_Exist_imgs"  // 可修改 场景2中会用的  
-                    };
-                    array[index] = "<img class='file-preview-image'  src='../.." + item + "'>";
-                })
-                //将已经存在的图片加载至图框中 传递图片的<img >
-                edit_image_uploading(array, keyslist, 0);
+                    var array = [];
+                    var keyslist = new Array();
+                    $.each(PicData, function (index, item) {
+                        keyslist[index] = {
+                            key: item,
+                            url: "/Home/Delete_Entering_Exist_imgs"  // 可修改 场景2中会用的  
+                        };
+                        array[index] = "<img class='file-preview-image'  src='../.." + item + "'>";
+                    })
+                    //将已经存在的图片加载至图框中 传递图片的<img >
+                    edit_image_uploading(array, keyslist, 0);
+                }
+                $(showLoadingImgModel).modal('show');
+
+            } else {
+                if ($("#hidShowImgId").val()) {
+                    $(showLoadingImgModel).modal('show');
+                } else {
+                    swal({
+                        title: "请先选中数据！",
+                        type: "error",
+                        timer: 1500
+                    });
+                }
             }
-            $(showLoadingImgModel).modal('show');
 
         } else {
-            if ($("#hidShowImgId").val()) {
-                $(showLoadingImgModel).modal('show');
-            } else {
-                swal({
-                    title: "请先选中数据！",
-                    type: "error",
-                    timer: 1500
-                });
-            }
+            swal({
+                title: "请先登录！",
+                type: "error",
+                timer: 1500
+            });
+            openLoginModal();
         }
 
 

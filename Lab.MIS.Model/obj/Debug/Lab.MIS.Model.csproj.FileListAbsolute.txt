@@ -69,3 +69,12 @@ E:\大学\工程实践2\Lab.MIS.Model\bin\Debug\zh-Hans\EntityFramework.resource
 E:\大学\工程实践2\Lab.MIS.Model\obj\Debug\Lab.MIS.Model.csprojResolveAssemblyReference.cache
 E:\大学\工程实践2\Lab.MIS.Model\obj\Debug\Lab.MIS.Model.dll
 E:\大学\工程实践2\Lab.MIS.Model\obj\Debug\Lab.MIS.Model.pdb
+E:\大学\泥石流滑坡预警系统\2018-07-08 12.25\泥石流滑坡预警系统\Lab.MIS.Model\bin\Debug\Lab.MIS.Model.dll.config
+E:\大学\泥石流滑坡预警系统\2018-07-08 12.25\泥石流滑坡预警系统\Lab.MIS.Model\bin\Debug\Lab.MIS.Model.dll
+E:\大学\泥石流滑坡预警系统\2018-07-08 12.25\泥石流滑坡预警系统\Lab.MIS.Model\bin\Debug\Lab.MIS.Model.pdb
+E:\大学\泥石流滑坡预警系统\2018-07-08 12.25\泥石流滑坡预警系统\Lab.MIS.Model\bin\Debug\EntityFramework.dll
+E:\大学\泥石流滑坡预警系统\2018-07-08 12.25\泥石流滑坡预警系统\Lab.MIS.Model\bin\Debug\EntityFramework.xml
+E:\大学\泥石流滑坡预警系统\2018-07-08 12.25\泥石流滑坡预警系统\Lab.MIS.Model\bin\Debug\zh-Hans\EntityFramework.resources.dll
+E:\大学\泥石流滑坡预警系统\2018-07-08 12.25\泥石流滑坡预警系统\Lab.MIS.Model\obj\Debug\Lab.MIS.Model.csprojResolveAssemblyReference.cache
+E:\大学\泥石流滑坡预警系统\2018-07-08 12.25\泥石流滑坡预警系统\Lab.MIS.Model\obj\Debug\Lab.MIS.Model.dll
+E:\大学\泥石流滑坡预警系统\2018-07-08 12.25\泥石流滑坡预警系统\Lab.MIS.Model\obj\Debug\Lab.MIS.Model.pdb

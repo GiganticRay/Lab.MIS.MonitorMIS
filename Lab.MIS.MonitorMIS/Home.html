@@ -48,7 +48,7 @@
             <nav class="menu">
                 <!-- 创建主按钮 -->
                 <input type="checkbox" href="#" class="menu-open" name="menu-open" id="menu-open" />
-                <label class="menu-open-button" for="menu-open">
+                <label class="menu-open-button" for="menu-open" id="titleLabel" title="打开功能栏">
                     <!-- 三根白线 -->
                     <span class="hamburger hamburger-1"></span>
                     <span class="hamburger hamburger-2"></span>
@@ -89,13 +89,21 @@
                     <span class="menu-item-spanf glyphicon glyphicon-eye-open" data-toggle="tooltip" data-placement="bottom" title="显示地图上所有监测点"></span>
                 </div>
 
+                <div class="menu-item" id="openWarningSelectWind">
+                    <span class="menu-item-spanf glyphicon glyphicon-zoom-in" data-toggle="tooltip" data-placement="bottom" title="展开预警查询"></span>
+                </div>
+
+                <div class="menu-item" id="startMonitoring" style="background-color:red">
+                    <span class="menu-item-spanf glyphicon glyphicon-star" data-toggle="tooltip" data-placement="bottom" title="点击关闭监测"></span>
+                </div>
+
                 <div class="menu-item" id="showAllDevice">
                     <span class="menu-item-spanf glyphicon glyphicon-blackboard" data-toggle="tooltip" data-placement="bottom" title="浏览所有监测点信息"></span>
                 </div>
 
                 <div class="search menu-item" id="SearchContent">
                     <input type="search" class="search-box" id="SearchText" />
-                    <span class="search-button" id="search_btn">
+                    <span class="search-button" id="search_btn" title="搜索">
                         <span class="search-icon"></span>
                     </span>
                 </div>
@@ -111,7 +119,7 @@
         <div id="mapDiv"></div>
         <div id="side_bar">
             <div id="handlerDiv"></div>
-            <span id="side_barController"></span>
+            <span id="side_barController" title="展开"></span>
             <table id="SearchMainTable" class="table">
                 <caption>查询</caption>
                 <tbody>

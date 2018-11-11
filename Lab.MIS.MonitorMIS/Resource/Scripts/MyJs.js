@@ -24,6 +24,15 @@ var SelectDevice = [];
 var linesArray = [];
 //表示是否显示设备信息
 var isShowDevice = false;
+//是否打开功能栏
+var isOpenFunc = false;
+//表示是否打开预警查询窗口
+var isOpenWarningWind = false;
+//是否启动监测
+var isStartMonitoring = false;
+var interval = null;
+var interval1 = null;
+var interval2 = null;
 //判断目前所属是否为卫星图
 var Imglayer = false;
 //判断目前所属是否为地形图
@@ -146,6 +155,20 @@ $(document).ready(function () {
 
     MoveControl();
     $("#side_barController").click(function () {
+        isOpenWarningWind = !isOpenWarningWind;
+        if (!isOpenWarningWind) {  //如果没有打开窗口，点击后打开
+            $("#openWarningSelectWind").find("span").attr({
+                "class": "menu-item-spanf glyphicon glyphicon-zoom-out",
+                "title": "关闭预警查询",
+            }).tooltip("fixTitle");
+            $("#side_barController")[0].title = "关闭查询"
+        } else {
+            $("#openWarningSelectWind").find("span").attr({
+                "class": "menu-item-spanf glyphicon glyphicon-zoom-in",
+                "title": "展开预警查询",
+            }).tooltip("fixTitle");
+            $("#side_barController")[0].title = "展开查询"
+        }
         MoveLeftWindow();
     });
     var config = {
@@ -239,6 +262,14 @@ $(document).ready(function () {
         };
     });
     $(".menu-open-button").click(function () {
+        if (!isOpenFunc) {
+            $("#titleLabel")[0].title = "关闭功能栏"
+            isOpenFunc = !isOpenFunc;
+        } else {
+            $("#titleLabel")[0].title = "打开功能栏"
+            isOpenFunc = !isOpenFunc;
+        }
+       
         $(".search-button").parent().removeClass("open");
         $("#SearchText").val("");
         $("#TableBody").html("");
@@ -339,7 +370,28 @@ $(document).ready(function () {
 
     });
 
+    //打开、关闭预警查询窗口
+    $("#openWarningSelectWind").click(function () {
+        $("#side_barController").click();
+    });
 
+    //打开关闭监测
+    $("#startMonitoring").click(function () {
+        if (isStartMonitoring) {  
+            $("#startMonitoring").find("span").attr({
+                "class": "menu-item-spanf glyphicon glyphicon-star-empty",
+                "title": "点击启动监测",
+            }).tooltip("fixTitle").tooltip("show");
+            UpdateOneMinute();
+        } else {
+            $("#startMonitoring").find("span").attr({
+                "class": "menu-item-spanf glyphicon glyphicon-star",
+                "title": "点击关闭监测",
+            }).tooltip("fixTitle").tooltip("show");
+            UpdateOneMinute();
+        }
+    });
+  
     //添加地图的缩放改变事件  请勿删除
     // map.addEventListener("zoomstart", MapGetZoom);
 
@@ -1083,12 +1135,34 @@ function clickOpenDiseaseWindow(data) {
     $("#DiseaseInfoModal").modal('show');
 }
 
-//每隔一分钟刷新一次加载在地图上面
+//每隔两分钟刷新一次加载在地图上面
 function UpdateOneMinute() {
-    var urlString = "/Home/GetDiseaseInfo";
-    //var urlString = "/Home/TestGetDiseaseInfo";
+    if (isStartMonitoring) {  //如果开启，点击关闭
+        clearInterval(interval);//停止
+        clearInterval(interval1);//停止
+        clearInterval(interval2);//停止
 
-    setInterval(function () {
+
+        isStartMonitoring = !isStartMonitoring;
+        $("#startMonitoring").css("background-color", "green");
+       
+    } else {
+        interval = setInterval(SetIntervalFunc, 120000);  //每隔2分钟，读取一次数据库，获取需要展示的监测结果
+        isStartMonitoring = !isStartMonitoring;
+
+        interval1 = setInterval(function () {
+            $("#startMonitoring").css("background-color", "red");
+        }, 400)
+        interval2 = setInterval(function () {
+            $("#startMonitoring").css("background-color", "green");
+        }, 1000)
+        
+    }
+
+}
+
+function SetIntervalFunc() {
+        var urlString = "/Home/GetDiseaseInfo";
         //获取当前时间戳
         var timestamp = Math.round(new Date() / 1000);
         var NowTime = getFormatDate(timestamp);
@@ -1142,8 +1216,6 @@ function UpdateOneMinute() {
                 }
             });
         }
-    }, 60000);
-
 }
 
 //根据时间戳获取格式化日期

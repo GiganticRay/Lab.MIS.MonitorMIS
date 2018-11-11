@@ -647,6 +647,16 @@ a {
         -webkit-transform: translate3d(-420px, 0, 0);
         transform: translate3d(-420px, 0, 0);
     }
+    .menu-open:checked ~ .menu-item:nth-child(10) {
+        transition-duration: 490ms;
+        -webkit-transform: translate3d(-480px, 0, 0);
+        transform: translate3d(-480px, 0, 0);
+    }
+    .menu-open:checked ~ .menu-item:nth-child(11) {
+        transition-duration: 490ms;
+        -webkit-transform: translate3d(-540px, 0, 0);
+        transform: translate3d(-540px, 0, 0);
+    }
 
 .menu-item-span {
     width: 100%;

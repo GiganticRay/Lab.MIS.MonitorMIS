@@ -357,14 +357,14 @@ namespace Lab.MIS.MonitorMIS.Controllers
 
                 foreach (var item in getImgPathArry)
                 {
-                    if (item.Length>0)
+                    if (item.Length > 0)
                     {
                         PointPicture newPic = new PointPicture();
                         newPic.DeviceInfoId = id;
                         newPic.PicPath = item;
                         pointPictureService.Add(newPic);
                     }
-                    
+
                 }
                 res.Data = new { state = true };
             }
@@ -395,10 +395,10 @@ namespace Lab.MIS.MonitorMIS.Controllers
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
-         [HttpPost] 
-        public ActionResult editUploadImgs(int DevieceID,string path)
+        [HttpPost]
+        public ActionResult editUploadImgs(int DevieceID, string path)
         {
-          
+
             //将新增的图片目录录入数据库
             PointPicture newPic = new PointPicture();
             newPic.DeviceInfoId = DevieceID;
@@ -430,21 +430,20 @@ namespace Lab.MIS.MonitorMIS.Controllers
             var res = new JsonResult();
             try
             {
-                //从数据库中删除成功
+                PointPicture deletePic = pointPictureService.Get(a => a.Id == idNum).First();
+                //相对路径
+                string filePath = deletePic.PicPath;
+                //图片绝对路径
+                string absolutePath = Server.MapPath(filePath);
+                //判断文件是否存在
+                if (System.IO.File.Exists(absolutePath))
+                {
+                    //如果文件存在，则删除
+                    System.IO.File.Delete(absolutePath);
+                }
+                //从数据库中删除
                 if (pointPictureService.Delete(a => a.Id == idNum) > 0)
                 {
-
-                    PointPicture deletePic = pointPictureService.Get(a => a.Id == idNum).First();
-                    //相对路径
-                    string filePath = deletePic.PicPath;
-                    //图片绝对路径
-                    string absolutePath = Server.MapPath(filePath);
-                    //判断文件是否存在
-                    if (System.IO.File.Exists(absolutePath))
-                    {
-                        //如果文件存在，则删除
-                        System.IO.File.Delete(absolutePath);
-                    }
                     res.Data = new { msg = true };
                 }
                 else
@@ -454,13 +453,14 @@ namespace Lab.MIS.MonitorMIS.Controllers
             }
             catch (Exception)
             {
-                
+
                 res.Data = new { msg = false };
             }
             return res;
         }
 
-        public ActionResult Delete_Entering_Exist_imgs(string key) {
+        public ActionResult Delete_Entering_Exist_imgs(string key)
+        {
             var res = new JsonResult();
             res.Data = new { res_path = key };
             return res;

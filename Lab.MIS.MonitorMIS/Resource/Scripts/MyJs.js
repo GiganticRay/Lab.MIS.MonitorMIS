@@ -33,6 +33,12 @@ var Terlayer = false;
 var Imglayer1 = false;
 //判断目前所属是否为地形图
 var Terlayer1 = false;
+//判断输入数据是否符合条件
+var IsEnteringDataLegal = true;
+//判断录入监测阵列时必填项是否填写
+var isInputNecessaryForMonitor
+//判断录入检测设备是否填写必填项目
+var isInputNecessaryForDevice
 //用于判断工具是否添加
 var bool1 = false, bool2 = false, bool3 = false, bool4 = false, bool5 = false;
 //图层url
@@ -442,14 +448,31 @@ $(document).ready(function () {
     $("#TreeDeleteDeviceInfo").click(function () {
         //获取隐藏于id
         var getHiddenId = $("#TreehiddenDeviceID").val();
-        DeleteDeviceInfo(getHiddenId, null);
+        if ($("#hidShowImgId").val()) {
+            DeleteDeviceInfo(getHiddenId, null);
+        } else {
+            swal({
+                title: "请先选中数据！",
+                type: "warning",
+                timer: 1500
+            });
+        }
     });
 
     //tree详情管理中保存监测设备
     $("#TreeSaveDeviceInfo").click(function () {
         //获取表单数据
         var getData = $("#TreeDeviceInfoForm input, #TreeDeviceInfoForm select");
-        SavaDevideInfo(getData, null);
+        if ($("#hidShowImgId").val()) {
+            SavaDevideInfo(getData, null);
+        } else {
+            swal({
+                title: "请先选中数据！",
+                type: "warning",
+                timer: 1500
+            });
+        }
+
     });
 
     //绑定搜索栏改变事件
@@ -996,7 +1019,7 @@ function addClickHandler(content, marker, data, IsDiseasePoint) {
         map.closeInfoWindow();
     }
     );
-    if (IsDiseasePoint == false) {
+    if (IsDiseasePoint == false) {  //点击标记展示设备信息
         //鼠标单击事件deviceInfoPoint
         marker.addEventListener("click",
             function (e) {
@@ -1039,7 +1062,7 @@ function clickOpenWindow(data) {
     //通过id获取图片地址
     GetPicPathById(data["Id"]);
 
-
+    IsEnteringDataLegal = true;
     $("#DeviceInfoModal").modal('show');
 }
 
@@ -1205,7 +1228,7 @@ function DeleteDeviceInfo(getHiddenId, select_option) {
     } else {
         swal({
             title: "请先登录！",
-            type: "error",
+            type: "warning",
             timer: 1500
         });
         openLoginModal();
@@ -1358,75 +1381,83 @@ function DrawLineForGroup() {
 function SavaDevideInfo(getData, select_option) {
     //判断是否登录
     if (isLog == true) {
-        save(function () {
+        if (IsEnteringDataLegal) {
+            save(function () {
 
-            var objectData = {
-                Id: getData[9].value,
-                DeviceName: getData[0].value,
-                ShuCaiNum: getData[3].value,
-                SensorNum: getData[4].value,
-                PhoneNum: getData[2].value,
-                YaoshiNum: getData[5].value,
-                DeviceLon: getData[6].value,
-                DeviceLat: getData[7].value,
-                Beizhu: getData[8].value,
-                MonitorType: getData[1].value,
-                MonitorName: getData[10].value,
-                MonitorPointInfoId: getData[11].value,
-                PointPicture: getData[12].value,
-            };
-            $.ajax({
-                url: "/Home/SaveDevice",
-                type: "POST",
-                data: objectData,
-                success: function (Backdata) {
-                    if (Backdata == "True") {
-                        swal({
-                            title: "保存成功！",
-                            type: "success",
-                            timer: 1500
-                        });
-                        if (select_option != null) {
-                            //关闭窗口
-                            $(select_option).click();
-                        } else {
-                            //表示是树状结构中的保存操作，需要刷新树状结构中的数据
-                            $.ajax({
-                                url: "/Home/GetTreeJson",
-                                type: "POST",
-                                success: function (backData) {
-                                    //像树状结构中添加数据
-                                    AddDataToTree(backData);
-                                }
+                var objectData = {
+                    Id: getData[9].value,
+                    DeviceName: getData[0].value,
+                    ShuCaiNum: getData[3].value,
+                    SensorNum: getData[4].value,
+                    PhoneNum: getData[2].value,
+                    YaoshiNum: getData[5].value,
+                    DeviceLon: getData[6].value,
+                    DeviceLat: getData[7].value,
+                    Beizhu: getData[8].value,
+                    MonitorType: getData[1].value,
+                    MonitorName: getData[10].value,
+                    MonitorPointInfoId: getData[11].value,
+                    PointPicture: getData[12].value,
+                };
+                $.ajax({
+                    url: "/Home/SaveDevice",
+                    type: "POST",
+                    data: objectData,
+                    success: function (Backdata) {
+                        if (Backdata == "True") {
+                            swal({
+                                title: "保存成功！",
+                                type: "success",
+                                timer: 1500
+                            });
+                            if (select_option != null) {
+                                //关闭窗口
+                                $(select_option).click();
+                            } else {
+                                //表示是树状结构中的保存操作，需要刷新树状结构中的数据
+                                $.ajax({
+                                    url: "/Home/GetTreeJson",
+                                    type: "POST",
+                                    success: function (backData) {
+                                        //像树状结构中添加数据
+                                        AddDataToTree(backData);
+                                    }
+                                });
+                            }
+
+                            //清空窗体数据
+                            $("input[type=reset]").trigger("click");
+
+                            //刷新
+                            $("#showDevice").click();
+                            $("#showDevice").click();
+
+                            //将预览图片的位置重置
+                            RestitutionShowWind("TreeMarkerOLPic", "TreeMarkerImgDivPic", "TreeMarkerImgOutDivPic", "TreeMarkerLiPic", "TreeMarkerImgNearDivPic", "TreeMarkerDefaultImgPic", "editImgIdPic", "#ShowImgModel");
+                            //将更新图片的隐藏域清空
+                            $("#hidShowImgId").val("");
+                        }
+                        else {
+                            swal({
+                                title: "保存失败！",
+                                type: "error",
+                                timer: 1500
                             });
                         }
-
-                        //清空窗体数据
-                        $("input[type=reset]").trigger("click");
-
-                        //刷新
-                        $("#showDevice").click();
-                        $("#showDevice").click();
-
-                        //将预览图片的位置重置
-                        RestitutionShowWind("TreeMarkerOLPic", "TreeMarkerImgDivPic", "TreeMarkerImgOutDivPic", "TreeMarkerLiPic", "TreeMarkerImgNearDivPic", "TreeMarkerDefaultImgPic", "editImgIdPic", "#ShowImgModel");
-                        //将更新图片的隐藏域清空
-                        $("#hidShowImgId").val("");
                     }
-                    else {
-                        swal({
-                            title: "保存失败！",
-                            type: "error",
-                            timer: 1500
-                        });
-                    }
-                }
+                });
             });
-        });
+        } else {
+            swal({
+                title: "请检查数据格式！",
+                type: "warning",
+                timer: 1500
+            });
+        }
     } else {
         swal({
             title: "请先登录！",
-            type: "error",
+            type: "warning",
             timer: 1500
         });
         openLoginModal();
@@ -1529,7 +1560,7 @@ function Delete(Func) {
             else {
                 swal({
                     title: "已取消",
-                    type: "error",
+                    type: "success",
                     timer: 1500
                 })
             }
@@ -1556,7 +1587,7 @@ function save(Func) {
                  else {
                      swal({
                          title: "已取消",
-                         type: "error",
+                         type: "success",
                          timer: 1500
                      })
                  }
@@ -1583,7 +1614,7 @@ function EnteringData(Func) {
                  else {
                      swal({
                          title: "已取消",
-                         type: "error",
+                         type: "success",
                          timer: 1500
                      })
                  }
@@ -1595,7 +1626,6 @@ function EnteringData(Func) {
 function OpenEnteringMonitorInfo() {
     //清空窗体数据
     $("input[type=reset]").trigger("click");
-
     $("#MonitorInfoModal").modal('show');
 }
 
@@ -1625,6 +1655,7 @@ function OpenEnteringDeviceInfo() {
     });
     //将展示图片的窗口恢复原状
     RestitutionShowWind("MarkerOL", "MarkerImgDiv", "MarkerImgOutDiv", "MarkerLi", "MarkerImgNearDiv", "MarkerDefaultImg", "editImg", "#editImgModel");
+    IsEnteringDataLegal = true;
     $("#EnteringDeviceInfoModal").modal('show');
 }
 
@@ -1639,6 +1670,7 @@ function OpenTreeDeviceWindow() {
         url: "/Home/GetTreeJson",
         type: "POST",
         success: function (backData) {
+            IsEnteringDataLegal = true;
             $("#TreeDeviceInfoModal").modal('show');
             //像树状结构中添加数据
             AddDataToTree(backData);
@@ -1651,44 +1683,52 @@ function OpenTreeDeviceWindow() {
 function EnteringMonitorInfo() {
     //判断是否登录
     if (isLog == true) {
-        EnteringData(function () {
-            //获取表单数据
-            var getData = $("#MonitorInfoForm");
+        if ($("input[name='MonitorId']").val().length > 0 && $("input[name='MonitorIdName']").val().length) {
+            EnteringData(function () {
+                //获取表单数据
+                var getData = $("#MonitorInfoForm");
 
-            var objectData = {
-                MonitorId: getData[0]["MonitorId"].value,
-                Name: getData[0]["MonitorIdName"].value,
-                Type: getData[0]["MonitorType"].value
-            };
-            $.ajax({
-                url: "/Home/EnteringMonitorPointInfo",
-                type: "POST",
-                data: objectData,
-                success: function (Backdata) {
-                    if (Backdata["state"] == true) {
-                        swal({
-                            title: "录入成功！",
-                            type: "success",
-                            timer: 1500
-                        });
-                        //关闭窗口
-                        $("#CloseMonitorInfo").click();
+                var objectData = {
+                    MonitorId: getData[0]["MonitorId"].value,
+                    Name: getData[0]["MonitorIdName"].value,
+                    Type: getData[0]["MonitorType"].value
+                };
+                $.ajax({
+                    url: "/Home/EnteringMonitorPointInfo",
+                    type: "POST",
+                    data: objectData,
+                    success: function (Backdata) {
+                        if (Backdata["state"] == true) {
+                            swal({
+                                title: "录入成功！",
+                                type: "success",
+                                timer: 1500
+                            });
+                            //关闭窗口
+                            $("#CloseMonitorInfo").click();
 
+                        }
+                        else {
+                            swal({
+                                title: "录入失败！",
+                                type: "error",
+                                timer: 1500
+                            });
+                        }
                     }
-                    else {
-                        swal({
-                            title: "录入失败！",
-                            type: "error",
-                            timer: 1500
-                        });
-                    }
-                }
+                });
             });
-        });
+        } else {
+            swal({
+                title: "请填写必填项！",
+                type: "warning",
+                timer: 1500
+            });
+        }
     } else {
         swal({
             title: "请先登录！",
-            type: "error",
+            type: "warning",
             timer: 1500
         });
         openLoginModal();
@@ -1699,72 +1739,88 @@ function EnteringMonitorInfo() {
 function EnteringDeviceInfo() {
     //判断是否登录
     if (isLog == true) {
-        EnteringData(function () {
-            //获取表单数据
-            var getData = $("#EnteringDeviceInfoForm");
+        if ($("#InputLontitude").val().length > 0 && $("#InputLatitude").val().length > 0) {   //检查必填项是否填写
+            if (IsEnteringDataLegal == true) {  //判断输入数据是否合法
+                EnteringData(function () {
+                    //获取表单数据
+                    var getData = $("#EnteringDeviceInfoForm");
 
-            var objectData = {
-                DeviceName: getData[0]["DeviceName"].value,
-                ShuCaiNum: getData[0]["ShuCaiNum"].value,
-                SensorNum: getData[0]["SensorNum"].value,
-                PhoneNum: getData[0]["PhoneNum"].value,
-                YaoshiNum: getData[0]["YaoshiNum"].value,
-                DeviceLon: getData[0]["DeviceLon"].value,
-                DeviceLat: getData[0]["DeviceLat"].value,
-                MonitorType: $("#MonitorType")[0].innerText,
-                MonitorName: getData[0]["MonitorName"].selectedOptions[0].innerText,
-                MonitorPointInfoId: $("#DeviceSelect")[0].options[$("#DeviceSelect")[0].selectedIndex].value,
-                Beizhu: getData[0]["Beizhu"].value
-            };
-            $.ajax({
-                url: "/Home/EnteringDeviceInfo",
-                type: "POST",
-                data: objectData,
-                success: function (Backdata) {
-                    if (Backdata["state"] > 0) {
-                        //获取新添加的监测设备的id
-                        var getAddDeviceID = Backdata["state"];
-                        $.ajax({
-                            url: "/Home/EnteringPics",
-                            type: "POST",
-                            data: { id: getAddDeviceID, imgPaths: $("#loadinImgPaths").val() },
-                            success: function (data) {
-                                if (data["state"] == true) {
-                                    swal({
-                                        title: "录入成功！",
-                                        type: "success",
-                                        timer: 1500
-                                    });
-                                    //关闭窗口
-                                    $("#CloseEnteringDeviceInfo").click();
-                                    //刷新
-                                    $("#showDevice").click();
-                                    $("#showDevice").click();
-                                }
-                                else {
-                                    swal({
-                                        title: "录入数据成功，录入图片失败！",
-                                        type: "error",
-                                        timer: 1500
-                                    });
-                                }
+                    var objectData = {
+                        DeviceName: getData[0]["DeviceName"].value,
+                        ShuCaiNum: getData[0]["ShuCaiNum"].value,
+                        SensorNum: getData[0]["SensorNum"].value,
+                        PhoneNum: getData[0]["PhoneNum"].value,
+                        YaoshiNum: getData[0]["YaoshiNum"].value,
+                        DeviceLon: getData[0]["DeviceLon"].value,
+                        DeviceLat: getData[0]["DeviceLat"].value,
+                        MonitorType: $("#MonitorType")[0].innerText,
+                        MonitorName: getData[0]["MonitorName"].selectedOptions[0].innerText,
+                        MonitorPointInfoId: $("#DeviceSelect")[0].options[$("#DeviceSelect")[0].selectedIndex].value,
+                        Beizhu: getData[0]["Beizhu"].value
+                    };
+                    $.ajax({
+                        url: "/Home/EnteringDeviceInfo",
+                        type: "POST",
+                        data: objectData,
+                        success: function (Backdata) {
+                            if (Backdata["state"] > 0) {
+                                //获取新添加的监测设备的id
+                                var getAddDeviceID = Backdata["state"];
+                                $.ajax({
+                                    url: "/Home/EnteringPics",
+                                    type: "POST",
+                                    data: { id: getAddDeviceID, imgPaths: $("#loadinImgPaths").val() },
+                                    success: function (data) {
+                                        if (data["state"] == true) {
+                                            swal({
+                                                title: "录入成功！",
+                                                type: "success",
+                                                timer: 1500
+                                            });
+                                            //关闭窗口
+                                            $("#CloseEnteringDeviceInfo").click();
+                                            //刷新
+                                            $("#showDevice").click();
+                                            $("#showDevice").click();
+                                        }
+                                        else {
+                                            swal({
+                                                title: "录入数据成功，录入图片失败！",
+                                                type: "error",
+                                                timer: 1500
+                                            });
+                                        }
+                                    }
+                                });
+
+                            } else {
+                                swal({
+                                    title: "录入数据失败！",
+                                    type: "error",
+                                    timer: 1500
+                                });
                             }
-                        });
-
-                    } else {
-                        swal({
-                            title: "录入数据失败！",
-                            type: "error",
-                            timer: 1500
-                        });
-                    }
-                }
+                        }
+                    });
+                });
+            } else {
+                swal({
+                    title: "请检查数据格式！",
+                    type: "warning",
+                    timer: 1500
+                });
+            }
+        } else {
+            swal({
+                title: "请填写必填项！",
+                type: "warning",
+                timer: 1500
             });
-        });
+        }
     } else {
         swal({
             title: "请先登录！",
-            type: "error",
+            type: "warning",
             timer: 1500
         });
         openLoginModal();
@@ -1810,17 +1866,24 @@ function AddDataToTree(backData) {
                         if (!isShowDevice) {
                             $("#showDevice").click();
                         }
-                        map.centerAndZoom(new T.LngLat(Lon, Lat), 10);
-                        //将数据加载时窗口中
-                        var getForm = $("#TreeDeviceInfoForm input, #TreeDeviceInfoForm select");
+                        map.centerAndZoom(new T.LngLat(Lon, Lat), 25);
+                        //触发标记的事件
+                        //for (var i = 0; i < map.getPanes().markerPane.children.length; i++) {
+                        //    map.getPanes().markerPane.children[i].mouseover();
+                        //}
 
+                        //将数据加载时窗口中，获取窗口表单
+                        var getForm = $("#TreeDeviceInfoForm input, #TreeDeviceInfoForm select");
                         var num = 0;
+                        //绑定数据
                         for (var item in data_info) {
                             if (num < getForm.length - 1) {
                                 getForm[num].value = data_info[item];
                                 num++;
                             }
                         }
+                        //默认认为数据的格式正确
+                        IsEnteringDataLegal = true;
                         //给隐藏域赋值
                         $("#TreehiddenDeviceID").val(data_info["Id"]);
                         $("#hidShowImgId").val(data_info["Id"]);
@@ -1998,18 +2061,14 @@ function RestitutionShowWind(OlId, imgDivId, imgOutDivId, liId, imgNearDivId, de
                 if ($("#hidShowImgId").val()) {
                     $(showLoadingImgModel).modal('show');
                 } else {
-                    swal({
-                        title: "请先选中数据！",
-                        type: "error",
-                        timer: 1500
-                    });
+
                 }
             }
 
         } else {
             swal({
                 title: "请先登录！",
-                type: "error",
+                type: "warning",
                 timer: 1500
             });
             openLoginModal();
@@ -2492,7 +2551,7 @@ function IsDataLegal_of_PhoneNum(tagObject) {
     var str = tagObject.value;
     //判断是否满足正则
     if (reg.test(str) == false) {
-        $(tagObject).data("toogle", "right").data("placement", "right").data("container", $(tagObject).parent()).popover({ "trigger": "manual", "html": "true", "content": "<p ><font color='#fc4343'>请输入正确的手机号码</font></p>" }).popover("show");
+        $(tagObject).data("toogle", "right").data("placement", "right").data("container", $(tagObject).parent()).popover({ "trigger": "manual", "html": "true", "content": "<p ><font color='#fc4343'>请输入正确的通信流量卡</font></p>" }).popover("show");
         IsEnteringDataLegal = false;
         return;
     }

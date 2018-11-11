@@ -519,7 +519,7 @@
                 </div>
                 <div class="modal-footer">
 
-                    <button type="button" class="btn btn-danger glyphicon glyphicon-remove-circle" id="EnteringMonitorInfoBtn">
+                    <button type="button" class="btn btn-success glyphicon glyphicon-ok-circle" id="EnteringMonitorInfoBtn">
                         录入
                     </button>
                     <button type="button" class="btn btn-primary glyphicon glyphicon-off" data-dismiss="modal" id="CloseMonitorInfo">
@@ -579,13 +579,19 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
+                                                        <td>监测点名称</td>
+                                                        <td>
+                                                            <input type="text" name="DeviceName" value="" />
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
                                                         <td>监测类型<b class="necessary">*</b></td>
                                                         <td id="MonitorType">暂无</td>
                                                     </tr>
                                                     <tr>
-                                                        <td>监测点名称</td>
+                                                        <td>通信流量卡</td>
                                                         <td>
-                                                            <input type="text" name="DeviceName" value="" />
+                                                            <input type="text" name="PhoneNum" value="" onblur="IsDataLegal_of_PhoneNum(this)" />
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -600,12 +606,7 @@
                                                             <input type="text" name="SensorNum" value="" />
                                                         </td>
                                                     </tr>
-                                                    <tr>
-                                                        <td>通信流量卡</td>
-                                                        <td>
-                                                            <input type="text" name="PhoneNum" value="" onblur="IsDataLegal_of_PhoneNum(this)" />
-                                                        </td>
-                                                    </tr>
+                                                   
                                                     <tr>
                                                         <td>钥匙</td>
                                                         <td>

@@ -708,7 +708,7 @@ a {
     }
 
     .search.open {
-        width: 350px;
+        width: 180px;
     }
 
         .search.open:before {
@@ -826,7 +826,7 @@ a {
 
 #SearchText {
     font-size: 20px;
-    width: 350px;
+    width: 200px;
 }
 
 #SearchResultContent {
@@ -907,7 +907,7 @@ a {
 }
 
 .GetPointByMap_class {
-    position:absolute;
+    /*position:absolute;*/
     right:0px;
 }
 .enteringg_modal_body {

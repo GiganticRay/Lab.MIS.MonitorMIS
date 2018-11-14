@@ -82,8 +82,7 @@ var SecondaryMapDescribtion;    //用来判断是哪一个模块调用的副地�
 
 $(document).ready(function () {
 
-    //每隔一分钟刷新一次预警点信息
-    UpdateOneMinute();
+    
     //隐藏loading
     $("#LoadingGif").css("display", "none");
     //绑定搜索栏事件
@@ -377,19 +376,7 @@ $(document).ready(function () {
 
     //打开关闭监测
     $("#startMonitoring").click(function () {
-        if (isStartMonitoring) {  
-            $("#startMonitoring").find("span").attr({
-                "class": "menu-item-spanf glyphicon glyphicon-star-empty",
-                "title": "点击启动监测",
-            }).tooltip("fixTitle").tooltip("show");
-            UpdateOneMinute();
-        } else {
-            $("#startMonitoring").find("span").attr({
-                "class": "menu-item-spanf glyphicon glyphicon-star",
-                "title": "点击关闭监测",
-            }).tooltip("fixTitle").tooltip("show");
-            UpdateOneMinute();
-        }
+        UpdateOneMinute();
     });
   
     //添加地图的缩放改变事件  请勿删除
@@ -608,9 +595,9 @@ $(document).ready(function () {
         oEvent.cancelBubble = true;
         oEvent.stopPropagation();
         HideViceMap();
-        $("#GetPointByMap")[0].innerText = '在地图上取点';
-        $("#GetPointByMap1")[0].innerText = '点击关闭';
-        $("#GetPointByMap2")[0].innerText = '在地图上取点';
+        $("#GetPointByMap")[0].title = '在地图上取点';
+        $("#GetPointByMap1")[0].title = '点击关闭';
+        $("#GetPointByMap2")[0].title = '在地图上取点';
 
     });
 
@@ -628,7 +615,8 @@ $(document).ready(function () {
     $("#beforeTimeHMS").val(BeforeSecond);
     $("#endTimeDate").val(NowTime);
     $("#endTimeHMS").val(NowSecond);
-
+    //每隔一分钟刷新一次预警点信息
+    UpdateOneMinute();
 });
 
 //获取缩放级别
@@ -1002,14 +990,14 @@ function AddWarningPointToMap(RowData) {
     if (RowData[7] == "泥石流") {
         //创建图片对象
         icon = new T.Icon({
-            iconUrl: "../../Resource/Img/mud/" + RowData[7] + ".png",
+            iconUrl: "../../Resource/Img/mud/" + RowData[7] + ".gif",
             iconSize: new T.Point(40, 50),
             iconAnchor: new T.Point(20, 50)
         });
     } else {
         //创建图片对象
         icon = new T.Icon({
-            iconUrl: "../../Resource/Img/coast/" + RowData[7] + ".png",
+            iconUrl: "../../Resource/Img/coast/" + RowData[7] + ".gif",
             iconSize: new T.Point(40, 50),
             iconAnchor: new T.Point(20, 50)
         });
@@ -1138,31 +1126,49 @@ function clickOpenDiseaseWindow(data) {
 //每隔两分钟刷新一次加载在地图上面
 function UpdateOneMinute() {
     if (isStartMonitoring) {  //如果开启，点击关闭
+        $("#startMonitoring").find("span").attr({
+            "class": "menu-item-spanf glyphicon glyphicon-star-empty",
+            "title": "点击启动监测",
+        }).tooltip("fixTitle");//.tooltip("show");
         clearInterval(interval);//停止
         clearInterval(interval1);//停止
         clearInterval(interval2);//停止
 
 
         isStartMonitoring = !isStartMonitoring;
-        $("#startMonitoring").css("background-color", "green");
+        $("#startMonitoring").css("background-color", "green");  //改变背景颜色
+
+        for (var i = 0; i < arrayObj.length; i++) {  //arrayObj记录了所有的检测设备的Marker
+            var getUrl = arrayObj[i].getIcon().getIconUrl();//获取图标地址
+            arrayObj[i].getIcon().setIconUrl(getUrl.substring(0, getUrl.lastIndexOf('.')) + '.png')  //更改图标，将gif动态图，更改为不动的png图片
+        }
        
     } else {
+        $("#startMonitoring").find("span").attr({
+            "class": "menu-item-spanf glyphicon glyphicon-star",
+            "title": "点击关闭监测",
+        }).tooltip("fixTitle");//.tooltip("show");
+
         interval = setInterval(SetIntervalFunc, 120000);  //每隔2分钟，读取一次数据库，获取需要展示的监测结果
         isStartMonitoring = !isStartMonitoring;
 
         interval1 = setInterval(function () {
             $("#startMonitoring").css("background-color", "red");
-        }, 400)
+        }, 400)  //红色背景每0.4秒变动一次
         interval2 = setInterval(function () {
             $("#startMonitoring").css("background-color", "green");
-        }, 1000)
-        
+        }, 1000)//绿色背景每1秒变动一次，达到闪动的效果
+
+        for (var i = 0; i < arrayObj.length; i++) {
+            var getUrl = arrayObj[i].getIcon().getIconUrl();//获取图标地址
+            arrayObj[i].getIcon().setIconUrl(getUrl.substring(0, getUrl.lastIndexOf('.')) + '.gif')
+        }
     }
 
 }
 
 function SetIntervalFunc() {
-        var urlString = "/Home/GetDiseaseInfo";
+    var urlString = "/Home/GetDiseaseInfo";
         //获取当前时间戳
         var timestamp = Math.round(new Date() / 1000);
         var NowTime = getFormatDate(timestamp);
@@ -1338,7 +1344,12 @@ function ShowDevice(getID) {
                 data_info[index]["PointPicture"] = element.PointPicture;
                 data_info[index]["content"] = "监测点:" + element.DeviceName + "<br>" + "通信流量卡：" + element.PhoneNum + "<br>" + "监测类型:" + element.MonitorType;
             });
-
+            var imageType = ''
+            if (isStartMonitoring) {  //如果开启了监测，使用gif图片,否则使用png图片
+                imageType = 'gif'
+            } else {
+                imageType = 'png'
+            }
             arrayObj = [];
             //添加标记
             for (var j = 0; j < data_info.length; j++) {
@@ -1346,14 +1357,14 @@ function ShowDevice(getID) {
                 if (data_info[j]["MonitorType"] == "泥石流") {
                     //创建图片对象
                     icon = new T.Icon({
-                        iconUrl: "../../Resource/Img/mud/0.png",
+                        iconUrl: "../../Resource/Img/mud/0." + imageType,
                         iconSize: new T.Point(45, 60),//30, 37)
                         iconAnchor: new T.Point(22, 60)
                     });
                 } else {
                     //创建图片对象
                     icon = new T.Icon({
-                        iconUrl: "../../Resource/Img/coast/0.png",
+                        iconUrl: "../../Resource/Img/coast/0." + imageType,
                         iconSize: new T.Point(45, 60),
                         iconAnchor: new T.Point(22, 60)//(15, 37)
                     });
@@ -2483,47 +2494,47 @@ function Divclick(thisDiv) {
 //录入信息的时候在地图上面取点
 function BindGetPointByMap() {
     $("#GetPointByMap").click(function (ev) {
-        if (this.innerText == '在地图上取点') {
+        if (this.title == '在地图上取点') {
             SecondaryMapDescribtion = "EnteringDataForm";       //录入Form
             ShowViceMap();
-            $("#GetPointByMap")[0].innerText = '点击关闭';
+            $("#GetPointByMap")[0].title = '点击关闭';
         } else {
             //关闭副地图
-            var oEvent = ev || event;
+            var oEvent = event||ev //ev || event;
             oEvent.cancelBubble = true;
             oEvent.stopPropagation();
             HideViceMap();
-            $("#GetPointByMap")[0].innerText = '在地图上取点';
+            $("#GetPointByMap")[0].title = '在地图上取点';
         }
 
     });
     $("#GetPointByMap1").click(function (ev) {
-        if (this.innerText == '在地图上取点') {
+        if (this.title == '在地图上取点') {
             SecondaryMapDescribtion = "ClickPointDataForm";     //clickPointForm
             ShowViceMap();
-            $("#GetPointByMap1")[0].innerText = '点击关闭';
+            $("#GetPointByMap1")[0].title = '点击关闭';
         } else {
             //关闭副地图
-            var oEvent = ev || event;
+            var oEvent = event||ev //ev || event;
             oEvent.cancelBubble = true;
             oEvent.stopPropagation();
             HideViceMap();
-            $("#GetPointByMap1")[0].innerText = '在地图上取点';
+            $("#GetPointByMap1")[0].title = '在地图上取点';
         }
 
     });
     $("#GetPointByMap2").click(function () {
-        if (this.innerText == '在地图上取点') {
+        if (this.title == '在地图上取点') {
             SecondaryMapDescribtion = "AllInfoDataForm";        //所有信息Form
             ShowViceMap();
-            $("#GetPointByMap2")[0].innerText = '点击关闭';
+            $("#GetPointByMap2")[0].title = '点击关闭';
         } else {
             //关闭副地图
-            var oEvent = ev || event;
+            var oEvent = event ||ev; //ev || event;
             oEvent.cancelBubble = true;
             oEvent.stopPropagation();
             HideViceMap();
-            $("#GetPointByMap2")[0].innerText = '在地图上取点';
+            $("#GetPointByMap2")[0].title = '在地图上取点';
         }
 
     });

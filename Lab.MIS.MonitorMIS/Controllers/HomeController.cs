@@ -471,7 +471,7 @@ namespace Lab.MIS.MonitorMIS.Controllers
         public ActionResult TestGetDiseaseInfo(string arrayId, string beforeTime, string endTime)
         {
             string Jsonstr =
-                "\"[{ArrayID:'14', CenterLon:'109.3604',CenterLat:'30.9627',Lon:'109.3694',Lat:'30.9672',AverageAngle:'60.0',Type:'滑坡',Grade:'0',RecTime:'2017-12-01'}]\"";
+                "\"[{ArrayID:'14', CenterLon:'109.3604',CenterLat:'30.9627',Lon:'109.3694',Lat:'30.9672',AverageAngle:'60.0',Type:'滑坡',Grade:'2',RecTime:'2017-12-01'}]\"";
             return Content(Jsonstr);
         }
         #endregion

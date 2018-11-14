@@ -79,6 +79,8 @@ var stextlay = new T.TileLayer(textURL, { minZoom: 1, maxZoom: 18 });
 var map1Marker; //副地图上面的一个用来回去经纬度的marker;
 
 var SecondaryMapDescribtion;    //用来判断是哪一个模块调用的副地图
+var requireLoadNum = 0;     // 用来判断是否加载预警数据到表格完成
+var requireLoadNowNum = 0;  // 当前加载预警阵列ID
 
 $(document).ready(function () {
 
@@ -861,10 +863,14 @@ function BindSelectConfirmBtn() {
 
         var arrayId = $("#SearchMainTable option:selected").val();
         if (arrayId != 0) {
+            requireLoadNowNum = 0;
+            requireLoadNum = 1;
             loadDataToTable(arrayId);
         } else {
             var array = $("#searchSelect option:not(:selected)");
             for (var i = 0; i < array.length; i++) {
+                requireLoadNowNum = 0;
+                requireLoadNum = array.length;
                 loadDataToTable(array[i].value);
             }
         }
@@ -888,6 +894,7 @@ function BindSelectConfirmBtn() {
         }
         mouseon++;
     });
+
     //$("#ChangeSearchParameters").is(":hidden")
     // 点击修改参数图框下移
     $('#SearchMainTable,#ChangeSearchParameters').click(function () {
@@ -901,7 +908,8 @@ function BindSelectConfirmBtn() {
         }
     });
 }
-//绑定搜索栏重置按钮
+
+// 绑定搜索栏重置按钮
 function BindSelectResetBtn() {
     $("#selectResetBtn").click(function () {
         $("#SearchDiseaseInfoTable").empty();
@@ -911,7 +919,8 @@ function BindSelectResetBtn() {
         $("#SearchDiseaseInfoTable thead tr").append("<th>监测阵列</th><th>阵经度</th><th>阵纬度</th><th>经度</th><th>纬度</th><th>预警方位</th><th>监测类型</th><th>预警等级</th><th>预警时间</th>");
     });
 }
-//获取对应arrayId的数据加载到table里面
+
+// 获取对应arrayId的数据加载到table里面
 function loadDataToTable(arrayId) {
     var urlString = "/Home/GetDiseaseInfo";
     //Load loading gif
@@ -920,14 +929,13 @@ function loadDataToTable(arrayId) {
         url: urlString,
         type: "Get",
         dataType: "Json",
+        timeout: 2000000,
         data: {
             arrayId: arrayId,
             beforeTime: convertFormat($("#beforeTimeDate").val()) + " " + $("#beforeTimeHMS").val(),
             endTime: convertFormat($("#endTimeDate").val()) + " " + $("#endTimeHMS").val()
         },
-        success: function (result) {
-            //成功隐藏loading gif
-            $("#LoadingGif").css("display", "none");
+        success: function (result) {          
             var tmpjsonOb = eval("(" + result + ")");
             var appendStr = "";
 
@@ -959,6 +967,12 @@ function loadDataToTable(arrayId) {
             });
             $("#SearchDiseaseInfoTable").append(appendStr);
             BindClickRow();
+            requireLoadNowNum++;   // 当前阵列完成
+            if (requireLoadNowNum == requireLoadNum) {
+                // 表示所有阵列完成加载、隐藏loading
+                $("#LoadingGif").css("display", "none");
+            }
+
         },
         error: function (xhr, status, error) {
             // alert(status + "," + error);

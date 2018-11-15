@@ -322,7 +322,7 @@ $(document).ready(function () {
             $("#showDevice").find("span").attr({
                 "class": "menu-item-spanf glyphicon glyphicon-eye-close",
                 "title": "隐藏地图上的监测点",
-            }).tooltip("fixTitle").tooltip("show");
+            }).tooltip("fixTitle");//.tooltip("show");
             ShowDevice(null);
             isShowDevice = true;
         } else {
@@ -598,7 +598,7 @@ $(document).ready(function () {
         oEvent.stopPropagation();
         HideViceMap();
         $("#GetPointByMap")[0].title = '在地图上取点';
-        $("#GetPointByMap1")[0].title = '点击关闭';
+        $("#GetPointByMap1")[0].title = '在地图上取点';
         $("#GetPointByMap2")[0].title = '在地图上取点';
 
     });
@@ -617,8 +617,9 @@ $(document).ready(function () {
     $("#beforeTimeHMS").val(BeforeSecond);
     $("#endTimeDate").val(NowTime);
     $("#endTimeHMS").val(NowSecond);
-    //每隔一分钟刷新一次预警点信息
+    //每隔两分钟刷新一次预警点信息
     UpdateOneMinute();
+    $("#showDevice").click();
 });
 
 //获取缩放级别
@@ -1186,7 +1187,7 @@ function SetIntervalFunc() {
         //获取当前时间戳
         var timestamp = Math.round(new Date() / 1000);
         var NowTime = getFormatDate(timestamp);
-        timestamp = timestamp - 60;
+        timestamp = timestamp - 120;//查询数据库时，NowTime是当前时间， BeforeTime是当前时间减去120秒 间隔了两分钟
         var BeforeTime = getFormatDate(timestamp);
 
         var array = $("#searchSelect option:not(:selected)");

@@ -1012,15 +1012,15 @@ function AddWarningPointToMap(RowData) {
         //创建图片对象
         icon = new T.Icon({
             iconUrl: "../../Resource/Img/mud/" + RowData[7] + ".gif",
-            iconSize: new T.Point(40, 50),
-            iconAnchor: new T.Point(20, 50)
+            iconSize: new T.Point(20, 30),  //T.Point(40, 50)
+            iconAnchor: new T.Point(10, 30)
         });
     } else {
         //创建图片对象
         icon = new T.Icon({
             iconUrl: "../../Resource/Img/coast/" + RowData[7] + ".gif",
-            iconSize: new T.Point(40, 50),
-            iconAnchor: new T.Point(20, 50)
+            iconSize: new T.Point(20, 30),
+            iconAnchor: new T.Point(10, 30)
         });
     }
 
@@ -1379,15 +1379,15 @@ function ShowDevice(getID) {
                     //创建图片对象
                     icon = new T.Icon({
                         iconUrl: "../../Resource/Img/mud/0." + imageType,
-                        iconSize: new T.Point(45, 60),//30, 37)
-                        iconAnchor: new T.Point(22, 60)
+                        iconSize: new T.Point(20, 30),//30, 37)  45, 60
+                        iconAnchor: new T.Point(10, 30)
                     });
                 } else {
                     //创建图片对象
                     icon = new T.Icon({
                         iconUrl: "../../Resource/Img/coast/0." + imageType,
-                        iconSize: new T.Point(45, 60),
-                        iconAnchor: new T.Point(22, 60)//(15, 37)
+                        iconSize: new T.Point(20, 30),
+                        iconAnchor: new T.Point(10, 30)//(15, 37)  22, 60
                     });
                 }
 

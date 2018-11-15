@@ -178,6 +178,12 @@ $(document).ready(function () {
     };
     lineTool = new T.PolylineTool(map, config);
     polygonTool = new T.PolygonTool(map, config);
+    var config = {
+        showLabel: true,
+        color: "blue", weight: 3, opacity: 0.5, fillColor: "#FFFFFF", fillOpacity: 0.5
+    };
+    //创建标注工具对象
+    var polygonTool = new T.PolygonTool(map, config);
     markerTool = new T.MarkTool(map, { follow: true });
     $("#MeasureLength").click(function () {
         lineTool.open();
@@ -440,7 +446,7 @@ $(document).ready(function () {
 
     //打开录入检测阵数据窗口
     $("#EnteringMonitorInfo").click(function () {
-        OpenEnteringMonitorInfo();
+        //OpenEnteringMonitorInfo();
     });
 
     //录入监测阵数据

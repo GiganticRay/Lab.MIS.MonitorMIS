@@ -446,7 +446,7 @@ $(document).ready(function () {
 
     //打开录入检测阵数据窗口
     $("#EnteringMonitorInfo").click(function () {
-        //OpenEnteringMonitorInfo();
+        OpenEnteringMonitorInfo();
     });
 
     //录入监测阵数据
